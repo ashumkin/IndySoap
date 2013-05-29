@@ -1,0 +1,55 @@
+{
+IndySOAP: This package is the design time package for IndySoap
+}
+{
+Version History:
+   26-Mar 2002   Grahame Grieve                Add IDE plugin for ITI generation
+   25-Mar 2002   Grahame Grieve                First written
+}
+
+package IdSoap50;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE INDY_V10}
+{$DEFINE DEBUG}
+{$DEFINE DESIGNTIME}
+{$DEFINE DESIGNTIME}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'IndySoap Components'}
+{$DESIGNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  xmlrtl,
+  IndySystem,
+  IndyProtocols,
+  IndyCore;
+
+contains
+  IdSoapComponentRegistration in 'IdSoapComponentRegistration.pas',
+  IdSoapIdeItiMaker in '..\source\IdSoapIdeItiMaker.pas';
+
+end.
