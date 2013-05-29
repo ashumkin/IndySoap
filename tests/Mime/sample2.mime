@@ -1,0 +1,36 @@
+Content-Type: Multipart/Related; boundary=MIME_boundary; type=text/xml; start="<claim061400a.xml@claiming-it.com>"
+Content-Length: XXXX
+SOAPAction: http://schemas.risky-stuff.com/Auto-Claim
+Content-Description: This is the optional message description.
+
+--MIME_boundary
+Content-Type: text/xml; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Content-ID: <claim061400a.xml@claiming-it.com>
+
+<?xml version='1.0' ?>
+<SOAP-ENV:Envelope
+xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Body>
+<claim:insurance_claim_auto id="insurance_claim_document_id"
+xmlns:claim="http://schemas.risky-stuff.com/Auto-Claim">
+<theSignedForm href="cid:claim061400a.tiff@claiming-it.com"/>
+<theCrashPhoto href="cid:claim061400a.jpeg@claiming-it.com"/>
+<!-- ... more claim details go here... -->
+</claim:insurance_claim_auto>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+--MIME_boundary
+Content-Type: image/tiff
+Content-Transfer-Encoding: base64
+Content-ID: <claim061400a.tiff@claiming-it.com>
+
+...Base64 encoded TIFF image...
+--MIME_boundary
+Content-Type: image/jpeg
+Content-Transfer-Encoding: binary
+Content-ID: <claim061400a.jpeg@claiming-it.com>
+
+...Raw JPEG image..
+--MIME_boundary-- 

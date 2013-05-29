@@ -1,0 +1,29 @@
+ Volume in drive C has no label.
+ Volume Serial Number is 648B-BFE9
+
+ Directory of C:\IndyLive\SOAP\dunit\SoapBuilders
+
+12/08/2002  20:38 PM    <DIR>          .
+12/08/2002  20:38 PM    <DIR>          ..
+12/08/2002  20:38 PM                 0 dir.txt
+12/08/2002  20:34 PM               544 echoFloat.xml
+12/08/2002  20:35 PM               747 echoFloatArray.xml
+12/08/2002  20:35 PM               745 echoFloatArrayResponse.xml
+12/08/2002  20:35 PM               548 echoFloatResponse.xml
+12/08/2002  20:34 PM               922 echoIntegerArray.xml
+12/08/2002  20:34 PM               913 echoIntegerArrayResponse.xml
+12/08/2002  20:32 PM               549 echostring.xml
+12/08/2002  20:32 PM               710 echostringArray.xml
+12/08/2002  20:33 PM               706 echostringArrayResponse.xml
+12/08/2002  20:33 PM               546 echostringInteger.xml
+12/08/2002  20:33 PM               551 echostringIntegerResponse.xml
+12/08/2002  20:32 PM               554 echostringResponse.xml
+12/08/2002  20:36 PM               741 echoStruct.xml
+12/08/2002  20:36 PM             1,062 echoStructArray.xml
+12/08/2002  20:36 PM             1,057 echoStructArrayResponse.xml
+12/08/2002  20:36 PM               736 echoStructResponse.xml
+12/08/2002  20:36 PM               470 echoVoid.xml
+12/08/2002  20:37 PM               479 echoVoidResponse.xml
+12/08/2002  20:27 PM            11,292 InteropTest.wsdl
+              20 File(s)         23,872 bytes
+               2 Dir(s)  35,723,415,552 bytes free

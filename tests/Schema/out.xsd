@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="urn:hl7-org:v2xml" targetNamespace="urn:hl7-org:v2xml" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:include schemaLocation="segments.xsd" /><xsd:complexType name="ACK.CONTENT"><xsd:sequence><xsd:element ref="MSH" minOccurs="1" maxOccurs="1" /><xsd:element ref="MSA" minOccurs="1" maxOccurs="1" /><xsd:element ref="ERR" minOccurs="0" maxOccurs="1" /></xsd:sequence></xsd:complexType><xsd:element name="ACK" type="ACK.CONTENT" /></xsd:schema>

@@ -1,0 +1,8 @@
+[Project]
+Directory=C:\indy\SOAP\dunit\ParserTests
+
+[Source]
+C:\indy\SOAP\dunit\ParserTests\CrudeTransactionServices.pas
+
+[Output]
+BinOutput=test.iti

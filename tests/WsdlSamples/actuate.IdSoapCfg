@@ -1,0 +1,6 @@
+[WSDL]
+Source=file:C:\indy\SOAP\dunit\WsdlSamples\Actuate.wsdl
+Pascal=C:\indy\SOAP\dunit\WsdlSamples\Actuate.pas
+Factory=1
+PrependTypes=0
+MakeITIRes=1

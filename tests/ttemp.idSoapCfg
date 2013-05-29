@@ -1,0 +1,9 @@
+[Project]
+Directory=c:\indy\soap\dunit
+
+[Source]
+TestIntfDefn.pas
+
+
+[Output]
+BinOutput=ttemp.iti

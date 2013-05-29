@@ -1,0 +1,31 @@
+
+
+Content-Type: Multipart/Related; boundary=example-2; start="<950118.AEBH@XIson.com>"; type="Text/x-Okie"
+
+--example-2
+Content-Type: Text/x-Okie; charset=iso-8859-1; declaration="<950118.AEB0@XIson.com>"
+Content-ID: <950118.AEBH@XIson.com>
+Content-Description: Document
+
+{doc}
+This picture was taken by an automatic camera mounted ...
+{image file=cid:950118.AECB@XIson.com}
+{para}
+Now this is an enlargement of the area ...
+{image file=cid:950118:AFDH@XIson.com}
+{/doc}
+--example-2
+Content-Type: image/jpeg
+Content-ID: <950118.AFDH@XIson.com>
+Content-Transfer-Encoding: BASE64
+Content-Description: Picture A
+
+[encoded jpeg image]
+--example-2
+Content-Type: image/jpeg
+Content-ID: <950118.AECB@XIson.com>
+Content-Transfer-Encoding: BASE64
+Content-Description: Picture B
+
+[encoded jpeg image]
+--example-2--

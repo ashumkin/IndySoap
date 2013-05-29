@@ -1,0 +1,4577 @@
+<definitions name="ActuateAPI" xmlns="http://schemas.xmlsoap.org/wsdl/"
+xmlns:stk="http://schemas.microsoft.com/soap-toolkit/wsdl-extension"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+xmlns:typens="http://schemas.actuate.com/actuate7"
+xmlns:wsdlns="http://schemas.actuate.com/actuate7/wsdl"
+targetNamespace="http://schemas.actuate.com/actuate7/wsdl">
+  <types>
+   <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/"
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+targetNamespace="http://schemas.actuate.com/actuate7"
+elementFormDefault="qualified">
+    <xsd:complexType name="Header">
+     <xsd:sequence>
+      <xsd:element name="AuthId" type="xsd:string"/>
+      <xsd:element name="Domain" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Locale" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="DelayFlush" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Header" type="typens:Header"/>
+    <xsd:complexType name="Login">
+     <xsd:sequence>
+      <xsd:element name="User" type="xsd:string"/>
+      <xsd:element name="Password" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Credentials" type="xsd:base64Binary"
+minOccurs="0"/>
+      <xsd:element name="Domain" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="UserSetting" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Login" type="typens:Login"/>
+    <xsd:complexType name="LoginResponse">
+     <xsd:sequence>
+      <xsd:element name="AuthId" type="xsd:string"/>
+      <xsd:element name="AdminRights" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Administrator"/>
+         <xsd:enumeration value="Operator"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="User" type="typens:User" minOccurs="0"/>
+      <xsd:element name="FeatureOptions" type="typens:ArrayOfString"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LoginResponse" type="typens:LoginResponse"/>
+    <xsd:complexType name="User">
+     <xsd:all>
+      <xsd:element name="Id" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Password" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="EncryptedPwd" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="IsLoginDisabled" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="EmailAddress" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="HomeFolder" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ViewPreference" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Default"/>
+         <xsd:enumeration value="DHTML"/>
+         <xsd:enumeration value="LRX"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="MaxJobPriority" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="MaxNotices" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="SendNoticeForSuccess" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendNoticeForFailure" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SuccessNoticeExpiration" type="xsd:long"
+minOccurs="0"/>
+      <xsd:element name="FailureNoticeExpiration" type="xsd:long"
+minOccurs="0"/>
+      <xsd:element name="SendEmailForSuccess" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendEmailForFailure" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="AttachReportInEmail" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="DefaultPrinterName" type="xsd:string"
+minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfString">
+     <xsd:sequence>
+      <xsd:element name="String" type="xsd:string" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GetFileACL">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="FileId" type="xsd:string"/>
+       <xsd:element name="FileName" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="GrantedUserId" type="xsd:string" minOccurs="0"/>
+       <xsd:element name="GrantedUserName" type="xsd:string" minOccurs="0"/>
+       <xsd:element name="GrantedRoleId" type="xsd:string" minOccurs="0"/>
+       <xsd:element name="GrantedRoleName" type="xsd:string" minOccurs="0"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFileACL" type="typens:GetFileACL"/>
+    <xsd:complexType name="GetFileACLResponse">
+     <xsd:sequence>
+      <xsd:element name="ACL" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:int" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFileACLResponse"
+type="typens:GetFileACLResponse"/>
+    <xsd:complexType name="ArrayOfPermission">
+     <xsd:sequence>
+      <xsd:element name="Permission" type="typens:Permission"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Permission">
+     <xsd:sequence>
+      <xsd:sequence>
+       <xsd:choice minOccurs="0">
+        <xsd:element name="RoleName" type="xsd:string"/>
+        <xsd:element name="UserName" type="xsd:string"/>
+       </xsd:choice>
+       <xsd:choice minOccurs="0">
+        <xsd:element name="RoleId" type="xsd:string"/>
+        <xsd:element name="UserId" type="xsd:string"/>
+       </xsd:choice>
+      </xsd:sequence>
+      <xsd:element name="AccessRight" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GetChannelACL">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="ChannelName" type="xsd:string"/>
+       <xsd:element name="ChannelId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="GrantedUserId" type="xsd:string" minOccurs="0"/>
+       <xsd:element name="GrantedUserName" type="xsd:string" minOccurs="0"/>
+       <xsd:element name="GrantedRoleId" type="xsd:string" minOccurs="0"/>
+       <xsd:element name="GrantedRoleName" type="xsd:string" minOccurs="0"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetChannelACL" type="typens:GetChannelACL"/>
+    <xsd:complexType name="GetChannelACLResponse">
+     <xsd:sequence>
+      <xsd:element name="ACL" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:int" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetChannelACLResponse"
+type="typens:GetChannelACLResponse"/>
+    <xsd:complexType name="GetFileCreationACL">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="CreatedByUserName" type="xsd:string"/>
+       <xsd:element name="CreatedByUserId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="GrantedUserId" type="xsd:string" minOccurs="0"/>
+       <xsd:element name="GrantedUserName" type="xsd:string" minOccurs="0"/>
+       <xsd:element name="GrantedRoleId" type="xsd:string" minOccurs="0"/>
+       <xsd:element name="GrantedRoleName" type="xsd:string" minOccurs="0"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFileCreationACL"
+type="typens:GetFileCreationACL"/>
+    <xsd:complexType name="GetFileCreationACLResponse">
+     <xsd:sequence>
+      <xsd:element name="ACL" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:int" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFileCreationACLResponse"
+type="typens:GetFileCreationACLResponse"/>
+    <xsd:complexType name="Administrate">
+     <xsd:sequence>
+      <xsd:element name="AdminOperation" type="typens:AdminOperation"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Administrate" type="typens:Administrate"/>
+    <xsd:complexType name="AdministrateResponse"/>
+    <xsd:element name="AdministrateResponse"
+type="typens:AdministrateResponse"/>
+    <xsd:complexType name="AdminOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="Transaction" type="typens:Transaction"
+minOccurs="0"/>
+       <xsd:element name="CreateUser" type="typens:CreateUser"
+minOccurs="0"/>
+       <xsd:element name="DeleteUser" type="typens:DeleteUser"
+minOccurs="0"/>
+       <xsd:element name="UpdateUser" type="typens:UpdateUser"
+minOccurs="0"/>
+       <xsd:element name="CreateGroup" type="typens:CreateGroup"
+minOccurs="0"/>
+       <xsd:element name="DeleteGroup" type="typens:DeleteGroup"
+minOccurs="0"/>
+       <xsd:element name="UpdateGroup" type="typens:UpdateGroup"
+minOccurs="0"/>
+       <xsd:element name="CreateChannel" type="typens:CreateChannel"
+minOccurs="0"/>
+       <xsd:element name="DeleteChannel" type="typens:DeleteChannel"
+minOccurs="0"/>
+       <xsd:element name="UpdateChannel" type="typens:UpdateChannel"
+minOccurs="0"/>
+       <xsd:element name="CreateRole" type="typens:CreateRole"
+minOccurs="0"/>
+       <xsd:element name="DeleteRole" type="typens:DeleteRole"
+minOccurs="0"/>
+       <xsd:element name="UpdateRole" type="typens:UpdateRole"
+minOccurs="0"/>
+       <xsd:element name="CreateFileType" type="typens:CreateFileType"
+minOccurs="0"/>
+       <xsd:element name="DeleteFileType" type="typens:DeleteFileType"
+minOccurs="0"/>
+       <xsd:element name="UpdateFileType" type="typens:UpdateFileType"
+minOccurs="0"/>
+       <xsd:element name="CreateFolder" type="typens:CreateFolder"
+minOccurs="0"/>
+       <xsd:element name="DeleteFile" type="typens:DeleteFile"
+minOccurs="0"/>
+       <xsd:element name="MoveFile" type="typens:MoveFile" minOccurs="0"/>
+       <xsd:element name="CopyFile" type="typens:CopyFile" minOccurs="0"/>
+       <xsd:element name="UpdateFile" type="typens:UpdateFile"
+minOccurs="0"/>
+       <xsd:element name="DeleteJob" type="typens:DeleteJob" minOccurs="0"/>
+       <xsd:element name="DeleteJobNotices" type="typens:DeleteJobNotices"
+minOccurs="0"/>
+       <xsd:element name="UpdateJobSchedule" type="typens:UpdateJobSchedule"
+minOccurs="0"/>
+       <xsd:element name="UpdateVolumeProperties"
+type="typens:UpdateVolumeProperties" minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Transaction">
+     <xsd:sequence>
+      <xsd:element name="TransactionOperation"
+type="typens:TransactionOperation" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CreateUser">
+     <xsd:sequence>
+      <xsd:element name="User" type="typens:User"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeleteUser">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:UserSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateUser">
+     <xsd:sequence>
+      <xsd:element name="UpdateUserOperationGroup"
+type="typens:UpdateUserOperationGroup"/>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:UserSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="SkipPermissionError" type="xsd:boolean"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CreateGroup">
+     <xsd:sequence>
+      <xsd:element name="Group" type="typens:Group"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeleteGroup">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:GroupSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateGroup">
+     <xsd:sequence>
+      <xsd:element name="UpdateGroupOperationGroup"
+type="typens:UpdateGroupOperationGroup"/>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:GroupSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CreateChannel">
+     <xsd:sequence>
+      <xsd:element name="Channel" type="typens:Channel"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeleteChannel">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:ChannelSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateChannel">
+     <xsd:sequence>
+      <xsd:element name="UpdateChannelOperationGroup"
+type="typens:UpdateChannelOperationGroup"/>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:ChannelSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="SkipPermissionError" type="xsd:boolean"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CreateRole">
+     <xsd:sequence>
+      <xsd:element name="Role" type="typens:Role"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeleteRole">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:RoleSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateRole">
+     <xsd:sequence>
+      <xsd:element name="UpdateRoleOperationGroup"
+type="typens:UpdateRoleOperationGroup"/>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:RoleSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CreateFileType">
+     <xsd:sequence>
+      <xsd:element name="FileType" type="typens:FileType"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeleteFileType">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateFileType">
+     <xsd:sequence>
+      <xsd:element name="UpdateFileTypeOperationGroup"
+type="typens:UpdateFileTypeOperationGroup"/>
+      <xsd:choice>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CreateFolder">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="WorkingFolderName" type="xsd:string"/>
+       <xsd:element name="WorkingFolderId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="FolderName" type="xsd:string"/>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="IgnoreDup" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeleteFile">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="WorkingFolderId" type="xsd:string"/>
+       <xsd:element name="WorkingFolderName" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="Recursive" type="xsd:boolean" minOccurs="0"/>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:FileSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="MoveFile">
+     <xsd:sequence>
+      <xsd:element name="Target" type="xsd:string"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="WorkingFolderName" type="xsd:string"/>
+       <xsd:element name="WorkingFolderId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:FileSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="ReplaceExisting" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="MaxVersions" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="LatestVersionOnly" type="xsd:boolean"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CopyFile">
+     <xsd:sequence>
+      <xsd:element name="Target" type="xsd:string"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="WorkingFolderName" type="xsd:string"/>
+       <xsd:element name="WorkingFolderId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:FileSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="ReplaceExisting" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="MaxVersions" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="LatestVersionOnly" type="xsd:boolean"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateFile">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="WorkingFolderId" type="xsd:string"/>
+       <xsd:element name="WorkingFolderName" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="LatestVersionOnly" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="Recursive" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="UpdateFileOperationGroup"
+type="typens:UpdateFileOperationGroup"/>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:FileSearch"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeleteJob">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:JobSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IgnoreActiveJob" type="xsd:boolean" default="false"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DeleteJobNotices">
+     <xsd:sequence>
+      <xsd:element name="Search" type="typens:JobNoticeSearch"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateJobSchedule">
+     <xsd:sequence>
+      <xsd:element name="UpdateJobScheduleOperationGroup"
+type="typens:UpdateJobScheduleOperationGroup"/>
+      <xsd:choice>
+       <xsd:element name="Search" type="typens:JobSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IgnoreMissing" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateVolumeProperties">
+     <xsd:sequence>
+      <xsd:element name="UpdateVolumePropertiesOperationGroup"
+type="typens:UpdateVolumePropertiesOperationGroup"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="TransactionOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="CreateUser" type="typens:CreateUser"
+minOccurs="0"/>
+       <xsd:element name="DeleteUser" type="typens:DeleteUser"
+minOccurs="0"/>
+       <xsd:element name="UpdateUser" type="typens:UpdateUser"
+minOccurs="0"/>
+       <xsd:element name="CreateGroup" type="typens:CreateGroup"
+minOccurs="0"/>
+       <xsd:element name="DeleteGroup" type="typens:DeleteGroup"
+minOccurs="0"/>
+       <xsd:element name="UpdateGroup" type="typens:UpdateGroup"
+minOccurs="0"/>
+       <xsd:element name="CreateChannel" type="typens:CreateChannel"
+minOccurs="0"/>
+       <xsd:element name="DeleteChannel" type="typens:DeleteChannel"
+minOccurs="0"/>
+       <xsd:element name="UpdateChannel" type="typens:UpdateChannel"
+minOccurs="0"/>
+       <xsd:element name="CreateRole" type="typens:CreateRole"
+minOccurs="0"/>
+       <xsd:element name="DeleteRole" type="typens:DeleteRole"
+minOccurs="0"/>
+       <xsd:element name="UpdateRole" type="typens:UpdateRole"
+minOccurs="0"/>
+       <xsd:element name="CreateFileType" type="typens:CreateFileType"
+minOccurs="0"/>
+       <xsd:element name="DeleteFileType" type="typens:DeleteFileType"
+minOccurs="0"/>
+       <xsd:element name="UpdateFileType" type="typens:UpdateFileType"
+minOccurs="0"/>
+       <xsd:element name="CreateFolder" type="typens:CreateFolder"
+minOccurs="0"/>
+       <xsd:element name="DeleteFile" type="typens:DeleteFile"
+minOccurs="0"/>
+       <xsd:element name="MoveFile" type="typens:MoveFile" minOccurs="0"/>
+       <xsd:element name="CopyFile" type="typens:CopyFile" minOccurs="0"/>
+       <xsd:element name="UpdateFile" type="typens:UpdateFile"
+minOccurs="0"/>
+       <xsd:element name="DeleteJob" type="typens:DeleteJob" minOccurs="0"/>
+       <xsd:element name="DeleteJobNotices" type="typens:DeleteJobNotices"
+minOccurs="0"/>
+       <xsd:element name="UpdateJobSchedule" type="typens:UpdateJobSchedule"
+minOccurs="0"/>
+       <xsd:element name="UpdateVolumeProperties"
+type="typens:UpdateVolumeProperties" minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UserSearch">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Condition" type="typens:UserCondition"/>
+       <xsd:element name="ConditionArray"
+type="typens:ArrayOfUserCondition"/>
+      </xsd:choice>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="MemberOfGroupName" type="xsd:string"/>
+       <xsd:element name="WithRoleName" type="xsd:string"/>
+       <xsd:element name="SubscribedToChannelName" type="xsd:string"/>
+       <xsd:element name="MemberOfGroupId" type="xsd:string"/>
+       <xsd:element name="WithRoleId" type="xsd:string"/>
+       <xsd:element name="SubscribedToChannelId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateUserOperationGroup">
+     <xsd:sequence>
+      <xsd:element name="UpdateUserOperation"
+type="typens:UpdateUserOperation" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateUserOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="SetAttributes" type="typens:User" minOccurs="0"/>
+       <xsd:element name="AddToGroupsByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveFromGroupsByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetGroupMembershipsByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AssignRolesByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="DropRolesByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetRolesByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SubscribeToChannelsByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="UnsubscribeFromChannelsByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetChannelSubscriptionByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddToGroupsById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveFromGroupsById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetGroupMembershipsById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AssignRolesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="DropRolesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetRolesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SubscribeToChannelsById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="UnsubscribeFromChannelsbyId"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetChannelSubscriptionById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddFileCreationPermissions"
+type="typens:ArrayOfPermission" minOccurs="0"/>
+       <xsd:element name="RemoveFileCreationPermissions"
+type="typens:ArrayOfPermission" minOccurs="0"/>
+       <xsd:element name="SetFileCreationPermissions"
+type="typens:ArrayOfPermission" minOccurs="0"/>
+       <xsd:element name="SetPrinterOptions"
+type="typens:ArrayOfPrinterOptions" minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Group">
+     <xsd:all>
+      <xsd:element name="Id" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="GroupSearch">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Condition" type="typens:GroupCondition"/>
+       <xsd:element name="ConditionArray"
+type="typens:ArrayOfGroupCondition"/>
+      </xsd:choice>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="WithUserName" type="xsd:string"/>
+       <xsd:element name="WithUserId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateGroupOperationGroup">
+     <xsd:sequence>
+      <xsd:element name="UpdateGroupOperation"
+type="typens:UpdateGroupOperation" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateGroupOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="SetAttributes" type="typens:Group" minOccurs="0"/>
+       <xsd:element name="AddUsersByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveUsersByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetUsersByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="AddUsersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveUsersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetUsersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Channel">
+     <xsd:all>
+      <xsd:element name="Id" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="PollingInterval" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Expiration" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="SmallImageURL" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="LargeImageURL" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="UserPermissions" type="xsd:string" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="ChannelSearch">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Condition" type="typens:ChannelCondition"/>
+       <xsd:element name="ConditionArray"
+type="typens:ArrayOfChannelCondition"/>
+      </xsd:choice>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="SubscribedUserId" type="xsd:string"/>
+       <xsd:element name="SubscribedUserName" type="xsd:string"/>
+       <xsd:element name="PrivilegeFilter" type="typens:PrivilegeFilter"/>
+      </xsd:choice>
+      <xsd:element name="IncludeInheritedPrivilege" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateChannelOperationGroup">
+     <xsd:sequence>
+      <xsd:element name="UpdateChannelOperation"
+type="typens:UpdateChannelOperation" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateChannelOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="SetAttributes" type="typens:Channel"
+minOccurs="0"/>
+       <xsd:element name="AddSubscribersByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveSubscribersByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetSubscribersByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="AddSubscribersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveSubscribersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetSubscribersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="GrantPermissions" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+       <xsd:element name="RevokePermissions" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+       <xsd:element name="SetPermissions" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Role">
+     <xsd:all>
+      <xsd:element name="Id" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="RoleSearch">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Condition" type="typens:RoleCondition"/>
+       <xsd:element name="ConditionArray"
+type="typens:ArrayOfRoleCondition"/>
+      </xsd:choice>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="ParentRoleName" type="xsd:string"/>
+       <xsd:element name="ChildRoleName" type="xsd:string"/>
+       <xsd:element name="WithRightsToChannelName" type="xsd:string"/>
+       <xsd:element name="AssignedToUserName" type="xsd:string"/>
+       <xsd:element name="ParentRoleId" type="xsd:string"/>
+       <xsd:element name="ChildRoleId" type="xsd:string"/>
+       <xsd:element name="WithRightsToChannelId" type="xsd:string"/>
+       <xsd:element name="AssignedToUserId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateRoleOperationGroup">
+     <xsd:sequence>
+      <xsd:element name="UpdateRoleOperation"
+type="typens:UpdateRoleOperation" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateRoleOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="SetAttributes" type="typens:Role" minOccurs="0"/>
+       <xsd:element name="AssignedToUsersByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="DroppedFromUsersByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetBearingUsersByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="AddChildRolesByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveChildRolesByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetChildRolesByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="AddParentRolesByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveParentRolesByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetParentRolesByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="AssignedToUsersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="DroppedFromUsersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetBearingUsersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="AddChildRolesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveChildRolesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetChildRolesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="AddParentRolesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveParentRolesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetParentRolesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FileType">
+     <xsd:all>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="IsNative" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IsExecutable" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IsPrintable" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="OutputType" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="LocalExtension" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ShortDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="LongDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="SmallImageURL" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="LargeImageURL" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ExportBeforeViewing" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="DriverName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="MutexClass" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ContentType" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="EnableAutoParamCollection" type="xsd:boolean"
+minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateFileTypeOperationGroup">
+     <xsd:sequence>
+      <xsd:element name="UpdateFileTypeOperation"
+type="typens:UpdateFileTypeOperation" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateFileTypeOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="SetAttributes" type="typens:FileType"
+minOccurs="0"/>
+       <xsd:element name="SetParameterDefinitions"
+type="typens:ArrayOfParameterDefinition" minOccurs="0"/>
+       <xsd:element name="SetWindowsIcon" type="xsd:base64Binary"
+minOccurs="0"/>
+       <xsd:element name="SetLargeWebIcon" type="xsd:base64Binary"
+minOccurs="0"/>
+       <xsd:element name="SetSmallWebIcon" type="xsd:base64Binary"
+minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FileSearch">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Condition" type="typens:FileCondition"/>
+       <xsd:element name="ConditionArray"
+type="typens:ArrayOfFileCondition"/>
+      </xsd:choice>
+      <xsd:element name="Owner" type="xsd:string" minOccurs="0"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="DependentFileName" type="xsd:string"/>
+       <xsd:element name="DependentFileId" type="xsd:string"/>
+       <xsd:element name="RequiredFileName" type="xsd:string"/>
+       <xsd:element name="RequiredFileId" type="xsd:string"/>
+       <xsd:element name="PrivilegeFilter" type="typens:PrivilegeFilter"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateFileOperationGroup">
+     <xsd:sequence>
+      <xsd:element name="UpdateFileOperation"
+type="typens:UpdateFileOperation" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateFileOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="SetAttributes" type="typens:File" minOccurs="0"/>
+       <xsd:element name="AddDependentFilesByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="RemoveDependentFilesByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetDependentFilesByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddRequiredFilesByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="RemoveRequiredFilesByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetRequiredFilesByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddDependentFilesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveDependentFilesById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetDependentFilesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="AddRequiredFilesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="RemoveRequiredFilesById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetRequiredFilesById" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="GrantPermissions" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+       <xsd:element name="RevokePermissions" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+       <xsd:element name="SetPermissions" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+       <xsd:element name="AddArchiveRules" type="typens:ArrayOfArchiveRule"
+minOccurs="0"/>
+       <xsd:element name="RemoveArchiveRules"
+type="typens:ArrayOfArchiveRule" minOccurs="0"/>
+       <xsd:element name="SetArchiveRules" type="typens:ArrayOfArchiveRule"
+minOccurs="0"/>
+       <xsd:element name="SetParameterDefinitions"
+type="typens:ArrayOfParameterDefinition" minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="JobSearch">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Condition" type="typens:JobCondition"/>
+       <xsd:element name="ConditionArray"
+type="typens:ArrayOfJobCondition"/>
+      </xsd:choice>
+      <xsd:element name="Owner" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ActualOutputFileName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="ActualOutputFileId" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="RequestedOutputFileName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="InputFileName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="InputFileId" type="xsd:string" minOccurs="0"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="NotifiedUserId" type="xsd:string"/>
+       <xsd:element name="NotifiedUserName" type="xsd:string"/>
+       <xsd:element name="NotifiedChannelId" type="xsd:string"/>
+       <xsd:element name="NotifiedChannelName" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="JobNoticeSearch">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Condition" type="typens:JobNoticeCondition"/>
+       <xsd:element name="ConditionArray"
+type="typens:ArrayOfJobNoticeCondition"/>
+      </xsd:choice>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="NotifiedUserId" type="xsd:string"/>
+       <xsd:element name="NotifiedUserName" type="xsd:string"/>
+       <xsd:element name="NotifiedChannelId" type="xsd:string"/>
+       <xsd:element name="NotifiedChannelName" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateJobScheduleOperationGroup">
+     <xsd:sequence>
+      <xsd:element name="UpdateJobScheduleOperation"
+type="typens:UpdateJobScheduleOperation" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateJobScheduleOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="SetAttributes" type="typens:JobProperties"
+minOccurs="0"/>
+       <xsd:element name="SetInputParameters" type="typens:JobInputDetail"
+minOccurs="0"/>
+       <xsd:element name="SetPrinterOptions" type="typens:JobPrinterOptions"
+minOccurs="0"/>
+       <xsd:element name="SetSchedules" type="typens:JobSchedule"
+minOccurs="0"/>
+       <xsd:element name="AddUserNotificationByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="RemoveUserNotificationByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetUserNotificationByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddGroupNotificationByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="RemoveGroupNotificationByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetGroupNotificationByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddChannelNotificationByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="RemoveChannelNotificationByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetChannelNotificationByName"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddUserNotificationById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="RemoveUserNotificationById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetUserNotificationById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddGroupNotificationById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="RemoveGroupNotificationById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetGroupNotificationById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddChannelNotificationById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="RemoveChannelNotificationById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="SetChannelNotificationById"
+type="typens:ArrayOfString" minOccurs="0"/>
+       <xsd:element name="AddOutputFilePermissions"
+type="typens:ArrayOfPermission" minOccurs="0"/>
+       <xsd:element name="RemoveOutputFilePermissions"
+type="typens:ArrayOfPermission" minOccurs="0"/>
+       <xsd:element name="SetOutputFilePermissions"
+type="typens:ArrayOfPermission" minOccurs="0"/>
+       <xsd:element name="SetParameterValues"
+type="typens:ArrayOfParameterValue" minOccurs="0"/>
+       <xsd:element name="SetQuery" type="typens:Query" minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateVolumePropertiesOperationGroup">
+     <xsd:sequence>
+      <xsd:element name="UpdateVolumePropertiesOperation"
+type="typens:UpdateVolumePropertiesOperation" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UpdateVolumePropertiesOperation">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="SetAttributes" type="typens:Volume"
+minOccurs="0"/>
+       <xsd:element name="SetOnlineBackupSchedules"
+type="typens:JobSchedule" minOccurs="0"/>
+       <xsd:element name="SetPrinterOptions"
+type="typens:ArrayOfPrinterOptions" minOccurs="0"/>
+       <xsd:element name="SetSystemPrinters" type="typens:ArrayOfPrinter"
+minOccurs="0"/>
+       <xsd:element name="ClearSystemPrinters" type="typens:ArrayOfString"
+minOccurs="0"/>
+       <xsd:element name="SetAutoArchiveSchedules" type="typens:JobSchedule"
+minOccurs="0"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UserCondition">
+     <xsd:sequence>
+      <xsd:element name="Field" type="typens:UserField"/>
+      <xsd:element name="Match" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfUserCondition">
+     <xsd:sequence>
+      <xsd:element name="UserCondition" type="typens:UserCondition"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfPrinterOptions">
+     <xsd:sequence>
+      <xsd:element name="PrinterOptions" type="typens:PrinterOptions"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GroupCondition">
+     <xsd:sequence>
+      <xsd:element name="Field" type="typens:GroupField"/>
+      <xsd:element name="Match" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfGroupCondition">
+     <xsd:sequence>
+      <xsd:element name="GroupCondition" type="typens:GroupCondition"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ChannelCondition">
+     <xsd:sequence>
+      <xsd:element name="Field" type="typens:ChannelField"/>
+      <xsd:element name="Match" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfChannelCondition">
+     <xsd:sequence>
+      <xsd:element name="ChannelCondition" type="typens:ChannelCondition"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="PrivilegeFilter">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="GrantedUserName" type="xsd:string"/>
+       <xsd:element name="GrantedUserId" type="xsd:string"/>
+       <xsd:element name="GrantedRoleName" type="xsd:string"/>
+       <xsd:element name="GrantedRoleId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="AccessRights" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="RoleCondition">
+     <xsd:sequence>
+      <xsd:element name="Field" type="typens:RoleField"/>
+      <xsd:element name="Match" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfRoleCondition">
+     <xsd:sequence>
+      <xsd:element name="RoleCondition" type="typens:RoleCondition"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfParameterDefinition">
+     <xsd:sequence>
+      <xsd:element name="ParameterDefinition"
+type="typens:ParameterDefinition" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FileCondition">
+     <xsd:sequence>
+      <xsd:element name="Field" type="typens:FileField"/>
+      <xsd:element name="Match" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfFileCondition">
+     <xsd:sequence>
+      <xsd:element name="FileCondition" type="typens:FileCondition"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="File">
+     <xsd:all>
+      <xsd:element name="Id" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="FileType" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="PageCount" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="Size" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="TimeStamp" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="Version" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="VersionName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Owner" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="UserPermissions" type="xsd:string" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfArchiveRule">
+     <xsd:sequence>
+      <xsd:element name="ArchiveRule" type="typens:ArchiveRule"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="JobCondition">
+     <xsd:sequence>
+      <xsd:element name="Field" type="typens:JobField"/>
+      <xsd:element name="Match" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfJobCondition">
+     <xsd:sequence>
+      <xsd:element name="JobCondition" type="typens:JobCondition"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="JobNoticeCondition">
+     <xsd:sequence>
+      <xsd:element name="Field" type="typens:JobNoticeField"/>
+      <xsd:element name="Match" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfJobNoticeCondition">
+     <xsd:sequence>
+      <xsd:element name="JobNoticeCondition"
+type="typens:JobNoticeCondition" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="JobProperties">
+     <xsd:all>
+      <xsd:element name="JobId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="JobName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Priority" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="Owner" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="JobType" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="RunReport"/>
+         <xsd:enumeration value="PrintReport"/>
+         <xsd:enumeration value="RunAndPrintReport"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="State" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Scheduled"/>
+         <xsd:enumeration value="Pending"/>
+         <xsd:enumeration value="Running"/>
+         <xsd:enumeration value="Succeeded"/>
+         <xsd:enumeration value="Failed"/>
+         <xsd:enumeration value="Cancelled"/>
+         <xsd:enumeration value="Expired"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="InputFileId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="InputFileName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="InputFileVersionName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="RunLatestVersion" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="ParameterFileId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ParameterFileName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="ActualOutputFileId" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="ActualOutputFileName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="RequestedOutputFileName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="SubmissionTime" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="CompletionTime" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="PageCount" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="OutputFileSize" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="RoutedToNode" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="DurationSeconds" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="StartTime" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="NextStartTime" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="RequestedHeadline" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="ActualHeadline" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="NotifyCount" type="xsd:string" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="JobInputDetail">
+     <xsd:all>
+      <xsd:element name="InputFileVersionName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="OutputFileVersionName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="ReplaceLatestVersion" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="OutputMaxVersion" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="ValueFileType" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Temporary"/>
+         <xsd:enumeration value="Permanent"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="ValueFileVersionName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="IsBundled" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="RetryOption" type="typens:RetryOptionType"
+minOccurs="0"/>
+      <xsd:element name="MaxRetryCount" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="RetryInterval" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="MaxVersions" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="NeverExpire" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="ArchiveRuleInherited" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="ExpirationAge" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="ExpirationDate" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ArchiveOnExpire" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="KeepWorkspace" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="DriverTimeout" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="PollingInterval" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="DebugInstruction" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="SendSuccessNotice" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendFailureNotice" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendEmailForSuccess" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendEmailForFailure" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="AttachReportInEmail" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="OverrideRecipientPref" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="EmailFormatOption" type="typens:EmailFormatOption"
+minOccurs="0"/>
+      <xsd:element name="RecordSuccessStatus" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="RecordFailureStatus" type="xsd:boolean"
+minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="JobPrinterOptions">
+     <xsd:all>
+      <xsd:element name="PrinterName" type="xsd:string"/>
+      <xsd:element name="Orientation" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="PageSize" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Scale" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="Resolution" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="NumberOfCopies" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="CollationOption" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="PaperTray" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Duplex" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="IsColor" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="PaperLength" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="PaperWidth" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="PageRange" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="FormName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="PrintToFile" type="xsd:string" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="JobSchedule">
+     <xsd:sequence>
+      <xsd:element name="TimeZoneName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ScheduleDetails"
+type="typens:ArrayOfJobScheduleDetail"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfParameterValue">
+     <xsd:sequence>
+      <xsd:element name="ParameterValue" type="typens:ParameterValue"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Query">
+     <xsd:sequence>
+      <xsd:element name="AvailableColumnList"
+type="typens:ArrayOfColumnDefinition" minOccurs="0"/>
+      <xsd:element name="ParameterDefinitionList"
+type="typens:ArrayOfParameterDefinition" minOccurs="0"/>
+      <xsd:element name="SelectColumnList" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="PromptSelectColumnList" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="FilterList" type="typens:ArrayOfFilterCriteria"
+minOccurs="0"/>
+      <xsd:element name="ReportParameterList"
+type="typens:ArrayOfParameterValue" minOccurs="0"/>
+      <xsd:element name="SortColumnList" type="typens:ArrayOfSortColumn"
+minOccurs="0"/>
+      <xsd:element name="PromptSortColumnList" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="OutputFormat" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="PromptOutputFormat" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="PageHeader" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Volume">
+     <xsd:all>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="ActuateVersion" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ActuateBuildNumber" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="SecurityIntegrationOption" type="xsd:long"
+minOccurs="0"/>
+      <xsd:element name="DefaultPrinterName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="MaxJobRetryCount" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="JobRetryInterval" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="DefaultViewingPreference" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="LRX"/>
+         <xsd:enumeration value="DHTML"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="DHTMLPageCaching" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="DHTMLPageCachingExpirationAge" type="xsd:long"
+minOccurs="0"/>
+      <xsd:element name="OnlineBackupMode" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="AuthorizationIsExternal" type="xsd:boolean"
+minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfPrinter">
+     <xsd:sequence>
+      <xsd:element name="Printer" type="typens:Printer"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="UserField">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Name"/>
+      <xsd:enumeration value="Description"/>
+      <xsd:enumeration value="IsLoginDisabled"/>
+      <xsd:enumeration value="EmailAddress"/>
+      <xsd:enumeration value="HomeFolder"/>
+      <xsd:enumeration value="ViewPreference"/>
+      <xsd:enumeration value="MaxJobPriority"/>
+      <xsd:enumeration value="SuccessNoticeExpiration"/>
+      <xsd:enumeration value="FailureNoticeExpiration"/>
+      <xsd:enumeration value="SendNoticeForSuccess"/>
+      <xsd:enumeration value="SendNoticeForFailure"/>
+      <xsd:enumeration value="SendEmailForSuccess"/>
+      <xsd:enumeration value="SendEmailForFailure"/>
+      <xsd:enumeration value="AttachReportInEmail"/>
+      <xsd:enumeration value="DefaultPrinterName"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="PrinterOptions">
+     <xsd:all>
+      <xsd:element name="PrinterName" type="xsd:string"/>
+      <xsd:element name="Orientation" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="PageSize" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Scale" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="Resolution" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="NumberOfCopies" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="CollationOption" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="PaperTray" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Duplex" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="IsColor" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IsDefaultPrinter" type="xsd:boolean"
+minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:simpleType name="GroupField">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Name"/>
+      <xsd:enumeration value="Description"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="ChannelField">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Name"/>
+      <xsd:enumeration value="PollingInterval"/>
+      <xsd:enumeration value="Description"/>
+      <xsd:enumeration value="Expiration"/>
+      <xsd:enumeration value="SmallImageURL"/>
+      <xsd:enumeration value="LargeImageURL"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="RoleField">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Name"/>
+      <xsd:enumeration value="Description"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="ParameterDefinition">
+     <xsd:all>
+      <xsd:element name="Group" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="DataType" type="typens:DataType" minOccurs="0"/>
+      <xsd:element name="DefaultValue" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="IsRequired" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IsPassword" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IsHidden" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="DisplayName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="IsAdHoc" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="SelectValueList" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="ControlType" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="ControlRadioButton"/>
+         <xsd:enumeration value="ControlList"/>
+         <xsd:enumeration value="ControlListAllowNew"/>
+         <xsd:enumeration value="ControlCheckBox"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:simpleType name="FileField">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Name"/>
+      <xsd:enumeration value="FileType"/>
+      <xsd:enumeration value="Description"/>
+      <xsd:enumeration value="PageCount"/>
+      <xsd:enumeration value="Size"/>
+      <xsd:enumeration value="TimeStamp"/>
+      <xsd:enumeration value="Version"/>
+      <xsd:enumeration value="VersionName"/>
+      <xsd:enumeration value="Owner"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="ArchiveRule">
+     <xsd:sequence>
+      <xsd:element name="FileType" type="xsd:string"/>
+      <xsd:element name="NeverExpire" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="ExpireDependentFiles" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="ArchiveOnExpiration" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="ExpirationAge" type="xsd:long"/>
+       <xsd:element name="ExpirationTime" type="xsd:dateTime"/>
+      </xsd:choice>
+      <xsd:element name="IsInherited" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="InheritedFrom" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="JobField">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="JobName"/>
+      <xsd:enumeration value="Owner"/>
+      <xsd:enumeration value="JobType"/>
+      <xsd:enumeration value="Priority"/>
+      <xsd:enumeration value="RoutedToNode"/>
+      <xsd:enumeration value="StartTime"/>
+      <xsd:enumeration value="DurationSeconds"/>
+      <xsd:enumeration value="CompletionTime"/>
+      <xsd:enumeration value="State"/>
+      <xsd:enumeration value="NotifyCount"/>
+      <xsd:enumeration value="OutputFileSize"/>
+      <xsd:enumeration value="NextStartTime"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="JobNoticeField">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="JobId"/>
+      <xsd:enumeration value="JobName"/>
+      <xsd:enumeration value="OutputFileName"/>
+      <xsd:enumeration value="JobState"/>
+      <xsd:enumeration value="HeadLine"/>
+      <xsd:enumeration value="CompletionTime"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="RetryOptionType">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Disabled"/>
+      <xsd:enumeration value="VolumeDefault"/>
+      <xsd:enumeration value="Specified"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="EmailFormatOption">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="roi"/>
+      <xsd:enumeration value="pdf"/>
+      <xsd:enumeration value="exceldisplay"/>
+      <xsd:enumeration value="exceldata"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="ArrayOfJobScheduleDetail">
+     <xsd:sequence>
+      <xsd:element name="JobScheduleDetail" type="typens:JobScheduleDetail"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ParameterValue">
+     <xsd:all>
+      <xsd:element name="Group" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:string"/>
+      <xsd:element name="PromptParameter" type="xsd:boolean" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfColumnDefinition">
+     <xsd:sequence>
+      <xsd:element name="ColumnDefinition" type="typens:ColumnDefinition"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfFilterCriteria">
+     <xsd:sequence>
+      <xsd:element name="FilterCriteria" type="typens:FilterCriteria"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfSortColumn">
+     <xsd:sequence>
+      <xsd:element name="SortColumn" type="typens:SortColumn"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Printer">
+     <xsd:all>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Manufacturer" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Model" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="SupportOrientation" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="Orientation" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="OrientationOptions" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="SupportPageSize" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="PageSize" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="PageSizeOptions" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="SupportScale" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Scale" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="ScaleOptions" type="typens:ArrayOfInt"
+minOccurs="0"/>
+      <xsd:element name="SupportResolution" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="Resolution" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ResolutionOptions" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="SupportNumberOfCopies" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="NumberOfCopies" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="SupportCollation" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="Collation" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="SupportPaperTray" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="PaperTray" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="PaperTrayOptions" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="SupportDuplex" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="Duplex" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="DuplexOptions" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="SupportColorMode" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="ColorMode" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ColorModeOptions" type="typens:ArrayOfString"
+minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:simpleType name="DataType">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Currency"/>
+      <xsd:enumeration value="Date"/>
+      <xsd:enumeration value="Double"/>
+      <xsd:enumeration value="Integer"/>
+      <xsd:enumeration value="String"/>
+      <xsd:enumeration value="Boolean"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="JobScheduleDetail">
+     <xsd:sequence>
+      <xsd:element name="ScheduleType">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="AbsoluteDate"/>
+         <xsd:enumeration value="Daily"/>
+         <xsd:enumeration value="Weekly"/>
+         <xsd:enumeration value="Monthly"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="ScheduleStartDate" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="ScheduleEndDate" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="DatesExcluded" type="typens:ArrayOfDate"
+minOccurs="0"/>
+      <xsd:element name="DurationInSeconds" type="xsd:long" minOccurs="0"/>
+      <xsd:choice>
+       <xsd:element name="AbsoluteDate" type="typens:AbsoluteDate"/>
+       <xsd:element name="Daily" type="typens:Daily"/>
+       <xsd:element name="Weekly" type="typens:Weekly"/>
+       <xsd:element name="Monthly" type="typens:Monthly"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ColumnDefinition">
+     <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="DisplayName" type="xsd:string"/>
+      <xsd:element name="DataType" type="typens:DataType" minOccurs="0"/>
+      <xsd:element name="EnableFilter" type="xsd:boolean"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FilterCriteria">
+     <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:string"/>
+      <xsd:element name="Operation" type="xsd:string"/>
+      <xsd:element name="PromptFilterCriteria" type="xsd:boolean"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SortColumn">
+     <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="SortOrder">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="ASC"/>
+         <xsd:enumeration value="DES"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfInt">
+     <xsd:sequence>
+      <xsd:element name="Int" type="xsd:int" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfDate">
+     <xsd:sequence>
+      <xsd:element name="Date" type="xsd:string" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AbsoluteDate">
+     <xsd:sequence>
+      <xsd:element name="RunOn" type="xsd:string"/>
+      <xsd:element name="OnceADay" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="MultipleTimesADay" type="typens:ArrayOfTime"
+minOccurs="0"/>
+      <xsd:element name="Repeat" type="typens:Repeat" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Daily">
+     <xsd:sequence>
+      <xsd:element name="FrequencyInDays" type="xsd:long"/>
+      <xsd:element name="OnceADay" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="MultipleTimesADay" type="typens:ArrayOfTime"
+minOccurs="0"/>
+      <xsd:element name="Repeat" type="typens:Repeat" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Weekly">
+     <xsd:sequence>
+      <xsd:element name="FrequencyInWeeks" type="xsd:long"/>
+      <xsd:element name="RunOn" type="xsd:string"/>
+      <xsd:element name="OnceADay" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="MultipleTimesADay" type="typens:ArrayOfTime"
+minOccurs="0"/>
+      <xsd:element name="Repeat" type="typens:Repeat" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Monthly">
+     <xsd:sequence>
+      <xsd:element name="FrequencyInMonths" type="xsd:long"/>
+      <xsd:element name="OnDay" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:int">
+         <xsd:minInclusive value="0"/>
+         <xsd:maxInclusive value="31"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="OnWeekDay" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:int">
+         <xsd:minInclusive value="0"/>
+         <xsd:maxInclusive value="23"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="RunOn" minOccurs="0">
+       <xsd:complexType>
+        <xsd:sequence>
+         <xsd:element name="WeekDay">
+          <xsd:simpleType>
+           <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Day"/>
+            <xsd:enumeration value="Mon"/>
+            <xsd:enumeration value="Tue"/>
+            <xsd:enumeration value="Wed"/>
+            <xsd:enumeration value="Thu"/>
+            <xsd:enumeration value="Fri"/>
+            <xsd:enumeration value="Sat"/>
+            <xsd:enumeration value="Sun"/>
+           </xsd:restriction>
+          </xsd:simpleType>
+         </xsd:element>
+         <xsd:element name="Occurence">
+          <xsd:simpleType>
+           <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="First"/>
+            <xsd:enumeration value="Second"/>
+            <xsd:enumeration value="Third"/>
+            <xsd:enumeration value="Fourth"/>
+            <xsd:enumeration value="Last"/>
+           </xsd:restriction>
+          </xsd:simpleType>
+         </xsd:element>
+        </xsd:sequence>
+       </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="OnceADay" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="MultipleTimesADay" type="typens:ArrayOfTime"
+minOccurs="0"/>
+      <xsd:element name="Repeat" type="typens:Repeat" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfTime">
+     <xsd:sequence>
+      <xsd:element name="Time" type="xsd:string" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Repeat">
+     <xsd:sequence>
+      <xsd:element name="StartTime" type="xsd:string"/>
+      <xsd:element name="EndTime" type="xsd:string"/>
+      <xsd:element name="IntervalInSeconds" type="xsd:long"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SelectUsers">
+     <xsd:sequence>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Search" type="typens:UserSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectUsers" type="typens:SelectUsers"/>
+    <xsd:complexType name="SelectUsersResponse">
+     <xsd:sequence>
+      <xsd:element name="Users" type="typens:ArrayOfUser"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectUsersResponse"
+type="typens:SelectUsersResponse"/>
+    <xsd:complexType name="ArrayOfUser">
+     <xsd:sequence>
+      <xsd:element name="User" type="typens:User" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SelectGroups">
+     <xsd:sequence>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Search" type="typens:GroupSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectGroups" type="typens:SelectGroups"/>
+    <xsd:complexType name="SelectGroupsResponse">
+     <xsd:sequence>
+      <xsd:element name="Groups" type="typens:ArrayOfGroup"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectGroupsResponse"
+type="typens:SelectGroupsResponse"/>
+    <xsd:complexType name="ArrayOfGroup">
+     <xsd:sequence>
+      <xsd:element name="Group" type="typens:Group" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SelectRoles">
+     <xsd:sequence>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Search" type="typens:RoleSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectRoles" type="typens:SelectRoles"/>
+    <xsd:complexType name="SelectRolesResponse">
+     <xsd:sequence>
+      <xsd:element name="Roles" type="typens:ArrayOfRole"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectRolesResponse"
+type="typens:SelectRolesResponse"/>
+    <xsd:complexType name="ArrayOfRole">
+     <xsd:sequence>
+      <xsd:element name="Role" type="typens:Role" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SelectChannels">
+     <xsd:sequence>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Search" type="typens:ChannelSearch"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="Name" type="xsd:string"/>
+       <xsd:element name="Id" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectChannels" type="typens:SelectChannels"/>
+    <xsd:complexType name="SelectChannelsResponse">
+     <xsd:sequence>
+      <xsd:element name="Channels" type="typens:ArrayOfChannel"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectChannelsResponse"
+type="typens:SelectChannelsResponse"/>
+    <xsd:complexType name="ArrayOfChannel">
+     <xsd:sequence>
+      <xsd:element name="Channel" type="typens:Channel"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SelectFileTypes">
+     <xsd:sequence>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="Name" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectFileTypes" type="typens:SelectFileTypes"/>
+    <xsd:complexType name="SelectFileTypesResponse">
+     <xsd:sequence>
+      <xsd:element name="FileTypes" type="typens:ArrayOfFileType"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectFileTypesResponse"
+type="typens:SelectFileTypesResponse"/>
+    <xsd:complexType name="ArrayOfFileType">
+     <xsd:sequence>
+      <xsd:element name="FileType" type="typens:FileType"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GetSystemPrinters">
+     <xsd:sequence>
+      <xsd:element name="PrinterName" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSystemPrinters" type="typens:GetSystemPrinters"/>
+    <xsd:complexType name="GetSystemPrintersResponse">
+     <xsd:sequence>
+      <xsd:element name="Printers" type="typens:ArrayOfPrinter"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSystemPrintersResponse"
+type="typens:GetSystemPrintersResponse"/>
+    <xsd:complexType name="GetUserPrinterOptions">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="UserId" type="xsd:string"/>
+       <xsd:element name="UserName" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="PrinterName" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetUserPrinterOptions"
+type="typens:GetUserPrinterOptions"/>
+    <xsd:complexType name="GetUserPrinterOptionsResponse">
+     <xsd:sequence>
+      <xsd:element name="PrinterOptions"
+type="typens:ArrayOfPrinterOptions"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetUserPrinterOptionsResponse"
+type="typens:GetUserPrinterOptionsResponse"/>
+    <xsd:complexType name="GetVolumeProperties">
+     <xsd:sequence>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetVolumeProperties"
+type="typens:GetVolumeProperties"/>
+    <xsd:complexType name="GetVolumePropertiesResponse">
+     <xsd:sequence>
+      <xsd:element name="VolumeProperties" type="typens:Volume"/>
+      <xsd:element name="OnlineBackupSchedule" type="typens:JobSchedule"
+minOccurs="0"/>
+      <xsd:element name="TranslatedRoleNames"
+type="typens:ExternalTranslatedRoleNames" minOccurs="0"/>
+      <xsd:element name="ExternalUserPropertyNames"
+type="typens:ArrayOfString" minOccurs="0"/>
+      <xsd:element name="PrinterOptions" type="typens:ArrayOfPrinterOptions"
+minOccurs="0"/>
+      <xsd:element name="AutoArchiveSchedule" type="typens:JobSchedule"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetVolumePropertiesResponse"
+type="typens:GetVolumePropertiesResponse"/>
+    <xsd:complexType name="ExternalTranslatedRoleNames">
+     <xsd:all>
+      <xsd:element name="Administrator" type="xsd:string"/>
+      <xsd:element name="Operator" type="xsd:string"/>
+      <xsd:element name="All" type="xsd:string"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="ExecuteVolumeCommand">
+     <xsd:sequence>
+      <xsd:element name="VolumeName" type="xsd:string"/>
+      <xsd:element name="Command">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="StartPartitionPhaseOut"/>
+         <xsd:enumeration value="StartArchive"/>
+         <xsd:enumeration value="SwitchToOnlineBackupMode"/>
+         <xsd:enumeration value="SwitchToNormalMode"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExecuteVolumeCommand"
+type="typens:ExecuteVolumeCommand"/>
+    <xsd:complexType name="ExecuteVolumeCommandResponse">
+     <xsd:sequence>
+      <xsd:element name="Status">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Succeeded"/>
+         <xsd:enumeration value="Failed"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExecuteVolumeCommandResponse"
+type="typens:ExecuteVolumeCommandResponse"/>
+    <xsd:complexType name="UpdateOpenSecurityCache"/>
+    <xsd:element name="UpdateOpenSecurityCache"
+type="typens:UpdateOpenSecurityCache"/>
+    <xsd:complexType name="CallOpenSecurityLibrary">
+     <xsd:sequence>
+      <xsd:element name="InputParameter" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CallOpenSecurityLibrary"
+type="typens:CallOpenSecurityLibrary"/>
+    <xsd:complexType name="CallOpenSecurityLibraryResponse">
+     <xsd:sequence>
+      <xsd:element name="OutputParameter" type="xsd:string"/>
+      <xsd:element name="ReturnCode" type="xsd:int"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CallOpenSecurityLibraryResponse"
+type="typens:CallOpenSecurityLibraryResponse"/>
+    <xsd:complexType name="DownloadFile">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="FileName" type="xsd:string"/>
+       <xsd:element name="FileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="DecomposeCompoundDocument" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DownloadFile" type="typens:DownloadFile"/>
+    <xsd:complexType name="DownloadFileResponse">
+     <xsd:sequence>
+      <xsd:element name="File" type="typens:File"/>
+      <xsd:choice>
+       <xsd:element name="Content" type="typens:Attachment"/>
+       <xsd:element name="ContainedFiles" type="typens:ArrayOfAttachment"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DownloadFileResponse"
+type="typens:DownloadFileResponse"/>
+    <xsd:complexType name="Attachment">
+     <xsd:all>
+      <xsd:element name="ContentId" type="xsd:string"/>
+      <xsd:element name="ContentType" type="xsd:string"/>
+      <xsd:element name="ContentLength" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="ContentEncoding" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Locale" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ContentData" type="xsd:base64Binary"
+minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfAttachment">
+     <xsd:sequence>
+      <xsd:element name="Attachment" type="typens:Attachment"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="UploadFile">
+     <xsd:sequence>
+      <xsd:element name="NewFile" type="typens:NewFile"/>
+      <xsd:element name="CopyFromLatestVersion"
+type="typens:ArrayOfString"/>
+      <xsd:element name="Content" type="typens:Attachment"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UploadFile" type="typens:UploadFile"/>
+    <xsd:complexType name="UploadFileResponse">
+     <xsd:sequence>
+      <xsd:element name="FileId" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UploadFileResponse"
+type="typens:UploadFileResponse"/>
+    <xsd:complexType name="NewFile">
+     <xsd:all>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="VersionName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ReplaceExisting" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="MaxVersions" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ArchiveRule" type="typens:ArchiveRule"
+minOccurs="0"/>
+      <xsd:element name="ACL" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="SelectFiles">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="WorkingFolderId" type="xsd:string"/>
+       <xsd:element name="WorkingFolderName" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="Recursive" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="LatestVersionOnly" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Search" type="typens:FileSearch"/>
+       <xsd:element name="NameList" type="typens:ArrayOfString"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="Name" type="xsd:string"/>
+       <xsd:element name="Id" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectFiles" type="typens:SelectFiles"/>
+    <xsd:complexType name="SelectFilesResponse">
+     <xsd:sequence>
+      <xsd:element name="ItemList" type="typens:ArrayOfFile"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectFilesResponse"
+type="typens:SelectFilesResponse"/>
+    <xsd:complexType name="ArrayOfFile">
+     <xsd:sequence>
+      <xsd:element name="File" type="typens:File" maxOccurs="unbounded"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GetFolderItems">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="FolderName" type="xsd:string"/>
+       <xsd:element name="FolderId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:element name="LatestVersionOnly" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="Search" type="typens:FileSearch" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFolderItems" type="typens:GetFolderItems"/>
+    <xsd:complexType name="GetFolderItemsResponse">
+     <xsd:sequence>
+      <xsd:element name="ItemList" type="typens:ArrayOfFile"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFolderItemsResponse"
+type="typens:GetFolderItemsResponse"/>
+    <xsd:complexType name="GetFileDetails">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="FileName" type="xsd:string"/>
+       <xsd:element name="FileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFileDetails" type="typens:GetFileDetails"/>
+    <xsd:complexType name="GetFileDetailsResponse">
+     <xsd:sequence>
+      <xsd:element name="File" type="typens:File"/>
+      <xsd:element name="ACL" type="typens:ArrayOfPermission"
+minOccurs="0"/>
+      <xsd:element name="ArchiveRules" type="typens:ArrayOfArchiveRule"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFileDetailsResponse"
+type="typens:GetFileDetailsResponse"/>
+    <xsd:complexType name="GetFileTypeParameterDefinitions">
+     <xsd:sequence>
+      <xsd:element name="FileType" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFileTypeParameterDefinitions"
+type="typens:GetFileTypeParameterDefinitions"/>
+    <xsd:complexType name="GetFileTypeParameterDefinitionsResponse">
+     <xsd:sequence>
+      <xsd:element name="ParameterList"
+type="typens:ArrayOfParameterDefinition"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFileTypeParameterDefinitionsResponse"
+type="typens:GetFileTypeParameterDefinitionsResponse"/>
+    <xsd:complexType name="ExtractParameterDefinitionsFromFile">
+     <xsd:sequence>
+      <xsd:element name="Content" type="typens:Attachment"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExtractParameterDefinitionsFromFile"
+type="typens:ExtractParameterDefinitionsFromFile"/>
+    <xsd:complexType name="ExtractParameterDefinitionsFromFileResponse">
+     <xsd:sequence>
+      <xsd:element name="ParameterList"
+type="typens:ArrayOfParameterDefinition"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExtractParameterDefinitionsFromFileResponse"
+type="typens:ExtractParameterDefinitionsFromFileResponse"/>
+    <xsd:complexType name="ExportParameterDefinitionsToFile">
+     <xsd:sequence>
+      <xsd:element name="ParameterList"
+type="typens:ArrayOfParameterDefinition"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExportParameterDefinitionsToFile"
+type="typens:ExportParameterDefinitionsToFile"/>
+    <xsd:complexType name="ExportParameterDefinitionsToFileResponse">
+     <xsd:sequence>
+      <xsd:element name="Content" type="typens:Attachment"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExportParameterDefinitionsToFileResponse"
+type="typens:ExportParameterDefinitionsToFileResponse"/>
+    <xsd:complexType name="SelectJobNotices">
+     <xsd:sequence>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:element name="Search" type="typens:JobNoticeSearch"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectJobNotices" type="typens:SelectJobNotices"/>
+    <xsd:complexType name="SelectJobNoticesResponse">
+     <xsd:sequence>
+      <xsd:element name="JobNotices" type="typens:ArrayOfJobNotice"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectJobNoticesResponse"
+type="typens:SelectJobNoticesResponse"/>
+    <xsd:complexType name="ArrayOfJobNotice">
+     <xsd:sequence>
+      <xsd:element name="JobNotice" type="typens:JobNotice"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="JobNotice">
+     <xsd:all>
+      <xsd:element name="JobId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="JobName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Headline" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="JobState" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Succeeded"/>
+         <xsd:enumeration value="Failed"/>
+         <xsd:enumeration value="Cancelled"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="CompletionTime" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="OutputFileName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="OutputFileVersionName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="ActualOutputFileSize" type="xsd:long"
+minOccurs="0"/>
+      <xsd:element name="ActualOutputFileId" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="NotifiedUserId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="NotifiedUserName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="NotifiedChannelId" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="NotifiedChannelName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="OutputFileVersion" type="xsd:long" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="SelectJobs">
+     <xsd:sequence>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Search" type="typens:JobSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectJobs" type="typens:SelectJobs"/>
+    <xsd:complexType name="SelectJobsResponse">
+     <xsd:sequence>
+      <xsd:element name="Jobs" type="typens:ArrayOfJobProperties"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectJobsResponse"
+type="typens:SelectJobsResponse"/>
+    <xsd:complexType name="ArrayOfJobProperties">
+     <xsd:sequence>
+      <xsd:element name="JobProperties" type="typens:JobProperties"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SelectJobSchedules">
+     <xsd:sequence>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Search" type="typens:JobScheduleSearch"/>
+       <xsd:element name="IdList" type="typens:ArrayOfString"/>
+       <xsd:element name="Id" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectJobSchedules"
+type="typens:SelectJobSchedules"/>
+    <xsd:complexType name="SelectJobSchedulesResponse">
+     <xsd:sequence>
+      <xsd:element name="Jobs" type="typens:ArrayOfJobProperties"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="TotalCount" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectJobSchedulesResponse"
+type="typens:SelectJobSchedulesResponse"/>
+    <xsd:complexType name="JobScheduleSearch">
+     <xsd:sequence>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Condition" type="typens:JobScheduleCondition"/>
+       <xsd:element name="ConditionArray"
+type="typens:ArrayOfJobScheduleCondition"/>
+      </xsd:choice>
+      <xsd:element name="RequestedOutputFileName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="InputFileName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="InputFileId" type="xsd:string" minOccurs="0"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="NotifiedUserId" type="xsd:string"/>
+       <xsd:element name="NotifiedUserName" type="xsd:string"/>
+       <xsd:element name="NotifiedChannelId" type="xsd:string"/>
+       <xsd:element name="NotifiedChannelName" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="FetchSize" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchDirection" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="CountLimit" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="FetchHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="JobScheduleCondition">
+     <xsd:sequence>
+      <xsd:element name="Field" type="typens:JobScheduleField"/>
+      <xsd:element name="Match" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfJobScheduleCondition">
+     <xsd:sequence>
+      <xsd:element name="JobScheduleCondition"
+type="typens:JobScheduleCondition" maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="JobScheduleField">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="JobName"/>
+      <xsd:enumeration value="Owner"/>
+      <xsd:enumeration value="JobType"/>
+      <xsd:enumeration value="Priority"/>
+      <xsd:enumeration value="NextStartTime"/>
+      <xsd:enumeration value="State"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="GetJobDetails">
+     <xsd:sequence>
+      <xsd:element name="JobId" type="xsd:string"/>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetJobDetails" type="typens:GetJobDetails"/>
+    <xsd:complexType name="GetJobDetailsResponse">
+     <xsd:sequence>
+      <xsd:element name="JobAttributes" type="typens:JobProperties"/>
+      <xsd:element name="InputDetail" type="typens:JobInputDetail"
+minOccurs="0"/>
+      <xsd:element name="Schedules" type="typens:JobSchedule"
+minOccurs="0"/>
+      <xsd:element name="PrinterOptions" type="typens:JobPrinterOptions"
+minOccurs="0"/>
+      <xsd:element name="NotifyUsers" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyGroups" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyChannels" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="DefaultOutputFileACL"
+type="typens:ArrayOfPermission" minOccurs="0"/>
+      <xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ReportParameters"
+type="typens:ArrayOfParameterValue" minOccurs="0"/>
+      <xsd:element name="Query" type="typens:Query" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetJobDetailsResponse"
+type="typens:GetJobDetailsResponse"/>
+    <xsd:complexType name="GetNoticeJobDetails">
+     <xsd:sequence>
+      <xsd:element name="JobId" type="xsd:string"/>
+      <xsd:element name="ResultDef" type="typens:ArrayOfString"/>
+      <xsd:element name="NotifiedChannelId" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="NotifiedChannelName" type="xsd:string"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetNoticeJobDetails"
+type="typens:GetNoticeJobDetails"/>
+    <xsd:complexType name="GetNoticeJobDetailsResponse">
+     <xsd:sequence>
+      <xsd:element name="JobAttributes" type="typens:JobProperties"/>
+      <xsd:element name="InputDetail" type="typens:JobInputDetail"
+minOccurs="0"/>
+      <xsd:element name="Schedules" type="typens:JobSchedule"
+minOccurs="0"/>
+      <xsd:element name="PrinterOptions" type="typens:JobPrinterOptions"
+minOccurs="0"/>
+      <xsd:element name="NotifyUsers" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyGroups" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyChannels" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="DefaultOutputFileACL"
+type="typens:ArrayOfPermission" minOccurs="0"/>
+      <xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ReportParameters"
+type="typens:ArrayOfParameterValue" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetNoticeJobDetailsResponse"
+type="typens:GetNoticeJobDetailsResponse"/>
+    <xsd:complexType name="GetQuery">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="QueryFileName" type="xsd:string"/>
+       <xsd:element name="QueryFileId" type="xsd:string"/>
+       <xsd:element name="JobId" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetQuery" type="typens:GetQuery"/>
+    <xsd:complexType name="GetQueryResponse">
+     <xsd:sequence>
+      <xsd:element name="Query" type="typens:Query"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetQueryResponse" type="typens:GetQueryResponse"/>
+    <xsd:complexType name="GetReportParameters">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="ReportFileName" type="xsd:string"/>
+       <xsd:element name="ReportFileId" type="xsd:string"/>
+       <xsd:element name="JobId" type="xsd:string"/>
+      </xsd:choice>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetReportParameters"
+type="typens:GetReportParameters"/>
+    <xsd:complexType name="GetReportParametersResponse">
+     <xsd:sequence>
+      <xsd:element name="ParameterList"
+type="typens:ArrayOfParameterDefinition"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetReportParametersResponse"
+type="typens:GetReportParametersResponse"/>
+    <xsd:complexType name="CreateParameterValuesFile">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="BasedOnFileName" type="xsd:string"/>
+       <xsd:element name="BasedOnFileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="ParameterFile" type="typens:NewFile"/>
+      <xsd:element name="ParameterValueList"
+type="typens:ArrayOfParameterValue"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CreateParameterValuesFile"
+type="typens:CreateParameterValuesFile"/>
+    <xsd:complexType name="CreateParameterValuesFileResponse">
+     <xsd:sequence>
+      <xsd:element name="ParameterValuesFile" type="typens:File"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CreateParameterValuesFileResponse"
+type="typens:CreateParameterValuesFileResponse"/>
+    <xsd:complexType name="CreateQuery">
+     <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="BasedOnFileName" type="xsd:string"/>
+       <xsd:element name="BasedOnFileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="QueryFile" type="typens:NewFile"/>
+      <xsd:element name="Query" type="typens:Query" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CreateQuery" type="typens:CreateQuery"/>
+    <xsd:complexType name="CreateQueryResponse">
+     <xsd:sequence>
+      <xsd:element name="QueryFile" type="typens:File"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CreateQueryResponse"
+type="typens:CreateQueryResponse"/>
+    <xsd:complexType name="ExecuteReport">
+     <xsd:sequence>
+      <xsd:element name="JobName" type="xsd:string"/>
+      <xsd:choice>
+       <xsd:element name="InputFileName" type="xsd:string"/>
+       <xsd:element name="InputFileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="SaveOutputFile" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="RequestedOutputFile" type="typens:NewFile"
+minOccurs="0"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="ParameterValues"
+type="typens:ArrayOfParameterValue"/>
+       <xsd:element name="ParameterValuesFileName" type="xsd:string"/>
+       <xsd:element name="ParameterValuesFileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="IsBundled" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="OpenServerOptions" type="typens:OpenServerOptions"
+minOccurs="0"/>
+      <xsd:element name="ProgressiveViewing" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="WaitTime" type="xsd:int" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExecuteReport" type="typens:ExecuteReport"/>
+    <xsd:complexType name="ExecuteReportResponse">
+     <xsd:sequence>
+      <xsd:element name="Status" type="typens:ExecuteReportStatus"/>
+      <xsd:element name="ErrorDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="OutputFileType" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ObjectId" type="xsd:string"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExecuteReportResponse"
+type="typens:ExecuteReportResponse"/>
+    <xsd:complexType name="OpenServerOptions">
+     <xsd:sequence>
+      <xsd:element name="KeepWorkingSpace" type="xsd:boolean"/>
+      <xsd:element name="DriverTimeout" type="xsd:long"/>
+      <xsd:element name="PollingInterval" type="xsd:long"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="ExecuteReportStatus">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Done"/>
+      <xsd:enumeration value="Failed"/>
+      <xsd:enumeration value="FirstPage"/>
+      <xsd:enumeration value="Pending"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="WaitForExecuteReport">
+     <xsd:sequence>
+      <xsd:element name="ObjectId" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="WaitForExecuteReport"
+type="typens:WaitForExecuteReport"/>
+    <xsd:complexType name="WaitForExecuteReportResponse">
+     <xsd:sequence>
+      <xsd:element name="Status" type="xsd:string"/>
+      <xsd:element name="ErrorDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="OutputFileType" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ObjectId" type="xsd:string"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="WaitForExecuteReportResponse"
+type="typens:WaitForExecuteReportResponse"/>
+    <xsd:complexType name="CancelReport">
+     <xsd:sequence>
+      <xsd:element name="ObjectId" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CancelReport" type="typens:CancelReport"/>
+    <xsd:complexType name="CancelReportResponse">
+     <xsd:sequence>
+      <xsd:element name="Status" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CancelReportResponse"
+type="typens:CancelReportResponse"/>
+    <xsd:complexType name="ExecuteQuery">
+     <xsd:sequence>
+      <xsd:element name="JobName" type="xsd:string"/>
+      <xsd:choice>
+       <xsd:element name="InputFileName" type="xsd:string"/>
+       <xsd:element name="InputFileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="SaveOutputFile" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="RequestedOutputFile" type="typens:NewFile"
+minOccurs="0"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="QueryFileName" type="xsd:string"/>
+       <xsd:element name="QueryFileId" type="xsd:string"/>
+       <xsd:element name="Query" type="typens:Query"/>
+      </xsd:choice>
+      <xsd:element name="ProgressiveViewing" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="RunLatestVersion" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="IsBundled" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="WaitTime" type="xsd:int" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExecuteQuery" type="typens:ExecuteQuery"/>
+    <xsd:complexType name="ExecuteQueryResponse">
+     <xsd:sequence>
+      <xsd:element name="Status" type="typens:ExecuteReportStatus"/>
+      <xsd:element name="ErrorDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="OutputFileType" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ObjectId" type="xsd:string"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ExecuteQueryResponse"
+type="typens:ExecuteQueryResponse"/>
+    <xsd:complexType name="PrintReport">
+     <xsd:sequence>
+      <xsd:element name="JobName" type="xsd:string"/>
+      <xsd:element name="Priority" type="xsd:int"/>
+      <xsd:choice>
+       <xsd:element name="InputFileName" type="xsd:string"/>
+       <xsd:element name="InputFileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="Schedules" type="typens:JobSchedule"
+minOccurs="0"/>
+      <xsd:element name="PrinterOptions" type="typens:JobPrinterOptions"
+minOccurs="0"/>
+      <xsd:element name="NotifyUsersByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyGroupsByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyChannelsByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyUsersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyGroupsById" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyChannelsById" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="SendSuccessNotice" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendFailureNotice" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendEmailForSuccess" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendEmailForFailure" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="OverrideRecipientPref" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="RecordSuccessStatus" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="RecordFailureStatus" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="RetryOptions" type="typens:RetryOptions"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="PrintReport" type="typens:PrintReport"/>
+    <xsd:complexType name="PrintReportResponse">
+     <xsd:sequence>
+      <xsd:element name="JobId" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="PrintReportResponse"
+type="typens:PrintReportResponse"/>
+    <xsd:complexType name="RetryOptions">
+     <xsd:sequence>
+      <xsd:element name="RetryOption" type="typens:RetryOptionType"/>
+      <xsd:element name="MaxRetryCount" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="RetryInterval" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SubmitJob">
+     <xsd:sequence>
+      <xsd:element name="JobName" type="xsd:string"/>
+      <xsd:element name="Headline" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Priority" type="xsd:int"/>
+      <xsd:choice>
+       <xsd:element name="InputFileName" type="xsd:string"/>
+       <xsd:element name="InputFileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="RunLatestVersion" type="xsd:boolean" default="true"
+minOccurs="0"/>
+      <xsd:element name="RequestedOutputFile" type="typens:NewFile"/>
+      <xsd:element name="Operation">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="RunReport"/>
+         <xsd:enumeration value="RunAndPrintReport"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="ParameterValues"
+type="typens:ArrayOfParameterValue"/>
+       <xsd:element name="ParameterValueFileName" type="xsd:string"/>
+       <xsd:element name="ParameterValueFileId" type="xsd:string"/>
+       <xsd:element name="Query" type="typens:Query"/>
+       <xsd:element name="QueryFileName" type="xsd:string"/>
+       <xsd:element name="QueryFileId" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="Schedules" type="typens:JobSchedule"
+minOccurs="0"/>
+      <xsd:element name="PrinterOptions" type="typens:JobPrinterOptions"
+minOccurs="0"/>
+      <xsd:element name="NotifyUsersByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyGroupsByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyChannelsByName" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyUsersById" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyGroupsById" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="NotifyChannelsById" type="typens:ArrayOfString"
+minOccurs="0"/>
+      <xsd:element name="SendSuccessNotice" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendFailureNotice" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendEmailForSuccess" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="SendEmailForFailure" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="AttachReportInEmail" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="OverrideRecipientPref" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="EmailFormatOption" type="typens:EmailFormatOption"
+minOccurs="0"/>
+      <xsd:element name="RecordSuccessStatus" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="RecordFailureStatus" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="IsBundled" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="RetryOptions" type="typens:RetryOptions"
+minOccurs="0"/>
+      <xsd:element name="OpenServerOptions" type="typens:OpenServerOptions"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubmitJob" type="typens:SubmitJob"/>
+    <xsd:complexType name="SubmitJobResponse">
+     <xsd:sequence>
+      <xsd:element name="JobId" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubmitJobResponse" type="typens:SubmitJobResponse"/>
+    <xsd:complexType name="CancelJob">
+     <xsd:sequence>
+      <xsd:element name="JobId" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CancelJob" type="typens:CancelJob"/>
+    <xsd:complexType name="CancelJobResponse">
+     <xsd:sequence>
+      <xsd:element name="Status" type="typens:CancelJobStatus"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CancelJobResponse" type="typens:CancelJobResponse"/>
+    <xsd:simpleType name="CancelJobStatus">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Succeeded"/>
+      <xsd:enumeration value="Failed"/>
+      <xsd:enumeration value="InActive"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="SelectPage">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+      <xsd:element name="ViewParameter" type="typens:ViewParameter"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="Page" type="typens:PageIdentifier"/>
+       <xsd:element name="Component" type="typens:ComponentType"/>
+       <xsd:element name="SearchCriteria" type="xsd:string"/>
+      </xsd:choice>
+      <xsd:element name="MaxHeight" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="CustomInputPara" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectPage" type="typens:SelectPage"/>
+    <xsd:complexType name="SelectPageResponse">
+     <xsd:sequence>
+      <xsd:element name="PageRef" type="typens:Attachment"/>
+      <xsd:element name="PostResponseRef" type="typens:Attachment"
+minOccurs="0"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SelectPageResponse"
+type="typens:SelectPageResponse"/>
+    <xsd:complexType name="ObjectIdentifier">
+     <xsd:sequence>
+      <xsd:element name="Id" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Version" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ViewParameter">
+     <xsd:all>
+      <xsd:element name="Format" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="UserAgent" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ScalingFactor" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="AcceptEncoding" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ViewOperation" minOccurs="0">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="view"/>
+         <xsd:enumeration value="print"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="PathInformation" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="EmbeddedObjPath" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="RedirectPath" type="xsd:string" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="PageIdentifier">
+     <xsd:sequence>
+      <xsd:element name="Range" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="PageNum" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="ViewMode" type="xsd:int" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ComponentType">
+     <xsd:all>
+      <xsd:element name="Id" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Value" type="xsd:string" minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="GetContent">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+      <xsd:element name="ViewParameter" type="typens:ViewParameter"/>
+      <xsd:element name="Component" type="typens:ComponentType"/>
+      <xsd:element name="MaxHeight" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="CustomInputPara" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetContent" type="typens:GetContent"/>
+    <xsd:complexType name="GetContentResponse">
+     <xsd:sequence>
+      <xsd:element name="ContentRef" type="typens:Attachment"/>
+      <xsd:element name="PostResponseRef" type="typens:Attachment"
+minOccurs="0"/>
+      <xsd:element name="ComponentId" type="xsd:string"/>
+      <xsd:element name="FileExtension" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="FileDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetContentResponse"
+type="typens:GetContentResponse"/>
+    <xsd:complexType name="GetEmbeddedComponent">
+     <xsd:sequence>
+      <xsd:element name="ObjectId" type="xsd:string"/>
+      <xsd:element name="Operation" type="xsd:string"/>
+      <xsd:element name="StreamName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Embed" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="ComponentId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ScalingFactor" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="AcceptEncoding" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+      <xsd:element name="Format" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="CoordinateX" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="CoordinateY" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="RedirectPath" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetEmbeddedComponent"
+type="typens:GetEmbeddedComponent"/>
+    <xsd:complexType name="GetEmbeddedComponentResponse">
+     <xsd:sequence>
+      <xsd:element name="EmbeddedRef" type="typens:Attachment"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="DataLinkingURL" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetEmbeddedComponentResponse"
+type="typens:GetEmbeddedComponentResponse"/>
+    <xsd:complexType name="GetDynamicData">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+      <xsd:element name="ViewParameter" type="typens:ViewParameter"
+minOccurs="0"/>
+      <xsd:element name="Component" type="typens:ComponentType"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+      <xsd:element name="CoordinateX" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="CoordinateY" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetDynamicData" type="typens:GetDynamicData"/>
+    <xsd:complexType name="GetDynamicDataResponse">
+     <xsd:sequence>
+      <xsd:element name="DynamicDataRef" type="typens:Attachment"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="DataLinkingURL" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetDynamicDataResponse"
+type="typens:GetDynamicDataResponse"/>
+    <xsd:complexType name="GetStaticData">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+      <xsd:element name="ViewParameter" type="typens:ViewParameter"
+minOccurs="0"/>
+      <xsd:element name="Stream" type="typens:Stream"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetStaticData" type="typens:GetStaticData"/>
+    <xsd:complexType name="GetStaticDataResponse">
+     <xsd:sequence>
+      <xsd:element name="StaticDataRef" type="typens:Attachment"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetStaticDataResponse"
+type="typens:GetStaticDataResponse"/>
+    <xsd:complexType name="Stream">
+     <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="EmbeddedProperty" type="xsd:boolean"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GetStyleSheet">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+      <xsd:element name="ViewParameter" type="typens:ViewParameter"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetStyleSheet" type="typens:GetStyleSheet"/>
+    <xsd:complexType name="GetStyleSheetResponse">
+     <xsd:sequence>
+      <xsd:element name="StyleSheetRef" type="typens:Attachment"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetStyleSheetResponse"
+type="typens:GetStyleSheetResponse"/>
+    <xsd:complexType name="GetTOC">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+      <xsd:element name="ViewParameter" type="typens:ViewParameter"/>
+      <xsd:element name="TocNodeId" type="xsd:string"/>
+      <xsd:element name="Depth" type="xsd:string"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetTOC" type="typens:GetTOC"/>
+    <xsd:complexType name="GetTOCResponse">
+     <xsd:sequence>
+      <xsd:element name="TocRef" type="typens:Attachment"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetTOCResponse" type="typens:GetTOCResponse"/>
+    <xsd:complexType name="GetPageCount">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetPageCount" type="typens:GetPageCount"/>
+    <xsd:complexType name="GetPageCountResponse">
+     <xsd:sequence>
+      <xsd:element name="PageCount" type="xsd:string"/>
+      <xsd:element name="IsReportCompleted" type="xsd:boolean"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetPageCountResponse"
+type="typens:GetPageCountResponse"/>
+    <xsd:complexType name="GetFormats">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+      <xsd:element name="FormatType" type="typens:FormatType"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFormats" type="typens:GetFormats"/>
+    <xsd:complexType name="GetFormatsResponse">
+     <xsd:sequence>
+      <xsd:element name="FormatList" type="typens:ArrayOfString"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFormatsResponse"
+type="typens:GetFormatsResponse"/>
+    <xsd:simpleType name="FormatType">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="0"/>
+      <xsd:enumeration value="1"/>
+      <xsd:enumeration value="2"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="SearchReport">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+      <xsd:element name="ViewParameter" type="typens:ViewParameter"/>
+      <xsd:choice minOccurs="0">
+       <xsd:element name="SearchReportByNameList"
+type="typens:SearchReportByNameList"/>
+       <xsd:element name="SearchReportByIdList"
+type="typens:SearchReportByIdList"/>
+      </xsd:choice>
+      <xsd:element name="Range" type="typens:Range" minOccurs="0"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+      <xsd:element name="OutputProperty" type="typens:SearchResultProperty"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SearchReport" type="typens:SearchReport"/>
+    <xsd:complexType name="SearchReportResponse">
+     <xsd:sequence>
+      <xsd:element name="SearchRef" type="typens:Attachment"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SearchReportResponse"
+type="typens:SearchReportResponse"/>
+    <xsd:complexType name="SearchReportByNameList">
+     <xsd:sequence>
+      <xsd:element name="SelectByNameList" type="typens:ArrayOfString"/>
+      <xsd:element name="SearchByNameList" type="typens:ArrayOfComponent"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SearchReportByIdList">
+     <xsd:sequence>
+      <xsd:element name="SelectByIdList" type="typens:ArrayOfString"/>
+      <xsd:element name="SearchByIdList" type="typens:ArrayOfComponent"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Range">
+     <xsd:sequence>
+      <xsd:element name="Start" type="xsd:long"/>
+      <xsd:element name="End" type="xsd:long"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SearchResultProperty">
+     <xsd:all>
+      <xsd:element name="EnableColumnHeaders" type="xsd:boolean"
+minOccurs="0"/>
+      <xsd:element name="UseQuoteDelimiter" type="xsd:boolean"
+minOccurs="0"/>
+     </xsd:all>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfComponent">
+     <xsd:sequence>
+      <xsd:element name="Component" type="typens:ComponentType"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GetCustomFormat">
+     <xsd:sequence>
+      <xsd:element name="Object" type="typens:ObjectIdentifier"/>
+      <xsd:element name="ViewParameter" type="typens:ViewParameter"/>
+      <xsd:element name="ArgumentList" type="typens:ArrayOfArgument"/>
+      <xsd:element name="DownloadEmbedded" type="xsd:boolean"
+default="false" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetCustomFormat" type="typens:GetCustomFormat"/>
+    <xsd:complexType name="GetCustomFormatResponse">
+     <xsd:sequence>
+      <xsd:element name="CustomRef" type="typens:Attachment"/>
+      <xsd:element name="ConnectionHandle" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetCustomFormatResponse"
+type="typens:GetCustomFormatResponse"/>
+    <xsd:complexType name="ArrayOfArgument">
+     <xsd:sequence>
+      <xsd:element name="Argument" type="typens:Argument"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Argument">
+     <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Value" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GetFactoryServiceInfo"/>
+    <xsd:element name="GetFactoryServiceInfo"
+type="typens:GetFactoryServiceInfo"/>
+    <xsd:complexType name="GetFactoryServiceInfoResponse">
+     <xsd:sequence>
+      <xsd:element name="ServerName" type="xsd:string"/>
+      <xsd:element name="PendingSyncJobs" type="xsd:long"/>
+      <xsd:element name="SyncJobQueueSize" type="xsd:long"/>
+      <xsd:element name="RunningSyncJobs" type="xsd:long"/>
+      <xsd:element name="RunningJobs" type="xsd:long"/>
+      <xsd:element name="SyncFactoryProcesses" type="xsd:long"/>
+      <xsd:element name="MaxFactoryProcesses" type="xsd:long"/>
+      <xsd:element name="TransientReportCacheSize" type="xsd:long"/>
+      <xsd:element name="PercentTransientReportCacheInUse" type="xsd:long"/>
+      <xsd:element name="CurrentTransientReportTimeout" type="xsd:long"/>
+      <xsd:element name="TransientReportTimeout" type="xsd:long"/>
+      <xsd:element name="SyncJobQueueWait" type="xsd:long"/>
+      <xsd:element name="MaxSyncJobRuntime" type="xsd:long"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFactoryServiceInfoResponse"
+type="typens:GetFactoryServiceInfoResponse"/>
+    <xsd:complexType name="GetSyncJobInfo">
+     <xsd:sequence>
+      <xsd:element name="ObjectId" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSyncJobInfo" type="typens:GetSyncJobInfo"/>
+    <xsd:complexType name="GetSyncJobInfoResponse">
+     <xsd:sequence>
+      <xsd:element name="Status">
+       <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Pending"/>
+         <xsd:enumeration value="Running"/>
+         <xsd:enumeration value="Completed"/>
+         <xsd:enumeration value="Failed"/>
+        </xsd:restriction>
+       </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="ErrorDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Pending" type="typens:PendingSyncJob"
+minOccurs="0"/>
+      <xsd:element name="Running" type="typens:RunningJob" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSyncJobInfoResponse"
+type="typens:GetSyncJobInfoResponse"/>
+    <xsd:complexType name="PendingSyncJob">
+     <xsd:sequence>
+      <xsd:element name="ConnectionHandle" type="xsd:base64Binary"/>
+      <xsd:element name="ObjectId" type="xsd:string"/>
+      <xsd:element name="IsTransient" type="xsd:boolean"/>
+      <xsd:element name="Volume" type="xsd:string"/>
+      <xsd:element name="ServerName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Owner" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ExecutableFileName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="ExecutableVersionNumber" type="xsd:long"
+minOccurs="0"/>
+      <xsd:element name="ExecutableVersionName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="SubmissionTime" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="PendingTime" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="QueueTimeout" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="QueuePosition" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="RunningJob">
+     <xsd:sequence>
+      <xsd:element name="IsSyncJob" type="xsd:boolean"/>
+      <xsd:element name="ConnectionHandle" type="xsd:base64Binary"
+minOccurs="0"/>
+      <xsd:element name="ObjectId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="IsTransient" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="IsProgressive" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="JobId" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Volume" type="xsd:string"/>
+      <xsd:element name="ServerName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="Owner" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ExecutableFileName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="ExecutableVersionNumber" type="xsd:long"
+minOccurs="0"/>
+      <xsd:element name="ExecutableVersionName" type="xsd:string"
+minOccurs="0"/>
+      <xsd:element name="SubmissionTime" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="StartTime" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="RunningTime" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="ExecutionTimeout" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="IsSyncFactory" type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="FactoryPid" type="xsd:long" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GetFactoryServiceJobs">
+     <xsd:sequence>
+      <xsd:element name="PendingSyncJobsResultDef"
+type="typens:ArrayOfString" minOccurs="0"/>
+      <xsd:element name="RunningJobsResultDef" type="typens:ArrayOfString"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFactoryServiceJobs"
+type="typens:GetFactoryServiceJobs"/>
+    <xsd:complexType name="GetFactoryServiceJobsResponse">
+     <xsd:sequence>
+      <xsd:element name="PendingSyncJobs"
+type="typens:ArrayOfPendingSyncJob" minOccurs="0"/>
+      <xsd:element name="RunningJobs" type="typens:ArrayOfRunningJob"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetFactoryServiceJobsResponse"
+type="typens:GetFactoryServiceJobsResponse"/>
+    <xsd:complexType name="ArrayOfPendingSyncJob">
+     <xsd:sequence>
+      <xsd:element name="PendingSyncJob" type="typens:PendingSyncJob"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfRunningJob">
+     <xsd:sequence>
+      <xsd:element name="RunningJob" type="typens:RunningJob"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="GetSystemVolumeNames">
+     <xsd:sequence>
+      <xsd:element name="OnlineOnly" type="xsd:boolean"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSystemVolumeNames"
+type="typens:GetSystemVolumeNames"/>
+    <xsd:complexType name="GetSystemVolumeNamesResponse">
+     <xsd:sequence>
+      <xsd:element name="SystemName" type="xsd:string"/>
+      <xsd:element name="VolumeNameList" type="typens:ArrayOfString"/>
+      <xsd:element name="SystemDefaultVolume" type="xsd:string"/>
+      <xsd:element name="ServerVersionInformation"
+type="typens:ServerVersionInformation"/>
+      <xsd:element name="ExpirationDate" type="xsd:string"/>
+      <xsd:element name="DaysToExpiration" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSystemVolumeNamesResponse"
+type="typens:GetSystemVolumeNamesResponse"/>
+    <xsd:complexType name="ServerVersionInformation">
+     <xsd:sequence>
+      <xsd:element name="ServerVersion" type="xsd:string"/>
+      <xsd:element name="ServerBuild" type="xsd:string"/>
+      <xsd:element name="OSVersion" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SystemLogin">
+     <xsd:sequence>
+      <xsd:element name="SystemPassword" type="xsd:string" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SystemLogin" type="typens:SystemLogin"/>
+    <xsd:complexType name="SystemLoginResponse">
+     <xsd:sequence>
+      <xsd:element name="AuthId" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SystemLoginResponse"
+type="typens:SystemLoginResponse"/>
+    <xsd:complexType name="GetSystemServerList"/>
+    <xsd:element name="GetSystemServerList"
+type="typens:GetSystemServerList"/>
+    <xsd:complexType name="GetSystemServerListResponse">
+     <xsd:sequence>
+      <xsd:element name="ServerList"
+type="typens:ArrayOfServerInformation"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSystemServerListResponse"
+type="typens:GetSystemServerListResponse"/>
+    <xsd:complexType name="ArrayOfServerInformation">
+     <xsd:sequence>
+      <xsd:element name="ServerInformation" type="typens:ServerInformation"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ServerInformation">
+     <xsd:sequence>
+      <xsd:element name="ServerName" type="xsd:string"/>
+      <xsd:element name="ServerStatusInformation"
+type="typens:ServerStatusInformation"/>
+      <xsd:element name="ServiceList" type="typens:ArrayOfService"/>
+      <xsd:element name="OwnsVolume" type="xsd:boolean"/>
+      <xsd:element name="IsMaster" type="xsd:boolean"/>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="VersionInformation"
+type="typens:ServerVersionInformation"/>
+      <xsd:element name="ChangesPending" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ServerStatusInformation">
+     <xsd:sequence>
+      <xsd:element name="ServerState" type="typens:ServerState"/>
+      <xsd:element name="SystemType" type="typens:SystemType"/>
+      <xsd:element name="ServerStateErrorCode" type="xsd:long"
+minOccurs="0"/>
+      <xsd:element name="ServerStateDescription" type="xsd:string"
+minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfService">
+     <xsd:sequence>
+      <xsd:element name="Service" type="typens:Service"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="ServerState">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="OFFLINE"/>
+      <xsd:enumeration value="STARTING"/>
+      <xsd:enumeration value="ONLINE"/>
+      <xsd:enumeration value="STOPPING"/>
+      <xsd:enumeration value="FAILED"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="SystemType">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Cluster"/>
+      <xsd:enumeration value="Standalone"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="Service">
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Request"/>
+      <xsd:enumeration value="Viewing"/>
+      <xsd:enumeration value="Generation"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="GetSystemMDSInfo">
+     <xsd:sequence>
+      <xsd:element name="OnlineOnly" type="xsd:boolean" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSystemMDSInfo" type="typens:GetSystemMDSInfo"/>
+    <xsd:complexType name="GetSystemMDSInfoResponse">
+     <xsd:sequence>
+      <xsd:element name="MDSInfoList" type="typens:ArrayOfMDSInfo"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSystemMDSInfoResponse"
+type="typens:GetSystemMDSInfoResponse"/>
+    <xsd:complexType name="ArrayOfMDSInfo">
+     <xsd:sequence>
+      <xsd:element name="MDSInfo" type="typens:MDSInfo"
+maxOccurs="unbounded" minOccurs="0"/>
+     </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="MDSInfo">
+     <xsd:sequence>
+      <xsd:element name="ServerName" type="xsd:string"/>
+      <xsd:element name="MDSIPAddress" type="xsd:string"/>
+      <xsd:element name="MDSPortNumber" type="xsd:int"/>
+      <xsd:element name="ServerState" type="typens:ServerState"/>
+      <xsd:element name="IsMaster" type="xsd:boolean"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:schema>
+  </types>
+  <message name="Login">
+   <part name="Request" element="typens:Login"/>
+  </message>
+  <message name="LoginResponse">
+   <part name="Response" element="typens:LoginResponse"/>
+  </message>
+  <message name="GetFileACL">
+   <part name="Request" element="typens:GetFileACL"/>
+  </message>
+  <message name="GetFileACLResponse">
+   <part name="Response" element="typens:GetFileACLResponse"/>
+  </message>
+  <message name="GetChannelACL">
+   <part name="Request" element="typens:GetChannelACL"/>
+  </message>
+  <message name="GetChannelACLResponse">
+   <part name="Response" element="typens:GetChannelACLResponse"/>
+  </message>
+  <message name="GetFileCreationACL">
+   <part name="Request" element="typens:GetFileCreationACL"/>
+  </message>
+  <message name="GetFileCreationACLResponse">
+   <part name="Response" element="typens:GetFileCreationACLResponse"/>
+  </message>
+  <message name="Administrate">
+   <part name="Request" element="typens:Administrate"/>
+  </message>
+  <message name="AdministrateResponse">
+   <part name="Response" element="typens:AdministrateResponse"/>
+  </message>
+  <message name="SelectUsers">
+   <part name="Request" element="typens:SelectUsers"/>
+  </message>
+  <message name="SelectUsersResponse">
+   <part name="Response" element="typens:SelectUsersResponse"/>
+  </message>
+  <message name="SelectGroups">
+   <part name="Request" element="typens:SelectGroups"/>
+  </message>
+  <message name="SelectGroupsResponse">
+   <part name="Response" element="typens:SelectGroupsResponse"/>
+  </message>
+  <message name="SelectRoles">
+   <part name="Request" element="typens:SelectRoles"/>
+  </message>
+  <message name="SelectRolesResponse">
+   <part name="Response" element="typens:SelectRolesResponse"/>
+  </message>
+  <message name="SelectChannels">
+   <part name="Request" element="typens:SelectChannels"/>
+  </message>
+  <message name="SelectChannelsResponse">
+   <part name="Response" element="typens:SelectChannelsResponse"/>
+  </message>
+  <message name="SelectFileTypes">
+   <part name="Request" element="typens:SelectFileTypes"/>
+  </message>
+  <message name="SelectFileTypesResponse">
+   <part name="Response" element="typens:SelectFileTypesResponse"/>
+  </message>
+  <message name="GetSystemPrinters">
+   <part name="Request" element="typens:GetSystemPrinters"/>
+  </message>
+  <message name="GetSystemPrintersResponse">
+   <part name="Response" element="typens:GetSystemPrintersResponse"/>
+  </message>
+  <message name="GetUserPrinterOptions">
+   <part name="Request" element="typens:GetUserPrinterOptions"/>
+  </message>
+  <message name="GetUserPrinterOptionsResponse">
+   <part name="Response" element="typens:GetUserPrinterOptionsResponse"/>
+  </message>
+  <message name="GetVolumeProperties">
+   <part name="Request" element="typens:GetVolumeProperties"/>
+  </message>
+  <message name="GetVolumePropertiesResponse">
+   <part name="Response" element="typens:GetVolumePropertiesResponse"/>
+  </message>
+  <message name="ExecuteVolumeCommand">
+   <part name="Request" element="typens:ExecuteVolumeCommand"/>
+  </message>
+  <message name="ExecuteVolumeCommandResponse">
+   <part name="Response" element="typens:ExecuteVolumeCommandResponse"/>
+  </message>
+  <message name="UpdateOpenSecurityCache">
+   <part name="Request" element="typens:UpdateOpenSecurityCache"/>
+  </message>
+  <message name="CallOpenSecurityLibrary">
+   <part name="Request" element="typens:CallOpenSecurityLibrary"/>
+  </message>
+  <message name="CallOpenSecurityLibraryResponse">
+   <part name="Response" element="typens:CallOpenSecurityLibraryResponse"/>
+  </message>
+  <message name="DownloadFile">
+   <part name="Request" element="typens:DownloadFile"/>
+  </message>
+  <message name="DownloadFileResponse">
+   <part name="Response" element="typens:DownloadFileResponse"/>
+  </message>
+  <message name="UploadFile">
+   <part name="Request" element="typens:UploadFile"/>
+  </message>
+  <message name="UploadFileResponse">
+   <part name="Response" element="typens:UploadFileResponse"/>
+  </message>
+  <message name="SelectFiles">
+   <part name="Request" element="typens:SelectFiles"/>
+  </message>
+  <message name="SelectFilesResponse">
+   <part name="Response" element="typens:SelectFilesResponse"/>
+  </message>
+  <message name="GetFolderItems">
+   <part name="Request" element="typens:GetFolderItems"/>
+  </message>
+  <message name="GetFolderItemsResponse">
+   <part name="Response" element="typens:GetFolderItemsResponse"/>
+  </message>
+  <message name="GetFileDetails">
+   <part name="Request" element="typens:GetFileDetails"/>
+  </message>
+  <message name="GetFileDetailsResponse">
+   <part name="Response" element="typens:GetFileDetailsResponse"/>
+  </message>
+  <message name="GetFileTypeParameterDefinitions">
+   <part name="Request" element="typens:GetFileTypeParameterDefinitions"/>
+  </message>
+  <message name="GetFileTypeParameterDefinitionsResponse">
+   <part name="Response"
+element="typens:GetFileTypeParameterDefinitionsResponse"/>
+  </message>
+  <message name="ExtractParameterDefinitionsFromFile">
+   <part name="Request"
+element="typens:ExtractParameterDefinitionsFromFile"/>
+  </message>
+  <message name="ExtractParameterDefinitionsFromFileResponse">
+   <part name="Response"
+element="typens:ExtractParameterDefinitionsFromFileResponse"/>
+  </message>
+  <message name="ExportParameterDefinitionsToFile">
+   <part name="Request" element="typens:ExportParameterDefinitionsToFile"/>
+  </message>
+  <message name="ExportParameterDefinitionsToFileResponse">
+   <part name="Response"
+element="typens:ExportParameterDefinitionsToFileResponse"/>
+  </message>
+  <message name="SelectJobNotices">
+   <part name="Request" element="typens:SelectJobNotices"/>
+  </message>
+  <message name="SelectJobNoticesResponse">
+   <part name="Response" element="typens:SelectJobNoticesResponse"/>
+  </message>
+  <message name="SelectJobs">
+   <part name="Request" element="typens:SelectJobs"/>
+  </message>
+  <message name="SelectJobsResponse">
+   <part name="Response" element="typens:SelectJobsResponse"/>
+  </message>
+  <message name="SelectJobSchedules">
+   <part name="Request" element="typens:SelectJobSchedules"/>
+  </message>
+  <message name="SelectJobSchedulesResponse">
+   <part name="Response" element="typens:SelectJobSchedulesResponse"/>
+  </message>
+  <message name="GetJobDetails">
+   <part name="Request" element="typens:GetJobDetails"/>
+  </message>
+  <message name="GetJobDetailsResponse">
+   <part name="Response" element="typens:GetJobDetailsResponse"/>
+  </message>
+  <message name="GetNoticeJobDetails">
+   <part name="Request" element="typens:GetNoticeJobDetails"/>
+  </message>
+  <message name="GetNoticeJobDetailsResponse">
+   <part name="Response" element="typens:GetNoticeJobDetailsResponse"/>
+  </message>
+  <message name="GetQuery">
+   <part name="Request" element="typens:GetQuery"/>
+  </message>
+  <message name="GetQueryResponse">
+   <part name="Response" element="typens:GetQueryResponse"/>
+  </message>
+  <message name="GetReportParameters">
+   <part name="Request" element="typens:GetReportParameters"/>
+  </message>
+  <message name="GetReportParametersResponse">
+   <part name="Response" element="typens:GetReportParametersResponse"/>
+  </message>
+  <message name="CreateParameterValuesFile">
+   <part name="Request" element="typens:CreateParameterValuesFile"/>
+  </message>
+  <message name="CreateParameterValuesFileResponse">
+   <part name="Response"
+element="typens:CreateParameterValuesFileResponse"/>
+  </message>
+  <message name="CreateQuery">
+   <part name="Request" element="typens:CreateQuery"/>
+  </message>
+  <message name="CreateQueryResponse">
+   <part name="Response" element="typens:CreateQueryResponse"/>
+  </message>
+  <message name="ExecuteReport">
+   <part name="Request" element="typens:ExecuteReport"/>
+  </message>
+  <message name="ExecuteReportResponse">
+   <part name="Response" element="typens:ExecuteReportResponse"/>
+  </message>
+  <message name="WaitForExecuteReport">
+   <part name="Request" element="typens:WaitForExecuteReport"/>
+  </message>
+  <message name="WaitForExecuteReportResponse">
+   <part name="Response" element="typens:WaitForExecuteReportResponse"/>
+  </message>
+  <message name="CancelReport">
+   <part name="Request" element="typens:CancelReport"/>
+  </message>
+  <message name="CancelReportResponse">
+   <part name="Response" element="typens:CancelReportResponse"/>
+  </message>
+  <message name="ExecuteQuery">
+   <part name="Request" element="typens:ExecuteQuery"/>
+  </message>
+  <message name="ExecuteQueryResponse">
+   <part name="Response" element="typens:ExecuteQueryResponse"/>
+  </message>
+  <message name="PrintReport">
+   <part name="Request" element="typens:PrintReport"/>
+  </message>
+  <message name="PrintReportResponse">
+   <part name="Response" element="typens:PrintReportResponse"/>
+  </message>
+  <message name="SubmitJob">
+   <part name="Request" element="typens:SubmitJob"/>
+  </message>
+  <message name="SubmitJobResponse">
+   <part name="Response" element="typens:SubmitJobResponse"/>
+  </message>
+  <message name="CancelJob">
+   <part name="Request" element="typens:CancelJob"/>
+  </message>
+  <message name="CancelJobResponse">
+   <part name="Response" element="typens:CancelJobResponse"/>
+  </message>
+  <message name="SelectPage">
+   <part name="Request" element="typens:SelectPage"/>
+  </message>
+  <message name="SelectPageResponse">
+   <part name="Response" element="typens:SelectPageResponse"/>
+  </message>
+  <message name="GetContent">
+   <part name="Request" element="typens:GetContent"/>
+  </message>
+  <message name="GetContentResponse">
+   <part name="Response" element="typens:GetContentResponse"/>
+  </message>
+  <message name="GetEmbeddedComponent">
+   <part name="Request" element="typens:GetEmbeddedComponent"/>
+  </message>
+  <message name="GetEmbeddedComponentResponse">
+   <part name="Response" element="typens:GetEmbeddedComponentResponse"/>
+  </message>
+  <message name="GetDynamicData">
+   <part name="Request" element="typens:GetDynamicData"/>
+  </message>
+  <message name="GetDynamicDataResponse">
+   <part name="Response" element="typens:GetDynamicDataResponse"/>
+  </message>
+  <message name="GetStaticData">
+   <part name="Request" element="typens:GetStaticData"/>
+  </message>
+  <message name="GetStaticDataResponse">
+   <part name="Response" element="typens:GetStaticDataResponse"/>
+  </message>
+  <message name="GetStyleSheet">
+   <part name="Request" element="typens:GetStyleSheet"/>
+  </message>
+  <message name="GetStyleSheetResponse">
+   <part name="Response" element="typens:GetStyleSheetResponse"/>
+  </message>
+  <message name="GetTOC">
+   <part name="Request" element="typens:GetTOC"/>
+  </message>
+  <message name="GetTOCResponse">
+   <part name="Response" element="typens:GetTOCResponse"/>
+  </message>
+  <message name="GetPageCount">
+   <part name="Request" element="typens:GetPageCount"/>
+  </message>
+  <message name="GetPageCountResponse">
+   <part name="Response" element="typens:GetPageCountResponse"/>
+  </message>
+  <message name="GetFormats">
+   <part name="Request" element="typens:GetFormats"/>
+  </message>
+  <message name="GetFormatsResponse">
+   <part name="Response" element="typens:GetFormatsResponse"/>
+  </message>
+  <message name="SearchReport">
+   <part name="Request" element="typens:SearchReport"/>
+  </message>
+  <message name="SearchReportResponse">
+   <part name="Response" element="typens:SearchReportResponse"/>
+  </message>
+  <message name="GetCustomFormat">
+   <part name="Request" element="typens:GetCustomFormat"/>
+  </message>
+  <message name="GetCustomFormatResponse">
+   <part name="Response" element="typens:GetCustomFormatResponse"/>
+  </message>
+  <message name="GetFactoryServiceInfo">
+   <part name="Request" element="typens:GetFactoryServiceInfo"/>
+  </message>
+  <message name="GetFactoryServiceInfoResponse">
+   <part name="Response" element="typens:GetFactoryServiceInfoResponse"/>
+  </message>
+  <message name="GetSyncJobInfo">
+   <part name="Request" element="typens:GetSyncJobInfo"/>
+  </message>
+  <message name="GetSyncJobInfoResponse">
+   <part name="Response" element="typens:GetSyncJobInfoResponse"/>
+  </message>
+  <message name="GetFactoryServiceJobs">
+   <part name="Request" element="typens:GetFactoryServiceJobs"/>
+  </message>
+  <message name="GetFactoryServiceJobsResponse">
+   <part name="Response" element="typens:GetFactoryServiceJobsResponse"/>
+  </message>
+  <message name="GetSystemVolumeNames">
+   <part name="Request" element="typens:GetSystemVolumeNames"/>
+  </message>
+  <message name="GetSystemVolumeNamesResponse">
+   <part name="Response" element="typens:GetSystemVolumeNamesResponse"/>
+  </message>
+  <message name="SystemLogin">
+   <part name="Request" element="typens:SystemLogin"/>
+  </message>
+  <message name="SystemLoginResponse">
+   <part name="Response" element="typens:SystemLoginResponse"/>
+  </message>
+  <message name="GetSystemServerList">
+   <part name="Request" element="typens:GetSystemServerList"/>
+  </message>
+  <message name="GetSystemServerListResponse">
+   <part name="Response" element="typens:GetSystemServerListResponse"/>
+  </message>
+  <message name="GetSystemMDSInfo">
+   <part name="Request" element="typens:GetSystemMDSInfo"/>
+  </message>
+  <message name="GetSystemMDSInfoResponse">
+   <part name="Response" element="typens:GetSystemMDSInfoResponse"/>
+  </message>
+  <portType name="ActuateSoapPort">
+   <operation name="login">
+    <input message="wsdlns:Login"/>
+    <output message="wsdlns:LoginResponse"/>
+   </operation>
+   <operation name="getFileACL">
+    <input message="wsdlns:GetFileACL"/>
+    <output message="wsdlns:GetFileACLResponse"/>
+   </operation>
+   <operation name="getChannelACL">
+    <input message="wsdlns:GetChannelACL"/>
+    <output message="wsdlns:GetChannelACLResponse"/>
+   </operation>
+   <operation name="getFileCreationACL">
+    <input message="wsdlns:GetFileCreationACL"/>
+    <output message="wsdlns:GetFileCreationACLResponse"/>
+   </operation>
+   <operation name="administrate">
+    <input message="wsdlns:Administrate"/>
+    <output message="wsdlns:AdministrateResponse"/>
+   </operation>
+   <operation name="selectUsers">
+    <input message="wsdlns:SelectUsers"/>
+    <output message="wsdlns:SelectUsersResponse"/>
+   </operation>
+   <operation name="selectGroups">
+    <input message="wsdlns:SelectGroups"/>
+    <output message="wsdlns:SelectGroupsResponse"/>
+   </operation>
+   <operation name="selectRoles">
+    <input message="wsdlns:SelectRoles"/>
+    <output message="wsdlns:SelectRolesResponse"/>
+   </operation>
+   <operation name="selectChannels">
+    <input message="wsdlns:SelectChannels"/>
+    <output message="wsdlns:SelectChannelsResponse"/>
+   </operation>
+   <operation name="selectFileTypes">
+    <input message="wsdlns:SelectFileTypes"/>
+    <output message="wsdlns:SelectFileTypesResponse"/>
+   </operation>
+   <operation name="getSystemPrinters">
+    <input message="wsdlns:GetSystemPrinters"/>
+    <output message="wsdlns:GetSystemPrintersResponse"/>
+   </operation>
+   <operation name="getUserPrinterOptions">
+    <input message="wsdlns:GetUserPrinterOptions"/>
+    <output message="wsdlns:GetUserPrinterOptionsResponse"/>
+   </operation>
+   <operation name="getVolumeProperties">
+    <input message="wsdlns:GetVolumeProperties"/>
+    <output message="wsdlns:GetVolumePropertiesResponse"/>
+   </operation>
+   <operation name="executeVolumeCommand">
+    <input message="wsdlns:ExecuteVolumeCommand"/>
+    <output message="wsdlns:ExecuteVolumeCommandResponse"/>
+   </operation>
+   <operation name="updateOpenSecurityCache">
+    <input message="wsdlns:UpdateOpenSecurityCache"/>
+   </operation>
+   <operation name="callOpenSecurityLibrary">
+    <input message="wsdlns:CallOpenSecurityLibrary"/>
+    <output message="wsdlns:CallOpenSecurityLibraryResponse"/>
+   </operation>
+   <operation name="downloadFile">
+    <input message="wsdlns:DownloadFile"/>
+    <output message="wsdlns:DownloadFileResponse"/>
+   </operation>
+   <operation name="uploadFile">
+    <input message="wsdlns:UploadFile"/>
+    <output message="wsdlns:UploadFileResponse"/>
+   </operation>
+   <operation name="selectFiles">
+    <input message="wsdlns:SelectFiles"/>
+    <output message="wsdlns:SelectFilesResponse"/>
+   </operation>
+   <operation name="getFolderItems">
+    <input message="wsdlns:GetFolderItems"/>
+    <output message="wsdlns:GetFolderItemsResponse"/>
+   </operation>
+   <operation name="getFileDetails">
+    <input message="wsdlns:GetFileDetails"/>
+    <output message="wsdlns:GetFileDetailsResponse"/>
+   </operation>
+   <operation name="getFileTypeParameterDefinitions">
+    <input message="wsdlns:GetFileTypeParameterDefinitions"/>
+    <output message="wsdlns:GetFileTypeParameterDefinitionsResponse"/>
+   </operation>
+   <operation name="extractParameterDefinitionsFromFile">
+    <input message="wsdlns:ExtractParameterDefinitionsFromFile"/>
+    <output message="wsdlns:ExtractParameterDefinitionsFromFileResponse"/>
+   </operation>
+   <operation name="exportParameterDefinitionsToFile">
+    <input message="wsdlns:ExportParameterDefinitionsToFile"/>
+    <output message="wsdlns:ExportParameterDefinitionsToFileResponse"/>
+   </operation>
+   <operation name="selectJobNotices">
+    <input message="wsdlns:SelectJobNotices"/>
+    <output message="wsdlns:SelectJobNoticesResponse"/>
+   </operation>
+   <operation name="selectJobs">
+    <input message="wsdlns:SelectJobs"/>
+    <output message="wsdlns:SelectJobsResponse"/>
+   </operation>
+   <operation name="selectJobSchedules">
+    <input message="wsdlns:SelectJobSchedules"/>
+    <output message="wsdlns:SelectJobSchedulesResponse"/>
+   </operation>
+   <operation name="getJobDetails">
+    <input message="wsdlns:GetJobDetails"/>
+    <output message="wsdlns:GetJobDetailsResponse"/>
+   </operation>
+   <operation name="getNoticeJobDetails">
+    <input message="wsdlns:GetNoticeJobDetails"/>
+    <output message="wsdlns:GetNoticeJobDetailsResponse"/>
+   </operation>
+   <operation name="getQuery">
+    <input message="wsdlns:GetQuery"/>
+    <output message="wsdlns:GetQueryResponse"/>
+   </operation>
+   <operation name="getReportParameters">
+    <input message="wsdlns:GetReportParameters"/>
+    <output message="wsdlns:GetReportParametersResponse"/>
+   </operation>
+   <operation name="createParameterValuesFile">
+    <input message="wsdlns:CreateParameterValuesFile"/>
+    <output message="wsdlns:CreateParameterValuesFileResponse"/>
+   </operation>
+   <operation name="createQuery">
+    <input message="wsdlns:CreateQuery"/>
+    <output message="wsdlns:CreateQueryResponse"/>
+   </operation>
+   <operation name="executeReport">
+    <input message="wsdlns:ExecuteReport"/>
+    <output message="wsdlns:ExecuteReportResponse"/>
+   </operation>
+   <operation name="waitForExecuteReport">
+    <input message="wsdlns:WaitForExecuteReport"/>
+    <output message="wsdlns:WaitForExecuteReportResponse"/>
+   </operation>
+   <operation name="cancelReport">
+    <input message="wsdlns:CancelReport"/>
+    <output message="wsdlns:CancelReportResponse"/>
+   </operation>
+   <operation name="executeQuery">
+    <input message="wsdlns:ExecuteQuery"/>
+    <output message="wsdlns:ExecuteQueryResponse"/>
+   </operation>
+   <operation name="printReport">
+    <input message="wsdlns:PrintReport"/>
+    <output message="wsdlns:PrintReportResponse"/>
+   </operation>
+   <operation name="submitJob">
+    <input message="wsdlns:SubmitJob"/>
+    <output message="wsdlns:SubmitJobResponse"/>
+   </operation>
+   <operation name="cancelJob">
+    <input message="wsdlns:CancelJob"/>
+    <output message="wsdlns:CancelJobResponse"/>
+   </operation>
+   <operation name="selectPage">
+    <input message="wsdlns:SelectPage"/>
+    <output message="wsdlns:SelectPageResponse"/>
+   </operation>
+   <operation name="getContent">
+    <input message="wsdlns:GetContent"/>
+    <output message="wsdlns:GetContentResponse"/>
+   </operation>
+   <operation name="getEmbeddedComponent">
+    <input message="wsdlns:GetEmbeddedComponent"/>
+    <output message="wsdlns:GetEmbeddedComponentResponse"/>
+   </operation>
+   <operation name="getDynamicData">
+    <input message="wsdlns:GetDynamicData"/>
+    <output message="wsdlns:GetDynamicDataResponse"/>
+   </operation>
+   <operation name="getStaticData">
+    <input message="wsdlns:GetStaticData"/>
+    <output message="wsdlns:GetStaticDataResponse"/>
+   </operation>
+   <operation name="getStyleSheet">
+    <input message="wsdlns:GetStyleSheet"/>
+    <output message="wsdlns:GetStyleSheetResponse"/>
+   </operation>
+   <operation name="getTOC">
+    <input message="wsdlns:GetTOC"/>
+    <output message="wsdlns:GetTOCResponse"/>
+   </operation>
+   <operation name="getPageCount">
+    <input message="wsdlns:GetPageCount"/>
+    <output message="wsdlns:GetPageCountResponse"/>
+   </operation>
+   <operation name="getFormats">
+    <input message="wsdlns:GetFormats"/>
+    <output message="wsdlns:GetFormatsResponse"/>
+   </operation>
+   <operation name="searchReport">
+    <input message="wsdlns:SearchReport"/>
+    <output message="wsdlns:SearchReportResponse"/>
+   </operation>
+   <operation name="getCustomFormat">
+    <input message="wsdlns:GetCustomFormat"/>
+    <output message="wsdlns:GetCustomFormatResponse"/>
+   </operation>
+   <operation name="getFactoryServiceInfo">
+    <input message="wsdlns:GetFactoryServiceInfo"/>
+    <output message="wsdlns:GetFactoryServiceInfoResponse"/>
+   </operation>
+   <operation name="getSyncJobInfo">
+    <input message="wsdlns:GetSyncJobInfo"/>
+    <output message="wsdlns:GetSyncJobInfoResponse"/>
+   </operation>
+   <operation name="getFactoryServiceJobs">
+    <input message="wsdlns:GetFactoryServiceJobs"/>
+    <output message="wsdlns:GetFactoryServiceJobsResponse"/>
+   </operation>
+   <operation name="getSystemVolumeNames">
+    <input message="wsdlns:GetSystemVolumeNames"/>
+    <output message="wsdlns:GetSystemVolumeNamesResponse"/>
+   </operation>
+   <operation name="systemLogin">
+    <input message="wsdlns:SystemLogin"/>
+    <output message="wsdlns:SystemLoginResponse"/>
+   </operation>
+   <operation name="getSystemServerList">
+    <input message="wsdlns:GetSystemServerList"/>
+    <output message="wsdlns:GetSystemServerListResponse"/>
+   </operation>
+   <operation name="getSystemMDSInfo">
+    <input message="wsdlns:GetSystemMDSInfo"/>
+    <output message="wsdlns:GetSystemMDSInfoResponse"/>
+   </operation>
+  </portType>
+  <binding name="ActuateSoapBinding" type="wsdlns:ActuateSoapPort">
+   <soap:binding style="document"
+transport="http://schemas.xmlsoap.org/soap/http"/>
+   <operation name="login">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getFileACL">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getChannelACL">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getFileCreationACL">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="administrate">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectUsers">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectGroups">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectRoles">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectChannels">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectFileTypes">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getSystemPrinters">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getUserPrinterOptions">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getVolumeProperties">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="executeVolumeCommand">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="updateOpenSecurityCache">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+   </operation>
+   <operation name="callOpenSecurityLibrary">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="downloadFile">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="uploadFile">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectFiles">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getFolderItems">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getFileDetails">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getFileTypeParameterDefinitions">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="extractParameterDefinitionsFromFile">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="exportParameterDefinitionsToFile">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectJobNotices">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectJobs">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectJobSchedules">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getJobDetails">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getNoticeJobDetails">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getQuery">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getReportParameters">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="createParameterValuesFile">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="createQuery">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="executeReport">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="waitForExecuteReport">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="cancelReport">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="executeQuery">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="printReport">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="submitJob">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="cancelJob">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="selectPage">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getContent">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getEmbeddedComponent">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getDynamicData">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getStaticData">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getStyleSheet">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getTOC">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getPageCount">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getFormats">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="searchReport">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getCustomFormat">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getFactoryServiceInfo">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getSyncJobInfo">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getFactoryServiceJobs">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getSystemVolumeNames">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="systemLogin">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getSystemServerList">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+   <operation name="getSystemMDSInfo">
+    <soap:operation soapAction=""/>
+    <input>
+     <soap:body use="literal" parts="Request"/>
+    </input>
+    <output>
+     <soap:body use="literal" parts="Response"/>
+    </output>
+   </operation>
+  </binding>
+  <service name="ActuateAPI">
+   <port name="ActuateSoapPort" binding="wsdlns:ActuateSoapBinding">
+    <soap:address location="http://LocalHost:8000"/>
+   </port>
+  </service>
+ </definitions>
+

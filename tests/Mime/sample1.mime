@@ -1,0 +1,42 @@
+MIME-Version: 1.0
+Content-Type: Multipart/Related; boundary=MIME_boundary; type=text/xml; start="<http://claiming-it.com/claim061400a.xml>"
+Content-Description: This is the optional message description.
+
+--MIME_boundary
+Content-Type: text/xml; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Content-ID: <http://claiming-it.com/claim061400a.xml>
+Content-Location: http://claiming-it.com/claim061400a.xml
+
+<?xml version='1.0' ?>
+<SOAP-ENV:Envelope
+xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Body>
+..
+<theSignedForm href="http://claiming-it.com/claim061400a.tiff"/>
+..
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+--MIME_boundary
+Content-Type: image/tiff
+Content-Transfer-Encoding: binary
+Content-ID: <http://claiming-it.com/claim061400a.tiff>
+Content-Location: http://claiming-it.com/claim061400a.tiff
+
+...binary TIFF image...
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+with lots of big content-------------------------
+--MIME_boundary--

@@ -1,0 +1,24 @@
+Content-Type: Multipart/Related; boundary=example-1; start="<950120.aaCC@XIson.com>"; type="Application/X-FixedRecord"; start-info="-o ps"
+
+--example-1
+Content-Type: Application/X-FixedRecord
+Content-ID: <950120.aaCC@XIson.com>
+
+   25
+10
+34
+10
+25
+21
+26
+10
+--example-1
+Content-Type: Application/octet-stream
+Content-Description: The fixed length records
+Content-Transfer-Encoding: base64
+Content-ID: <950121.aaCB@XIson.com>
+
+T2xkIE1hY0RvbmFsZCBoYWQgYSBmYXJtDQpFIEkgRSBJIE8NCkFuZCBvbiBoaXMgZmFybSBoZSBo
+YWQgc29tZSBkdWNrcw0KRSBJIEUgSSBPDQpXaXRoIGEgcXVhY2sgcXVhY2sgaGVyZSwNCmEgcXVh
+Y2sgcXVhY2sgdGhlcmUsDQpldmVyeSB3aGVyZSBhIHF1YWNrIHF1YWNrDQpFIEkgRSBJIE8NCg==
+--example-1--

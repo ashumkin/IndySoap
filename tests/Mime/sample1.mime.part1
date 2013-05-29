@@ -1,0 +1,10 @@
+<?xml version='1.0' ?>
+<SOAP-ENV:Envelope
+xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Body>
+..
+<theSignedForm href="http://claiming-it.com/claim061400a.tiff"/>
+..
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
