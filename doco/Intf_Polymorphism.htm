@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<Title>Classes </Title>
+		<style>@import url(indysoap.css);</style>
+	</head>
+	<body>
+		<H2>Polymorphism</H2>
+		<P>IndySoap supports polymorphism.</P>
+		<P>By default, when you are passing a class to IndySoap, you can pass an instance 
+			of the class or any descendent of the class. IndySoap will ignore the actual 
+			type, and transfer the class as the declared type in the interface. Whenever 
+			IndySoap reads a SOAP packet, it will read the type as that declared in the 
+			interface. If there is a different type specified in the SOAP packet, an error 
+			will occur
+		</P>
+		<P>If you want to be able to transfer polymorphic classes, you must explicitly 
+			configure IndySoap to do this.</P>
+		<P>&nbsp;</P>
+		<H4>Using Polymorphism</H4>
+		<P>This documentation is based on the following example type declarations:</P>
+		<P>&nbsp;</P>
+		<PRE>Type <BR>  TA = class (TIdSoapBaseObject);</PRE>
+		<PRE>  TB = class (TA);</PRE>
+		<PRE>  TC = class (TA);</PRE>
+		<PRE>  TD = class (TB);</PRE>
+		<PRE>  IMyIntf = Interface (IIdSoapInterface) ['{7C6A85A1-E623-4D6F-BA03-915BD49CE7D4}'] <BR>    procedure MyProc(a : TA);<BR>  end;<BR></PRE>
+		<P>In this case, TA is an abstract ancestor, and the requirement is to transfer 
+			either TB or TC.
+			<BR>
+			i.e. The client will call IMyIntf.MyProc and&nbsp;pass an instance of either TB 
+			or TC, and the server will receive a matching instance.
+		</P>
+		<P>In order to arange this, the application must inform IndySoap what the type 
+			substitution rules are. This is done using the IdSoapRegisterClass() routine.</P>
+		<PRE>procedure IdSoapRegisterClass(ATypeDetails: PTypeInfo; <BR>              ASubstitutionList : Array of PTypeInfo; <BR>              ARegisterSubstitutions : Boolean = true); </PRE>
+		<P>This routine performs the same functions as IdSoapRegisterType, and in addition 
+			allows for a substitution list to be declared to IndySoap. so instead of
+		</P>
+		<PRE>  IdSoapRegisterType(TypeInfo(TA));</PRE>
+		<P>the application would register TA like this:</P>
+		<PRE>  IdSoapRegisterClass(TypeInfo(TA), [TypeInfo(TB), TypeInfo(TC)], true);</PRE>
+		<P>This would associate TB and TC with TA, and in addition, since the last 
+			parameter is true, register these classes with IndySoap as well. (This is 
+			convenient for simple situations, but once the type substitution rules get 
+			complex, it's usually cleaner to make this false and manually register all the 
+			types)</P>
+		<P>Once the type has been registered in this fashion, TB and TC are acceptable 
+			substitutes for TA. TD will be recognised as a TB - the deepest possible 
+			descendent will be used a match.</P>
+		<P>Polymorphism has been tested for IndySoap &lt;-&gt; IndySoap&nbsp; and IndySoap 
+			Client &lt;-&gt; .Net Server</P>
+		<H4>Caveats</H4>
+		<P>This registration scheme is a little clumsy, and it's possible to register 
+			constraints that aren't able to represented in the Schema section of a WSDL. 
+			Consider if you allowed TB or TC to substitute for TA, and&nbsp;you allowed TD 
+			to substitute for TB. The schema will declare the type heirarchy directly, and 
+			allow TD to substitute for TA</P>
+		<P>The IndySoap development team will welcome any improved registration scheme 
+			submitted. If you wish to do this, consider the following design criteria for 
+			this:</P>
+		<UL>
+			<LI>
+				RTTI cannot follow from a class to it's descendents, only it's ancestors</LI>
+			<LI>
+				The WSDL generation needs to resolve from an ancestor to all acceptable 
+				descendents</LI>
+			<LI>
+				The application should be able to define it's own extensions of SOAPable types 
+				that are SOAPed as some ancestor class (both client and server)</LI>
+			<LI>
+				The WSDL parser must be able to generate code that conforms to the registration 
+				scheme</LI></UL>
+		<P>&nbsp;</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

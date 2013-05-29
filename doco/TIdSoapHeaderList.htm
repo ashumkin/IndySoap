@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<Title>TIdSoapHeaderList</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapHeaderList
+		</H2>
+		<P>Ancestor : TObjectList</P>
+		<P>Unit : IdSoapRpcPacket</P>
+		<P>Encapsulates a series of SOAP Headers. TIdSoapHeaderList is used on both sender 
+			and receiver.
+		</P>
+		<H4>Sender/Client</H4>
+		<P>On the sender, 2 header lists can be found. The first is RecvHeaders which 
+			stores a list of headers received in the last call. The second is SendHeaders 
+			which stores a list of headers, some of which may be sent on the next call - 
+			see <A href="Intf_SoapHeaders.htm">Interface Headers</A> for further 
+			discussion. Any headers not marked persistent will be deleted once the 
+			interface call is executed. Both header lists are properties of the 
+			Sender/Client Object</P>
+		<H4>Listener/Server</H4>
+		<P>On the listener side the SOAP header lists are available as properties of the 
+			reader and writer objects on the thread local variable GIdSoapRequestInfo. 
+			There is no concept of persistent headers on the server side. See <A href="Intf_SoapHeaders.htm">
+				Interface Headers</A> for further discussion
+		</P>
+		<H4>Identifying Headers</H4>
+		<P>Headers are known by a name and a QName. The name is only available on headers 
+			declared in the interface metadata. In addition, all headers are known in the 
+			soap packet by a QName. Where the header is declared in the interface metadata, 
+			applications should only refer to them by the name in the metadata. Where the 
+			header isn't declared in the interface metadata, applications should only refer 
+			to them by QName. An error will occur if there is more than one header with the 
+			same QName.</P>
+		<H4>Routines</H4>
+		<P>&nbsp;</P>
+		<PRE>&nbsp;&nbsp;&nbsp;procedure AddHeader(AHeader : TIdSoapHeader);</PRE>
+		<P>Add a header to the list
+		</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp;&nbsp;&nbsp;property&nbsp;ByName[APascalName : String] : TIdSoapHeader;<BR>&nbsp;&nbsp;&nbsp;property&nbsp;ByQName[ANamespace, AName : String] : TIdSoapHeader;</PRE>
+		<P>Find the soap header with matching identification. Nil if there is no match</P>
+		<P>&nbsp;</P>
+		<PRE> &nbsp; procedure DeleteAll(APersistent: boolean = true); </PRE>
+		<P>Remove all soap headers. If APersistent then persistent soap headers will also 
+			be removed</P>
+		<P>&nbsp;</P>
+		<PRE><P>  procedure TakeHeaders(AList : TIdSoapHeaderList); </P></PRE>
+		<P>Internal use only</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

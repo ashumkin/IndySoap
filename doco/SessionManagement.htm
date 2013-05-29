@@ -1,0 +1,242 @@
+<html>
+	<head>
+		<Title>Session Management Overview </Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<h2>Session Management Overview</h2>
+		<P>IndySoap includes a built in Session Management layer. This supports the 
+			maintanence of application level sessions on both client and server.
+		</P>
+		<P>In addition, IndySoap can be configured on a per interface/method basis to 
+			require a session before the interface method can be executed.
+		</P>
+		<P>Both of these facilities are implemented using extensions to the SOAP which may 
+			not be supported by non IndySoap clients or servers. Some of the facilities 
+			could be used in non IndySoap applications and some won't be, so care must be 
+			taken using these facilities if interoperability is a priority
+		</P>
+		<H4>Security Considerations</H4>
+		<P>The session managment implementation is not a full security system. It does not 
+			provide:</P>
+		<UL>
+			<LI>
+			User management
+			<LI>
+			mechanism to create sessions (sessions must be created by some agent outside 
+			IndySoap)
+			<LI>
+				communications security.</LI></UL>
+		<P>The last point is important. A malicious party could observe the packets, 
+			extract the session information from the packet, and join the session. Packet 
+			based communication can only be hardened to this attack by securing the 
+			communications. SSL would be recommended in this case, though there is still 
+			substantial vulnerability to man in the middle attacks in most implementations. 
+			Users who have real world security problems are strongly recommended to read 
+			the 2 excellent books "Security Engineering: A Guide to Building Dependable 
+			Distributed Systems" by Ross J Anderson (ISBN: 0471389226) and "Applied 
+			Cryptography" by Bruce Schneier (ISBN: 0471117099).</P>
+		<P>Note: IndySoap session behaviour does not use the WS-Secuity specification - 
+			that is solving a different problem. IndySoap does not support WS-Security at 
+			this point. If the crypto libraries required to support WS-Security become 
+			available as open source libraries, then IndySoap would be keen to support 
+			WS-Security. Please notify us on <A href="mailto:indy-soap-public@yahoogroups.com">indy-soap-public@yahoogroups.com</A>
+			if you know of suitable libraries</P>
+		<H4>
+			<P>Using IndySoap Session Management</P>
+		</H4>
+		<P>Typically, session management would be implemented as follows:</P>
+		<UL>
+			<LI>
+			The server provides a method that accepts a username and password
+			<LI>
+			The client calls this method and supplies the appropriate details
+			<LI>
+			If the details are OK, the server asks the IndySoap server object to create a 
+			session, providing it's own session object where it stores the session context
+			<LI>
+			IndySoap will add the instruction to the return SOAP packet (either as cookie 
+			or SOAP header depending on configuration)
+			<LI>
+			The client will observe the instruction, and create a session. The 
+			OnCreateSession event will be called to notify the application
+			<LI>
+			Until further notice the client will add the session information to each packet 
+			that it sends to the server.
+			<LI>
+			When the server application deems the session invalid, it raises an exception 
+			of EIdSoapSessionInvalid when handling a client request (the server application 
+			can also mark a session closed using the Server CloseSession method)
+			<LI>
+				Once the server application has marked the session invalid any further client 
+				requests (and the current one, if a&nbsp;&nbsp;EIdSoapSessionInvalid exception 
+				is raised) will result in the return of a SOAP Fault and&nbsp;an instruction to 
+				close the session on the client</LI></UL>
+		<P>Many variations on this sequence are possible. This sequence allows the server 
+			to dictate terms, and this would be the normal architecture. Likely variations 
+			include :</P>
+		<UL>
+			<LI>
+			client may terminate the session itself
+			<LI>
+			creation of a session over a one-way trasnport layer, in which case the session 
+			cannot be created automatically on the client, and the application will have to 
+			do so
+			<LI>
+				client may initiate the session. This could be the case if the session was 
+				being used solely for persistence and there was no user or client tokens 
+				required to create the session</LI></UL>
+		<P>Note the sequence of events on the client if the session specified does not 
+			exist on the server:</P>
+		<UL>
+			<LI>
+				client code makes call</LI>
+			<LI>
+				call is executed, packet returns from server with clear session&nbsp;header and 
+				soap fault</LI>
+			<LI>
+				OnCloseSession is called</LI>
+			<LI>
+				exception is raised &nbsp;</LI></UL>
+		<H4>Configuring Clients and Servers</H4>
+		<P>Clients and servers share the same setting for configuring Session Management:</P>
+		<P></P>
+		<p>
+			<PRE>  property SessionSettings.SessionType : TIdSoapSessionPolicy;</PRE>
+		<P>Whether the client or server supports Sessions, and how the session information 
+			is carried on the wire. Possible values are:</P>
+		<UL>
+			<LI>
+			sspNoSessions: No sessional behaviour
+			<LI>
+			sspSoapHeaders: Sessions are supported, and session information is carried in 
+			the SOAP Headers
+			<LI>
+				sspCookies: Sessions are supported, and Session information is carried in HTTP 
+				cookies. You can't use sspCookies with any transport layer other than HTTP</LI></UL>
+		<P>Using SOAP Headers is preferred over using cookies, since it will work with any 
+			transport&nbsp;layer, and can be represented in the WSDL. Cookies may be 
+			mandated by interoperability considerations</P>
+		<P>&nbsp;</P>
+		<PRE>  property SessionSettings.SessionNamespace : string;<BR>  property SessionSettings.SessionName : string;</PRE>
+		<P>If sessions are active, the name and namespace of the SOAPHeader or Cookie that 
+			carries the session information on the wire.</P>
+		<P>&nbsp;</P>
+		<PRE>  property SessionSettings.AutoAcceptSessions : boolean;</PRE>
+		<P>Controls whether the client or server will automatically accept a session if it 
+			receives a packet that establishes (on client) or refers to (on server)&nbsp;a 
+			session. By default, this is false. Typically, the server application would 
+			create the session, so this value would be false for the server and true for 
+			the client</P>
+		<P>&nbsp;</P>
+		<H4>Managing Sessions : Client</H4>
+		<P>&nbsp;</P>
+		<P>The client has the following routines and events
+		</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; TIdSoapStartSessionEvent = procedure (ASender : TIdSoapITIProvider; AIdentity : string; var ASession : TObject) of object;&nbsp;<BR>&nbsp; property OnCreateSession : TIdSoapSessionEvent;</PRE>
+		<PRE></PRE>
+		<P>This event is called when a session is created. The application can provide a 
+			session object of it's own if it wishes. The Session Object must be nil or a 
+			valid object, as IndySoap will check the type of the object.&nbsp; If 
+			the&nbsp;Session Object provided&nbsp;is a descendent of 
+			TIdSoapBaseApplicationSession, then the Identity property will be set to the 
+			Identity of the session by IndySoap.</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; TIdSoapCloseSessionEvent = procedure (ASender : TIdSoapITIProvider; AIdentity : string; ASession : TObject) of object;&nbsp;<BR>&nbsp; property OnCloseSession : TIdSoapSessionEvent; </PRE>
+		<P>This event is called when the Session is closed, for the application to clean up 
+			the object as appropriate</P>
+		<P>&nbsp;</P>
+		<PRE>  procedure CreateSession(AIdentity : string; ASession : TObject; ACallEvent : boolean = true);</PRE>
+		<P>This procedure will create a session on the client. If a session already exists, 
+			it will be closed (And OnCloseSession will be called). If AIdentity is blank, 
+			then IndySoap will fill the Identity with a GUID. If ASession is not nil, it 
+			must be a valid object. If the&nbsp;Session Object provided&nbsp;is a 
+			descendent of TIdSoapBaseApplicationSession, then the Identity property will be 
+			set to the Identity of the session by IndySoap. if ACallEvent is false, then 
+			the OnCreateSession will not be called</P>
+		<P>&nbsp;</P>
+		<PRE>  procedure CloseSession(AIdentity : string = ''; ACallevent : boolean = true);</PRE>
+		<P>This procedure will close the session on the client. If AIdentity is provided, 
+			then the client will check that this matches the identity of the current 
+			session. OnCloseSession will be called if ACallEvent is true</P>
+		<P>&nbsp;</P>
+		<PRE>  property Session : TObject;</PRE>
+		<P>Handle to the application session. Do not clear this directly - use CloseSession 
+			(and you can't assign to this directly either - use CreateSession)</P>
+		<P>&nbsp;</P>
+		<H4>Managing Sessions : Server</H4>
+		<P>The server session management functionality is split between the Server Object 
+			and the GIdSoapRequestInfo object, which makes request specific information 
+			available to the application.</P>
+		<P>&nbsp;</P>
+		<P>GIdSoapRequestInfo.Session : TObject;</P>
+		<P>A handle to the session identified by the client, if any.</P>
+		<P>&nbsp;</P>
+		<P>TIdSoapBaseServer</P>
+		<PRE>  procedure CreateSession(ARequestInfo : TIdSoapRequestInfo; AIdentity : string; ASession : TObject; ACallEvent : boolean = true);</PRE>
+		<P>Create a session on the server.&nbsp;
+		</P>
+		<UL>
+			<LI>
+				<STRONG>ARequestInfo</STRONG>&nbsp; - a handle to the current request 
+			information [optional]. If ARequestInfo is provided, then the current request 
+			will be returned to the client with a header to create a session on the client 
+			side.
+			<LI>
+				<STRONG>AIdentity</STRONG>
+			- the identity of the session (this goes in the soap packets [optional]. If 
+			this is not provided, then IndySoap will generate a GUID for the session.
+			<LI>
+				<STRONG>ASession</STRONG>
+			- an application object to associate with the session [optional]. If ASession 
+			is not nil, it must be a valid object. If the&nbsp;Session Object 
+			provided&nbsp;is a descendent of TIdSoapBaseApplicationSession, then the 
+			Identity property will be set to the Identity of the session by IndySoap.
+			<LI>
+				<STRONG>ACallEvent</STRONG> - [optional]&nbsp;if ACallEvent is false, then the 
+				OnCreateSession will not be called</LI></UL>
+		<P>&nbsp;</P>
+		<PRE>property SessionList : TStringList<BR>  property SessionLock : TIdCriticalSection;</PRE>
+		<P>A list of current sessions. You must be very careful when accessing this list 
+			directly. You must lock the SessionLock while using the SessionList, including 
+			when iterating the list, as this is the live session list for the server. Do 
+			not delete sessions directly - they are reference counted. You must use 
+			CloseSession. The objects in the the String list are TIdSoapSessions, which is 
+			the internal IndySoap session object. It has a property AppSession which is the 
+			application session</P>
+		<PRE>  procedure CloseSession(AIdentity : string; ACallevent : boolean = true);</PRE>
+		<P>Close the nominated session. You must nominate a valid session. This may not 
+			remove the session from the list immediately, but it wil be marked as invalid 
+			immediately. (Sessions are reference counted)</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; TIdSoapStartSessionEvent = procedure (ASender : TIdSoapITIProvider; AIdentity : string; var ASession : TObject) of object;&nbsp;<BR>&nbsp; property OnCreateSession : TIdSoapSessionEvent;</PRE>
+		<PRE></PRE>
+		<P>This event is called when a session is created. The application can provide a 
+			session object of it's own if it wishes. The Session Object must be nil or a 
+			valid object, as IndySoap will check the type of the object.&nbsp; If 
+			the&nbsp;Session Object provided&nbsp;is a descendent of 
+			TIdSoapBaseApplicationSession, then the Identity property will be set to the 
+			Identity of the session by IndySoap, and the LastRequest property will be kept 
+			up to date by IndySoap.</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; TIdSoapCloseSessionEvent = procedure (ASender : TIdSoapITIProvider; AIdentity : string; ASession : TObject) of object;&nbsp;<BR>&nbsp; property OnCloseSession : TIdSoapSessionEvent; </PRE>
+		<P>This event is called when the Session is closed, for the application to clean up 
+			the object as appropriate</P>
+		<P>&nbsp;</P>
+		<P>Finally, when you are processing a client request, if you raise an exception of 
+			the type EIdSoapSessionInvalid, any existing SOAP Session will be invalidated, 
+			and a SOAP Fault will be returned to the client</P>
+		<P>&nbsp;</P>
+		<H4>Defining Interface Session Requirements</H4>
+		<P>IndySoap allows you to define session requirements for particular interfaces or 
+			methods of interfaces. You have the option of requiring a valid session to 
+			exist before an interface or method can be used by the client.</P>
+		<P>To require a valid session for an interface or method, add the command "Session: 
+			Required" to the SOAP metadata in the interface definition. (See <A href="Intf_SoapMetadata.htm">
+				Soap Metadata</A> for more information). If a client makes a request of a 
+			method for which a session is required, then a SoapFault will be returned</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

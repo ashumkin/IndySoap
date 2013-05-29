@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<Title>TIdSoapWebBroker</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapWebBroker</H2>
+		<P>Ancestor: <A href="TIdSoapServer.htm">TIdSoapServer</A></P>
+		<P>Unit: IdSoapWebBroker</P>
+		<P>
+			TIdSoapWebBroker implements a Web Broker component for IndySoap, suitable for 
+			use on WebModules.</P>
+		<P>To use the IndySoap WebBroker Server, drop it on a WebModule. You need to set 2 
+			sets of properties:</P>
+		<UL>
+			<LI>
+				Standard IndySoap properties. Consult <A href="TIdSoapServer.htm">TIdSoapServer</A>&nbsp;for 
+			further information.
+			<LI>
+				WebDispatch Path. You wouldn't normally need to set this as the default value 
+				soap* is usually appropriate</LI></UL>
+		<P>Generally, you also need a <A href="TIdSoapWebBrokerWSDL.htm">TIdSoapWebBrokerWSDL </A>
+			to publish the WSDL for the service
+		</P>
+		<P>&nbsp;</P>
+		<P>You can have multiple different Servers on different paths, each publishing a 
+			different set of SOAP services.</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

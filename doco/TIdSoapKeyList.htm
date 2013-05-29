@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<Title>TIdSoapKeyList</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapKeyList</H2>
+		<P>&nbsp;</P>
+		<P>TIdSoapKeyList provides a hash based storage of objects/pointers/integers 
+			against a unique number. Internally, TIdSoapKeyList is used to track the Object 
+			References in a SOAP packet.</P>
+		<P>TIdSoapKeyList also has other uses. It provides an extremely quick storage 
+			mechanism where you have a list of objects identified by number rather than 
+			name. A typical case for this is where you are maintaining a cache of objects 
+			that represent rows in a table against their primary key</P>
+		<P>Note that the&nbsp;TIdSoapKeyList object is not thread safe</P>
+		<H4>Construction</H4>
+		<PRE>  constructor Create(AHashSize: Integer = DEFAULT_HASH_SIZE); <BR>  constructor createSize(AHashSize: Integer); </PRE>
+		<P>When you create a TIdSoapKeyList you may specify a size. The Size is the Hash 
+			size. Generally a power of 2 between 32 and 128 is appropriate</P>
+		<PRE>&nbsp; property OnDispose: TOnIdSoapKeyListDisposeEvent; <BR>&nbsp; TOnIdSoapKeyListDisposeEvent = procedure (ASender: TObject; APtr: pointer) of object; </PRE>
+		<P>if an entry in the list is overridden, the OnDispose event will be called to 
+			allow the application a chance to clean up the object/pointer in the entry, if 
+			required</P>
+		<H4>Adding Entries</H4>
+		<P>To add an Entry to the List, use one of the following properties:</P>
+		<PRE>property AsPtr[AKey: Cardinal]: pointer; <BR>property AsInt[AKey: Cardinal]: Integer; <BR>property AsObj[AKey: Cardinal]: TObject; default; </PRE>
+		<P>You can store pointers, objects or integers by a key value. If you read from the 
+			property for a key value that has not been written, nil or 0 will be returned. 
+			To find out whether a key value has been used, use the exists property.
+		</P>
+		<PRE>property Exists[AKey: Cardinal]: Boolean; </PRE>
+		<H4>Iterating Entries</H4>
+		<P>To iterate the list, define a local variable of type TIdSoapKeyProgressRec. Then 
+			use a repeat loop to iterate the keys in the list.
+		</P>
+		<PRE>var <BR>  LP: TIdSoapKeyProgressRec;<BR>  LK: Cardinal; <BR>begin<BR>  if GetFirstKey(LP, LK) then<BR>    repeat<BR>      Delete(LK); // or whatever action is appropriate<BR>    until not GetNextKey(LP, LK);<BR>end; </PRE>
+		<P>&nbsp;</P>
+	</body>
+</html>

@@ -1,0 +1,1237 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Active">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ActualObject">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="AddArray">
+		<param name="Name" value="TIdSoapWriter">
+		<param name="Local" value="TIdSoapWriter.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="AddStruct">
+		<param name="Name" value="TIdSoapWriter">
+		<param name="Local" value="TIdSoapWriter.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Architecture">
+		<param name="Name" value="Architecture">
+		<param name="Local" value="OVR_architecture.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Arrays">
+		<param name="Name" value="Arrays">
+		<param name="Local" value="Intf_Arrays.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Assertions">
+		<param name="Name" value="IndySoap: Coding For Confidence">
+		<param name="Local" value="Tech_Coding.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Assurance">
+		<param name="Name" value="IndySoap: Coding For Confidence">
+		<param name="Local" value="Tech_Coding.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="base64">
+		<param name="Name" value="Binary Content">
+		<param name="Local" value="Intf_Binary.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Binary">
+		<param name="Name" value="Binary Content">
+		<param name="Local" value="Intf_Binary.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Classes">
+		<param name="Name" value="Classes">
+		<param name="Local" value="Intf_Classes.htm">
+		<param name="Name" value="TIdBaseSoapableClass">
+		<param name="Local" value="TIdBaseSoapableClass.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Client">
+		<param name="Name" value="Getting Started: Client">
+		<param name="Local" value="Start_Client.htm">
+		<param name="Name" value="TIdSoapClientDirect">
+		<param name="Local" value="TIdSoapClientDirect.htm">
+		<param name="Name" value="TIdSoapClientWinInet">
+		<param name="Local" value="TIdSoapClientWinInet.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Coding Standard">
+		<param name="Name" value="IndySoap: Coding For Confidence">
+		<param name="Local" value="Tech_Coding.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="CommaAdd">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Conformance">
+		<param name="Name" value="Conformance to Specifications">
+		<param name="Local" value="Tech_Conformance.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="CreateWriter">
+		<param name="Name" value="TIdSoapBaseSender">
+		<param name="Local" value="TIdSoapBaseSender.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Custom Formats">
+		<param name="Name" value="IndySoap Custom Formants">
+		<param name="Local" value="Tech_Custom.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Dates">
+		<param name="Name" value="Dates">
+		<param name="Local" value="Intf_Dates.htm">
+		<param name="Name" value="TIdSoapDateTime">
+		<param name="Local" value="TIdSoapDateTime.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Debugging">
+		<param name="Name" value="TIdBaseObject">
+		<param name="Local" value="TIdBaseObject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="DefaultNamespace">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Dereference">
+		<param name="Name" value="TIdBaseSoapableClass">
+		<param name="Local" value="TIdBaseSoapableClass.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Design">
+		<param name="Name" value="Architecture">
+		<param name="Local" value="OVR_architecture.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Design Package">
+		<param name="Name" value="Design Time Package">
+		<param name="Local" value="Tools_DesignPackage.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Direct">
+		<param name="Name" value="TIdSoapMsgSendDirect">
+		<param name="Local" value="TIdSoapMsgSendDirect.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Doc|Lit">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Documentation">
+		<param name="Name" value="Documentation Overview ">
+		<param name="Local" value="OVR_doco.htm">
+		<param name="Name" value="Documentation">
+		<param name="Local" value="intf_Documentation.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="DUnit testing">
+		<param name="Name" value="IndySoap: Coding For Confidence">
+		<param name="Local" value="Tech_Coding.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Email">
+		<param name="Name" value="TIdSoapMsgSMTPListener">
+		<param name="Local" value="TIdSoapMsgSMTPListener.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Encoding Type">
+		<param name="Name" value="Soap Metadata ">
+		<param name="Local" value="Intf_SoapMetadata.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="EncodingOptions">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="EncodingType">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Exceptions">
+		<param name="Name" value="Exceptions">
+		<param name="Local" value="Intf_Exceptions.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="FirstEntityName">
+		<param name="Name" value="TIdSoapReader">
+		<param name="Local" value="TIdSoapReader.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Future">
+		<param name="Name" value="Future Plans ">
+		<param name="Local" value="OVR_futureplans.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Garbage Collection">
+		<param name="Name" value="Classes">
+		<param name="Local" value="Intf_Classes.htm">
+		<param name="Name" value="TIdSoapBaseSender">
+		<param name="Local" value="TIdSoapBaseSender.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GenerateWSDLPage">
+		<param name="Name" value="TIdSoapListener">
+		<param name="Local" value="TIdSoapListener.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetArray">
+		<param name="Name" value="TIdSoapReader">
+		<param name="Local" value="TIdSoapReader.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetNodeNoClassNameCheck">
+		<param name="Name" value="TIdSoapReader">
+		<param name="Local" value="TIdSoapReader.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetStruct">
+		<param name="Name" value="TIdSoapReader">
+		<param name="Local" value="TIdSoapReader.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Getting Started">
+		<param name="Name" value="Getting Started: Client ">
+		<param name="Local" value="Start_Soap.htm">
+		<param name="Name" value="Getting Started: Client">
+		<param name="Local" value="Start_Client.htm">
+		<param name="Name" value="Getting Started: Interfaces">
+		<param name="Local" value="Start_Interfaces.htm">
+		<param name="Name" value="Getting Started: Server">
+		<param name="Local" value="Start_Server.htm">
+		<param name="Name" value="Installation">
+		<param name="Local" value="Start_Install.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="GetWSDL">
+		<param name="Name" value="TIdSoapBaseSender">
+		<param name="Local" value="TIdSoapBaseSender.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="HandleSoapRequest">
+		<param name="Name" value="TIdSoapMsgReceiver">
+		<param name="Local" value="TIdSoapMsgReceiver.htm">
+		<param name="Name" value="TIdSoapServer">
+		<param name="Local" value="TIdSoapServer.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Hashed List">
+		<param name="Name" value="TIdSoapKeyList">
+		<param name="Local" value="TIdSoapKeyList.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Headers">
+		<param name="Name" value="TIdSoapReader">
+		<param name="Local" value="TIdSoapReader.htm">
+		<param name="Name" value="TIdSoapWriter">
+		<param name="Local" value="TIdSoapWriter.htm">
+		<param name="Name" value="Specifying Soap Headers">
+		<param name="Local" value="Intf_SoapHeaders.htm">
+		<param name="Name" value="TIdSoapHeaderList">
+		<param name="Local" value="TIdSoapHeaderList.htm">
+		<param name="Name" value="TIdSoapHeader">
+		<param name="Local" value="TIdSoapHeader.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="HTTP">
+		<param name="Name" value="TIdSoapServerHTTP ">
+		<param name="Local" value="TIdSoapServerHTTP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="HTTPClient">
+		<param name="Name" value="TidSoapClientHTTP">
+		<param name="Local" value="TIdSoapClientHTTP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdCheckURIValid">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdCompToStr">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdCurrencyToStr">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdDoubleToStr">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdEnumIsValid">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdEnumToString">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdExtendedToStr">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdSingleToStr">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdSoapAdjustLineBreaks">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdSoapCfg">
+		<param name="Name" value="IdSoapCfg Documentation ">
+		<param name="Local" value="Tools_IdSoapCfg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdSoapD4Interface">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdSoapMakeXmlPretty">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdSoapSameDate">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdSoapSameDateTime">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdSoapSameTime">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStringToEnum">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStripTrailingEOL">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStrToCompWithError">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStrToCurrencyWithError">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStrToDoubleWithError">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStrToExtendedWithError">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStrToInt64WithError">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStrToInt64WithErrorAndRange">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStrToIntWithError">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStrToIntWithErrorAndRange">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IdStrToSingleWithError">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IE">
+		<param name="Name" value="TIdSoapClientWinInet">
+		<param name="Local" value="TIdSoapClientWinInet.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="In Process">
+		<param name="Name" value="TIdSoapClientDirect">
+		<param name="Local" value="TIdSoapClientDirect.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IndySoap Tools">
+		<param name="Name" value="IdSoapCfg Documentation ">
+		<param name="Local" value="Tools_IdSoapCfg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Installation">
+		<param name="Name" value="Installation">
+		<param name="Local" value="Start_Install.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Interface Registration">
+		<param name="Name" value="Interface Registration">
+		<param name="Local" value="Intf_Registration.htm">
+		<param name="Name" value="Registration Routines">
+		<param name="Local" value="Type_Registration.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Interfaces">
+		<param name="Name" value="Getting Started: Interfaces">
+		<param name="Local" value="Start_Interfaces.htm">
+		<param name="Name" value="Interface Registration">
+		<param name="Local" value="Intf_Registration.htm">
+		<param name="Name" value="Interfaces">
+		<param name="Local" value="Intf_Interfaces.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IsArray">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="IsComplexArray">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ITI">
+		<param name="Name" value="ITI">
+		<param name="Local" value="Intf_ITI.htm">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ITI Classes">
+		<param name="Name" value="TIdSoapITIParameter">
+		<param name="Local" value="TIdSoapITIParameter.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ITI Generation">
+		<param name="Name" value="Design Time Package">
+		<param name="Local" value="Tools_DesignPackage.htm">
+		<param name="Name" value="IdSoapCfg Documentation ">
+		<param name="Local" value="Tools_IdSoapCfg.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ITIFileName">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ITIResourceName">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ITISource">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Leak Detection">
+		<param name="Name" value="IndySoap: Coding For Confidence">
+		<param name="Local" value="Tech_Coding.htm">
+		<param name="Name" value="TIdBaseObject">
+		<param name="Local" value="TIdBaseObject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Licence">
+		<param name="Name" value="BSD License">
+		<param name="Local" value="OVR_LicenceBSD.htm">
+		<param name="Name" value="License">
+		<param name="Local" value="OVR_Licence.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="LifeTime Management">
+		<param name="Name" value="Classes">
+		<param name="Local" value="Intf_Classes.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Links">
+		<param name="Name" value="Components ">
+		<param name="Local" value="OVR_Links.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ListAllInterfaceNames">
+		<param name="Name" value="TIdSoapBaseSender">
+		<param name="Local" value="TIdSoapBaseSender.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Listener">
+		<param name="Name" value="TIdSoapMsgSMTPListener">
+		<param name="Local" value="TIdSoapMsgSMTPListener.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ListValidCalls">
+		<param name="Name" value="TIdSoapListener">
+		<param name="Local" value="TIdSoapListener.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="LockedToMe">
+		<param name="Name" value="TIdCriticalSection">
+		<param name="Local" value="TIdCriticalSection.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Manual Packet Handling">
+		<param name="Name" value="TIdSoapWriter">
+		<param name="Local" value="TIdSoapWriter.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="MimeType">
+		<param name="Name" value="TIdSoapWriter">
+		<param name="Local" value="TIdSoapWriter.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Name">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Names">
+		<param name="Name" value="Soap Metadata ">
+		<param name="Local" value="Intf_SoapMetadata.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Namespace">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Namespaces">
+		<param name="Name" value="Soap Metadata ">
+		<param name="Local" value="Intf_SoapMetadata.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Node">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="One/Way">
+		<param name="Name" value="TIdSoapMsgSendEmail">
+		<param name="Local" value="TIdSoapMsgSendEmail.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="OnGetITIFileName">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="OnGetITIStream">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="OnNonSoapExecute">
+		<param name="Name" value="TIdSoapServerHTTP ">
+		<param name="Local" value="TIdSoapServerHTTP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="OnPreExecute">
+		<param name="Name" value="TIdSoapServerHTTP ">
+		<param name="Local" value="TIdSoapServerHTTP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="OnReceiveMessage">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="OnSendMessage">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Overview">
+		<param name="Name" value="Documentation Overview ">
+		<param name="Local" value="OVR_doco.htm">
+		<param name="Name" value="Product Overview">
+		<param name="Local" value="OVR_ProductOverview.htm">
+		<param name="Name" value="Welcome">
+		<param name="Local" value="OVR_welcome.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Owner">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="OwnsObjects">
+		<param name="Name" value="TIdStringList">
+		<param name="Local" value="TIdStringList.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamBinary">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamBoolean">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamByte">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamCardinal">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamChar">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamComp">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamCurrency">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamDateTime">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamDouble">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamEnumeration">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Parameters">
+		<param name="Name" value="Arrays">
+		<param name="Local" value="Intf_Arrays.htm">
+		<param name="Name" value="Binary Content">
+		<param name="Local" value="Intf_Binary.htm">
+		<param name="Name" value="Classes">
+		<param name="Local" value="Intf_Classes.htm">
+		<param name="Name" value="Dates">
+		<param name="Local" value="Intf_Dates.htm">
+		<param name="Name" value="Exceptions">
+		<param name="Local" value="Intf_Exceptions.htm">
+		<param name="Name" value="Simple Types">
+		<param name="Local" value="Intf_Types.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamExists">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamExtended">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamIdSoapDate">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamIdSoapDateTime">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamIdSoapTime">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamInt64">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamInteger">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Params">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamSet">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamShortInt">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamShortString">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamSingle">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamSmallInt">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamString">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamWideChar">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamWideString">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ParamWord">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Parent">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Plans">
+		<param name="Name" value="Future Plans ">
+		<param name="Local" value="OVR_futureplans.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Polymorphism">
+		<param name="Name" value="Classes">
+		<param name="Local" value="Intf_Classes.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="POP3">
+		<param name="Name" value="TIdSoapMsgPOPListener">
+		<param name="Local" value="TIdSoapMsgPOPListener.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ReadingReferenceID">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ReadingReferenceName">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Reference">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Reference Counting">
+		<param name="Name" value="TIdSoapBaseSender">
+		<param name="Local" value="TIdSoapBaseSender.htm">
+		<param name="Name" value="TIdSoapInterfaceGlue">
+		<param name="Local" value="TIdSoapInterfaceGlue.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Registering Types">
+		<param name="Name" value="Simple Types">
+		<param name="Local" value="Intf_Types.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Registration">
+		<param name="Name" value="Registration Routines">
+		<param name="Local" value="Type_Registration.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="RPC">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Security">
+		<param name="Name" value="Security">
+		<param name="Local" value="Tech_security.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Sender">
+		<param name="Name" value="TIdSoapMsgSendEmail">
+		<param name="Local" value="TIdSoapMsgSendEmail.htm">
+		<param name="Name" value="TIdSoapMsgSender">
+		<param name="Local" value="TIdSoapMsgSender.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Server">
+		<param name="Name" value="Getting Started: Server">
+		<param name="Local" value="Start_Server.htm">
+		<param name="Name" value="TIdSoapServerTCPIP">
+		<param name="Local" value="TIdSoapServerTCPIP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ServerLeaveAlive">
+		<param name="Name" value="TIdBaseSoapableClass">
+		<param name="Local" value="TIdBaseSoapableClass.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Sessions">
+		<param name="Name" value="Session Management">
+		<param name="Local" value="SessionManagent.htm">
+		<param name="Name" value="TIdSoapITIProvider">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SetMessageName">
+		<param name="Name" value="TIdSoapWriter">
+		<param name="Local" value="TIdSoapWriter.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Sets">
+		<param name="Name" value="Simple Types">
+		<param name="Local" value="Intf_Types.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SMTP">
+		<param name="Name" value="TIdSoapMsgSMTPListener">
+		<param name="Local" value="TIdSoapMsgSMTPListener.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SOAP">
+		<param name="Name" value="Conformance to Specifications">
+		<param name="Local" value="Tech_Conformance.htm">
+		<param name="Name" value="Getting Started: Client ">
+		<param name="Local" value="Start_Soap.htm">
+		<param name="Name" value="TIdSoapWriter">
+		<param name="Local" value="TIdSoapWriter.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Soap Context">
+		<param name="Name" value="TIdSoapRequestInformation">
+		<param name="Local" value="TIdSoapRequestInformation.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SoapAction">
+		<param name="Name" value="Soap Metadata ">
+		<param name="Local" value="Intf_SoapMetadata.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SoapHost">
+		<param name="Name" value="TIdSoapClientTCPIP">
+		<param name="Local" value="TIdSoapClientTCPIP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SOAPPath">
+		<param name="Name" value="TIdSoapServerHTTP ">
+		<param name="Local" value="TIdSoapServerHTTP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SoapPort">
+		<param name="Name" value="TIdSoapClientTCPIP">
+		<param name="Local" value="TIdSoapClientTCPIP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SoapSend">
+		<param name="Name" value="TIdSoapBaseSender">
+		<param name="Local" value="TIdSoapBaseSender.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SoapServer">
+		<param name="Name" value="TIdSoapClientDirect">
+		<param name="Local" value="TIdSoapClientDirect.htm">
+		<param name="Name" value="TIdSoapServerTCPIP">
+		<param name="Local" value="TIdSoapServerTCPIP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SoapTimeout">
+		<param name="Name" value="TIdSoapClientTCPIP">
+		<param name="Local" value="TIdSoapClientTCPIP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SoapURL">
+		<param name="Name" value="TidSoapClientHTTP">
+		<param name="Local" value="TIdSoapClientHTTP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SoapVersion">
+		<param name="Name" value="TIdSoapBaseSender">
+		<param name="Local" value="TIdSoapBaseSender.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SoapVersions">
+		<param name="Name" value="TIdSoapListener">
+		<param name="Local" value="TIdSoapListener.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="SplitString">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Stream">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Strings">
+		<param name="Name" value="Simple Types">
+		<param name="Local" value="Intf_Types.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TCP/IP">
+		<param name="Name" value="IndySoap Custom Formants">
+		<param name="Local" value="Tech_Custom.htm">
+		<param name="Name" value="TIdSoapServerTCPIP">
+		<param name="Local" value="TIdSoapServerTCPIP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TCPClient">
+		<param name="Name" value="TIdSoapClientTCPIP">
+		<param name="Local" value="TIdSoapClientTCPIP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TCriticalSection">
+		<param name="Name" value="TIdCriticalSection">
+		<param name="Local" value="TIdCriticalSection.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TDateTime">
+		<param name="Name" value="Dates">
+		<param name="Local" value="Intf_Dates.htm">
+		<param name="Name" value="TIdSoapTime">
+		<param name="Local" value="TIdSoapTime.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdBaseObject">
+		<param name="Name" value="TIdBaseObject">
+		<param name="Local" value="TIdBaseObject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdBaseSoapableClass">
+		<param name="Name" value="TIdBaseSoapableClass">
+		<param name="Local" value="TIdBaseSoapableClass.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdCriticalSection">
+		<param name="Name" value="TIdCriticalSection">
+		<param name="Local" value="TIdCriticalSection.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdGetITIFileNameEvent">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdGetITIStreamEvent">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdITISourceLocation">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdMemoryStream">
+		<param name="Name" value="TIdMemoryStream">
+		<param name="Local" value="TIdMemoryStream.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapBaseClient">
+		<param name="Name" value="TIdSoapBaseClient">
+		<param name="Local" value="TIdSoapBaseClient.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapBaseMsgSender">
+		<param name="Name" value="TIdSoapMsgSender">
+		<param name="Local" value="TIdSoapMsgSender.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapBaseSender">
+		<param name="Name" value="TIdSoapBaseSender">
+		<param name="Local" value="TIdSoapBaseSender.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapClientDirect">
+		<param name="Name" value="TIdSoapClientDirect">
+		<param name="Local" value="TIdSoapClientDirect.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapClientHTTP">
+		<param name="Name" value="TidSoapClientHTTP">
+		<param name="Local" value="TIdSoapClientHTTP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapClientTCPIP">
+		<param name="Name" value="TIdSoapClientTCPIP">
+		<param name="Local" value="TIdSoapClientTCPIP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapClientWinInet">
+		<param name="Name" value="TIdSoapClientWinInet">
+		<param name="Local" value="TIdSoapClientWinInet.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapDate">
+		<param name="Name" value="Dates">
+		<param name="Local" value="Intf_Dates.htm">
+		<param name="Name" value="TIdSoapDate">
+		<param name="Local" value="TIdSoapDate.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapDateTime">
+		<param name="Name" value="Dates">
+		<param name="Local" value="Intf_Dates.htm">
+		<param name="Name" value="TIdSoapDateTime">
+		<param name="Local" value="TIdSoapDateTime.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapEncodingOptions">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapInterfaceGlue">
+		<param name="Name" value="TIdSoapInterfaceGlue">
+		<param name="Local" value="TIdSoapInterfaceGlue.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapITIProvider">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapKeyList">
+		<param name="Name" value="TIdSoapKeyList">
+		<param name="Local" value="TIdSoapKeyList.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapListener">
+		<param name="Name" value="TIdSoapMsgReceiver">
+		<param name="Local" value="TIdSoapMsgReceiver.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapMsgDirect">
+		<param name="Name" value="TIdSoapMsgSendDirect">
+		<param name="Local" value="TIdSoapMsgSendDirect.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapMsgPOPListener">
+		<param name="Name" value="TIdSoapMsgPOPListener">
+		<param name="Local" value="TIdSoapMsgPOPListener.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapMsgSMTPListener">
+		<param name="Name" value="TIdSoapMsgSMTPListener">
+		<param name="Local" value="TIdSoapMsgSMTPListener.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapPreExecuteEvent">
+		<param name="Name" value="TIdSoapServerHTTP ">
+		<param name="Local" value="TIdSoapServerHTTP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapReader">
+		<param name="Name" value="TIdSoapReader">
+		<param name="Local" value="TIdSoapReader.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapRequestInformation">
+		<param name="Name" value="TIdSoapRequestInformation">
+		<param name="Local" value="TIdSoapRequestInformation.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapSendEmail">
+		<param name="Name" value="TIdSoapMsgSendEmail">
+		<param name="Local" value="TIdSoapMsgSendEmail.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapServer">
+		<param name="Name" value="TIdSoapServer">
+		<param name="Local" value="TIdSoapServer.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapServerHTTP">
+		<param name="Name" value="TIdSoapServerHTTP ">
+		<param name="Local" value="TIdSoapServerHTTP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapServerTCPIP">
+		<param name="Name" value="TIdSoapServerTCPIP">
+		<param name="Local" value="TIdSoapServerTCPIP.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapTextLineBreakStyle">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapTime">
+		<param name="Name" value="Dates">
+		<param name="Local" value="Intf_Dates.htm">
+		<param name="Name" value="TIdSoapTime">
+		<param name="Local" value="TIdSoapTime.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdSoapWriter">
+		<param name="Name" value="TIdSoapWriter">
+		<param name="Local" value="TIdSoapWriter.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdStringList">
+		<param name="Name" value="TIdStringList">
+		<param name="Local" value="TIdStringList.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TIdViewMessageEvent">
+		<param name="Name" value="TIdSoapITIProvider ">
+		<param name="Local" value="TIdSoapITIProvider.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Times">
+		<param name="Name" value="Dates">
+		<param name="Local" value="Intf_Dates.htm">
+		<param name="Name" value="TIdSoapTime">
+		<param name="Local" value="TIdSoapTime.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Timezones">
+		<param name="Name" value="Dates">
+		<param name="Local" value="Intf_Dates.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TStream">
+		<param name="Name" value="Binary Content">
+		<param name="Local" value="Intf_Binary.htm">
+		<param name="Name" value="TIdMemoryStream">
+		<param name="Local" value="TIdMemoryStream.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TStringList">
+		<param name="Name" value="TIdStringList">
+		<param name="Local" value="TIdStringList.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Type Registration">
+		<param name="Name" value="Registration Routines">
+		<param name="Local" value="Type_Registration.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="TypeName">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Types">
+		<param name="Name" value="Simple Types">
+		<param name="Local" value="Intf_Types.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Utility functions">
+		<param name="Name" value="IdSoapUtilities">
+		<param name="Local" value="IdSoapUtilities.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="ValidateTree">
+		<param name="Name" value="TIdBaseSoapableClass">
+		<param name="Local" value="TIdBaseSoapableClass.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Welcome">
+		<param name="Name" value="Welcome">
+		<param name="Local" value="OVR_welcome.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="WinInet">
+		<param name="Name" value="TIdSoapClientWinInet">
+		<param name="Local" value="TIdSoapClientWinInet.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="WritingReferenceId">
+		<param name="Name" value="TIdSoapNode">
+		<param name="Local" value="TIdSoapNode.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="WSDL">
+		<param name="Name" value="Documentation">
+		<param name="Local" value="intf_Documentation.htm">
+		<param name="Name" value="Soap Metadata ">
+		<param name="Local" value="Intf_SoapMetadata.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="WSDLPath">
+		<param name="Name" value="TIdSoapServerHTTP ">
+		<param name="Local" value="TIdSoapServerHTTP.htm">
+		</OBJECT>
+</UL>
+</BODY></HTML>

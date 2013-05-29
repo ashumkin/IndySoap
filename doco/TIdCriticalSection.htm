@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<Title>TIdCriticalSection</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapCriticalSection</H2>
+		<P>TIdSoapCriticalSection is a descendent of the normal criticalsection. It adds 
+			one important property, LockedToMe (:boolean). This can be used to check the 
+			the lock is already locked in the thread. This is used in IndySoap for 
+			pre-condition testing</P>
+		<P><EM>(You might think that it would be good enough simply to lock the lock, but as 
+				well as having performance impacts, some times the locking issues cannot be 
+				resolved in the context of the routine that requires the lock. If you are doing 
+				concurrent programming, you really should use TIdSoapCriticalSection.LockedToMe 
+				a lot)</EM></P>
+	</body>
+</html>

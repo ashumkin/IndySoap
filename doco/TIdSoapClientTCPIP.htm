@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<Title>TIdSoapClientTCPIP</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapClientTCPIP</H2>
+		<P>Ancestor: <A href="TIdSoapBaseClient.htm">TIdSoapBaseClient</A></P>
+		<P>
+		Unit: IdSoapClientHTTP
+		<P>
+		Provides a SOAP mapping to a custom IndySoap direct TCP/IP communication 
+		protocol for use with SOAP request/response. The major advantage of this 
+		protocol is that a connection is held open, and the protocol is extremely light 
+		weight. This makes this protocol suitable for use in a LAN environment with 
+		tightly bound client/server environment.
+		<P>
+		The connection is opened and closed as the component active property is changed
+		<P>&nbsp;<PRE>  property SoapHost&nbsp;: string;</PRE>
+		<P>
+		Network address or name of SOAP Server
+		<P>&nbsp;<PRE>&nbsp; property SoapPort : word; </PRE>
+		<P>
+		Listening Port of SOAP Service
+		<P>&nbsp;<PRE>  property SoapTimeout : integer;</PRE>
+		<P>
+		How long to wait before giving up on the server
+		<P>&nbsp;<PRE>&nbsp;property TCPClient : TIdTCPClient; </PRE>
+		<P>Summary: Ignore SOAPHost and SOAPPort, and use the assigned TCPClient instead.
+		</P>
+	</body>
+</html>

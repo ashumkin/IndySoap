@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<Title>TIdSoapTwoWayTCPIP</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>
+			<H2>TIdSoapTwoWayTCPIP</H2>
+		</H2>
+		<P>Ancestor: <A href="TIdSoapMsgSender.htm">TIdSoapBaseSender</A></P>
+		<P>Unit: IdSoapTwoWayTCPIP</P>
+		<P>
+			TIdSoapTwoWayTCPIP provides a dual channel implementation which connects 2 peer 
+			programs using a single TCP/IP channel.</P>
+		<P>Once the channel is setup, either program can&nbsp;send SOAP&nbsp;messages 
+			asynchronously. Each program will receive incoming SOAP messages in a different 
+			thread</P>
+		<P>A TIdSoapTwoWayTCPIP component will act as either client or server depending on 
+			it's properties. A TIdSoapTwoWayTCPIP will only ever support a single TCP/IP 
+			channel at once.
+		</P>
+		<P>&nbsp;</P>
+		<H4>Managing a TIdSoapTwoWayTCPIP
+		</H4>
+		<P>To create a Two way channel, you must have 2 different TIdSoapTwoWayTCPIP 
+			objects. Usually these would be hosted in different processes, potentially on 
+			different conputers.</P>
+		<P>One TIdSoapTwoWayTCPIP msut be configured as a client, and the other as a 
+			server. Set the server to active, and then set the client to active. The client 
+			will attempt to connect once it is active. An exception will be raised if it 
+			cannot connect. Once connected, the connection will be held open, and an 
+			OnConnect event will fire on both objects. If the connection is broken, the 
+			OnDisconnect event will fire on both objects, and further uses of SOAP will 
+			cause an exception until the connection is made again. Due to vagaries of 
+			TCP/IP, the OnDisconnect event may only fire when you attempt to send data</P>
+		<P>&nbsp;</P>
+		<H4>Properties</H4>
+		<P>&nbsp;</P>
+		<PRE>property SoapHandler : TIdSoapMsgReceiver;</PRE>
+		<P>The TIdSoapListener object that provides SOAP Services for incoming messages</P>
+		<P>&nbsp;</P>
+		<PRE>property Host : string;</PRE>
+		<P>The address of the TIdSoapTwoWayTCPIP to connect to. Setting this property will 
+			make the component behave as a client</P>
+		<P>&nbsp;</P>
+		<PRE>property Port : word;</PRE>
+		<P>The port to listen on (if server) or to connect to (if client)</P>
+		<P>&nbsp;</P>
+		<PRE>property AcceptNewConnection : boolean;</PRE>
+		<P>Controls the server behaviour if&nbsp;a connection is currently open, and a new 
+			connection request is received. if this is true, the original connection will 
+			be dumped, and the new connection will be used. This is sometimes required when 
+			the&nbsp;server doesn't realise that it&nbsp;is disconnected</P>
+		<P>&nbsp;</P>
+		<PRE>property OnConnect : TNotifyEvent;</PRE>
+		<P>This event will fire when a connection is made</P>
+		<P>&nbsp;</P>
+		<PRE>property OnDisconnect : TNotifyEvent;</PRE>
+		<P>This event will fire when the component realises that a connection has been lost</P>
+		<P>&nbsp;</P>
+		<PRE>property Connected : boolean;</PRE>
+		<P>This will be true if there is a network connection. On the client, Connected 
+			will always be the same as active</P>
+		<P><BR>
+			&nbsp;</P>
+	</body>
+</html>

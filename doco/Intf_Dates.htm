@@ -1,0 +1,22 @@
+<html>
+<head>
+<Title>Dates
+</Title>
+<style>@import url(indysoap.css);</style>
+</head>
+<body><H2>Dates and Times</H2>
+
+You can use a TDateTime to pass Dates and Times around. TDateTime’s are fully supported, but you need to be aware of these rules when using them:
+<ul>
+<li>0 is the default value. If a TDateTime has the value 0, it will not be found in the message. If a TDateTime is not transmitted in the message, it will be read as value “0”
+<li>TDateTime cannot represent the full scope of a XML date, in particular timezone information is not properly represented. 
+<li>If the sender provides a timezone reference, the value will be adjusted to the local timezone internally when IndySoap reads the SOAP message unless the time part is blank
+<li>When IndySoap sends a TDateTime, it will send it with a Timezone
+<li>You cannot reliably transfer a DateTime without a valid Date part. This will work if you have IndySoap at both ends, but won’t work otherwise
+</ul>
+
+There is other types defined in IdSoapTypeRegistry.pas that can be used instead. These types are TIdSoapDateTime, TIdSoapDate, and TIdSoapTime. There is utility functions for converting between these types and TDateTime in IdSoapUtilities.pas.
+<p>
+
+</body>
+</html>

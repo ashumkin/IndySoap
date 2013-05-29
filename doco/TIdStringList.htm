@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<Title>TIdStringList</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>TIdStringList</H2>
+		<P>TIdStringList is a stringlist derivative that offers 2 enhancements. The first 
+			is that it is plugged into the IndySoap live object tracking system, so that 
+			leaking TIdStringList objects will elad to notifications when the program 
+			closes.
+		</P>
+		<P>In addition, if can take ownership of the objects associated with the list. The 
+			contructor takes a parameter AOwnsObject : boolean, and there is a property 
+			OwnsObjects:boolean which tells the list whether it should free objects 
+			associated with list entries when the entry is deleted.</P>
+		<P><EM>Warning: Unlike TObjectList, an object will not be freed if the object property 
+				is assigned directly</EM></P>
+		<P>&nbsp;</P>
+	</body>
+</html>

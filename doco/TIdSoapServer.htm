@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<Title>TIdSoapServer</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapServer</H2>
+		<P>Ancestor: <A href="TIdSoapListener.htm">TIdSoapListener</A></P>
+		<P>Unit: IdSoapServer</P>
+		<P>
+			TIdSoapServer is the base class for all classes that provide SOAP 
+			request/response services.</P>
+		<P>For properties and functional documentation, refer to <A href="TIdSoapListener.htm">TIdSoapListener</A></P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; procedure HandleSoapRequest(AInMimeType: String; ARequest, AResponse: TStream; var VOutMimeType : string): Boolean;</PRE>
+		<P>This function is the primary Soap entry point for transport layers.
+			<BR>
+			Parameters:</P>
+		<BLOCKQUOTE dir="ltr" style="MARGIN-RIGHT: 0px">
+			<P>
+				<TABLE id="Table1" height="136" cellSpacing="0" cellPadding="3" width="866" border="1">
+					<TR>
+						<TD height="13">AInMimeType</TD>
+						<TD height="13">The mime type sent by the original requesting system. If this is 
+							blank then the Server will try to guess at the encoding</TD>
+					</TR>
+					<TR>
+						<TD height="3">ARequest
+						</TD>
+						<TD height="3">The Original request from the Client</TD>
+					</TR>
+					<TR>
+						<TD height="8">AResponse</TD>
+						<TD height="8">An empty stream. the server will place it's response here to be 
+							returned to the client. The server will reset the position of this stream to 0 
+							when it is finished
+						</TD>
+					</TR>
+					<TR>
+						<TD height="3">VOutMimeType
+						</TD>
+						<TD height="3">The mime type to send back to the client with the response. This is 
+							a guess based on the MimeType supplied and the encoding used in the response 
+							stream
+						</TD>
+					</TR>
+					<TR>
+						<TD>result</TD>
+						<TD>false if the soap packet being returned in the Response Stream contains a Soap 
+							Fault. True otherwise. The transport layer may need to know this for it's 
+							purposes (i.e. HTTP returns 500 in this case)
+						</TD>
+					</TR>
+				</TABLE>
+			</P>
+		</BLOCKQUOTE>
+	</body>
+</html>

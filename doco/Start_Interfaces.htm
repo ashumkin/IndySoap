@@ -1,0 +1,98 @@
+<html>
+<head>
+<Title>Getting Started: Interfaces
+</Title>
+<style>@import url(indysoap.css);</style>
+</head>
+<body><H2>Getting Started with Interfaces
+</H2>
+
+IndySoap uses Interfaces as the basis for
+the SOAP services it provides. This means 
+that the Web Services provided through IndySoap
+are controlled by manipulating interfaces.
+<p>
+On the client side, you generally need to conform
+to the interface described by the server. IndySoap
+includes a wizard to generate interfaces that conform
+to a WSDL description of web services. For this reason,
+this section concentrates on the server side.
+<p>
+You define the interface that your server provides to
+clients by defining the interfaces it will express.
+A single server may express multiple interfaces. 
+<p>
+An IndySoap interface includes both the pascal source
+for the interface, and markup included in comments 
+interspersed through the interface definition. These 
+comments allow extra information that is not part of 
+the pascal syntax to be included in the WSDL that 
+describes the service provided by the server.
+<p>
+You use the interface definition to specify what 
+methods are provided as part of the interface, what
+parameters they have, and what types these have.
+<p>
+The fundamental basis of an Interface is the following
+declaration:
+
+<pre>
+type
+  IMyInterface = interface(IIDSoapInterface) ['{5E3EB4B6-1DB9-42C9-A048-4D9B318BD9A0}']
+  end;
+</pre>
+
+This declares the interface as a descendent of IIdSoapInterface,
+which is a requirement of all interfaces published through 
+IndySoap. In addition, it provides a GUID which is required
+internally by both the client and server when using the interface
+machinery that supports pascal. It does not need to be shared to
+between client and server (though it usually is if both sides are
+written in pascal)
+<p>
+Once your interface is defined, you can start adding methods.
+
+<pre>
+type
+  IMyInterface = interface(IIDSoapInterface) ['{5E3EB4B6-1DB9-42C9-A048-4D9B318BD9A0}']
+    function Test(ABool: Boolean): Boolean; StdCall;
+  end;
+</pre>
+
+This is a simple routine. Generally You do not need to worry about how
+this might declared in some other language implementation on the 
+client side, as their WSDL infrastructure will take care of this.
+<p>
+The rules for using types in IndySoap interfaces are described 
+extensively elsewhere in this documentation.
+<p>
+On the server, you must register an implementation of the 
+interface. This must be an object that implements the interface like this:
+<pre>
+Type
+  TMyinterfaceImpl = class(TIdSoapBaseImplementation, IMyInterface)
+  published
+    function Test(ABool: Boolean): Boolean; StdCall;
+  end;
+</pre>
+
+Note that in the object, the implementation functions must be published.
+The compiler will ensure that all the methods defined in the interface 
+are implemented.
+<p>
+You must register the implementation with the IndySoap interface
+registry:
+<pre>
+  IdSoapRegisterInterfaceClass('IMyInterface', TypeInfo(TMyinterfaceImpl), TMyinterfaceImpl);
+</pre>
+
+This will allow the IndySoap server implementation to create an instance
+of the implementation object to serve a client request.
+
+
+<p>
+
+
+
+</body>
+</html>

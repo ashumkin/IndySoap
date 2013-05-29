@@ -1,0 +1,115 @@
+<html>
+	<head>
+		<Title>TIdSoapReader</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapReader</H2>
+		<P>unit : TIdSoapPacket</P>
+		<P>TIdSoapReader reads incoming soap packets. You use this when handling SOAP 
+			packets manually. This class is also used internally when processing SOAP 
+			Packets.</P>
+		<P>You should read about <A href="TIdSoapNode.htm">TIdSoapNode</A> before reading 
+			more about TIdSoapReader</P>
+		<H4>Reading A Soap Packet</H4>
+		<P>The reading process is split into 4 parts for clarity and utility inside 
+			IndySoap. Users are not responsible for reading messages (the reading process 
+			is handled internally in IndySoap)</P>
+		<BLOCKQUOTE dir="ltr" style="MARGIN-RIGHT: 0px">
+			<P>
+				<TABLE id="Table1" height="142" cellSpacing="0" cellPadding="3" width="819" border="1">
+					<TR>
+						<TD height="16"><PRE>procedure ReadMessage<BR>    (ASoapPacket: TStream); </PRE>
+						</TD>
+						<TD height="16">check basic structure of message, and read it into structured 
+							format
+						</TD>
+					</TR>
+					<TR>
+						<TD><PRE>procedure CheckPacketOK; </PRE>
+						</TD>
+						<TD>check basic SOAP structure
+						</TD>
+					</TR>
+					<TR>
+						<TD><PRE>procedure ProcessHeaders<BR>   (ACheckMustUnderstand : boolean); </PRE>
+						</TD>
+						<TD>check headers on packet if any procedure
+						</TD>
+					</TR>
+					<TR>
+						<TD><PRE>procedure PreDecode</PRE>
+						</TD>
+						<TD>call on server: read root node name and namespace before Full decode in order 
+							to determine Encoding Type</TD>
+					</TR>
+					<TR>
+						<TD><PRE>procedure DecodeMessage</PRE>
+						</TD>
+						<TD>actually decode the message into a node structure. will raise an exception in 
+							this method if a fault packet is read
+						</TD>
+					</TR>
+				</TABLE>
+			</P>
+		</BLOCKQUOTE>
+		<H4>Properties / Routines</H4>
+		<P>&nbsp;</P>
+		<PRE>  property Headers : TIdSoapHeaderList; </PRE>
+		<P>Direct access to SOAP Message headers.</P>
+		<P>&nbsp;</P>
+		<PRE>  function GetArray(ANode: TIdSoapNode; const AName: String; AAllowNil: Boolean = False): TIdSoapNode; </PRE>
+		<P>Get an array that is a child node of the nominated node (or nil for a parameter 
+			that is an array)</P>
+		<P>&nbsp;</P>
+		<PRE>  function GetStruct(ANode: TIdSoapNode; const AName, AClassName, AClassNamespace: String; AAllowNil: Boolean = False): TIdSoapNode; </PRE>
+		<P>Get a struct that is a child of the nominated note. The schema type will be 
+			checked if a node is found. If AAllowNil is false, and no matching child is 
+			found, and exception will be raised
+		</P>
+		<P>&nbsp;</P>
+		<PRE>  function GetNodeNoClassnameCheck(ANode: TIdSoapNode; const AName: String; AAllowNil: Boolean = False): TIdSoapNode; </PRE>
+		<P>Get a struct or an array that is a child of the nominated note.&nbsp;If 
+			AAllowNil is false, and no matching child is found, and exception will be 
+			raised</P>
+		<P>&nbsp;</P>
+		<PRE>  property FirstEntityName : string; </PRE>
+		<P>Sometimes it's hard to know what the name of the "result" parameter is. However 
+			by convention it's the first node. So this name is found in here in case of 
+			doubt.</P>
+		<P>&nbsp;</P>
+		<H4>parameter properties</H4>
+		<P>&nbsp;</P>
+		<P>All these properties are reproductions of the properties of <A href="TIdSoapNode.htm">
+				TIdSoapNode</A>. Do not use these as they will refactored out of existence 
+			sometime. Refer doco on <A href="TIdSoapNode.htm">TIdSoapNode</A> for further 
+			information</P>
+		<PRE>property ParamBinary[ANode: TIdSoapNode; const AName: String]: TStream; 
+<BR>property ParamBoolean[ANode: TIdSoapNode; const AName: String]: Boolean; 
+<BR>property ParamByte[ANode: TIdSoapNode; const AName: String]: Byte; 
+<BR>property ParamCardinal[ANode: TIdSoapNode; const AName: String]: Cardinal; 
+<BR>property ParamChar[ANode: TIdSoapNode; const AName: String]: Char; 
+<BR>property ParamComp[ANode: TIdSoapNode; const AName: String]: Comp; 
+<BR>property ParamCurrency[ANode: TIdSoapNode; const AName: String]: Currency; 
+<BR>property ParamDateTime[ANode: TIdSoapNode; const AName: String]: TDateTime; 
+<BR>property ParamDouble[ANode: TIdSoapNode; const AName: String]: Double; 
+<BR>property ParamEnumeration[ANode: TIdSoapNode; const AName: String; 
+ATypeInfo: PTypeInfo; ATypeName, ANamespace : string]: Integer; <BR>property ParamExists[ANode: TIdSoapNode; const AName: String]: Boolean; <BR>property ParamExtended[ANode: TIdSoapNode; const AName: String]: Extended; <BR>property 
+ParamIdSoapDateTime[ANode: TIdSoapNode; const AName: String]: TIdSoapDateTime; 
+<BR>property ParamIdSoapDate[ANode: TIdSoapNode; const AName: String]: 
+TIdSoapDate; <BR>property ParamIdSoapTime[ANode: TIdSoapNode; const AName: 
+String]: TIdSoapTime; <BR>property ParamInt64[ANode: TIdSoapNode; const AName: 
+String]: Int64; <BR>property ParamInteger[ANode: TIdSoapNode; const AName: 
+String]: Integer; <BR>property ParamSet[ANode: TIdSoapNode; const AName: 
+String]: Integer; <BR>property ParamShortInt[ANode: TIdSoapNode; const AName: 
+String]: ShortInt; <BR>property ParamShortString[ANode: TIdSoapNode; const 
+AName: String]: ShortString; <BR>property ParamSingle[ANode: TIdSoapNode; const 
+AName: String]: Single; <BR>property ParamSmallInt[ANode: TIdSoapNode; const 
+AName: String]: SmallInt; <BR>property ParamString[ANode: TIdSoapNode; const 
+AName: String]: String; <BR>property ParamWideChar[ANode: TIdSoapNode; const 
+AName: String]: WideChar; <BR>property ParamWideString[ANode: TIdSoapNode; const 
+AName: String]: WideString; <BR>property ParamWord[ANode: TIdSoapNode; const 
+AName: String]: Word; <BR></PRE>
+	</body>
+</html>

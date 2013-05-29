@@ -1,0 +1,18 @@
+<html>
+<head>
+<Title>TIdMemoryStream</Title>
+<style>@import url(indysoap.css);</style>
+</head>
+<body>
+<H2>TIdMemoryStream</H2>
+
+TIdMemoryStream is a descendent of TMemoryStream. The only new functionality it introduces is to register itself with the IndySoap Live Object tracking layer.
+<p>
+Whereever IndySoap interfaces create TStream objects, what is actually created is a TIdMemoryStream. Refer to <a href="Intf_Classes.htm">Classes in Interfaces</a> for further information about object lifetime management
+<p>
+If the IndySoap leak notification that appears when your program closes lists any TIdMemoryStream objects still live, then you probably have a TStream object you have forgotton to Free.
+<p>
+
+
+</body>
+</html>

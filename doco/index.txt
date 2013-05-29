@@ -1,0 +1,76 @@
+Overview
+  Welcome/Links
+  Licence
+  Product Overview
+  Component Summary
+  Architecture
+  Future Plans
+  Documentation Overview
+Getting Started
+  Client
+  Server
+  Interfaces
+Interface Specification
+  ITI
+  Interfaces
+  Simple Types
+  Dates and Times
+  Classes, Lifetimes
+  Arrays
+  Binary Content
+  Exceptions
+  interface Registration
+  Documentation
+  Soap Metadata
+IndySoap Tools
+  IdSoapCfg documentation  
+  Design Package
+Class Documentation
+  Registration Routines
+  SOAP Provider Classes
+    TIdSoapITIProvider
+    TIdSoapServer
+    TIdSoapServerHTTP
+    TIdSoapServerTCPIP
+    TIdSoapSender
+    TIdSoapBaseClient
+    TIdSoapClientHTTP
+    TIdSoapClientWinInet
+    TIdSoapClientTCPIP
+    TIdSoapMsgSender
+    TIdSoapMsgReceiver
+    TIdSoapMsgSMTPListener
+    TIdSoapMsgPOPListener
+    TIdSoapMsgSendDirect
+    TIdSoapMsgSendEmail
+    TIdSoapRequestInformation
+  Soap Data Type Classes
+    TIdBaseSoapableClass
+    TIdMemoryStream
+    TIdSoapDateTime
+    TIdSoapDate
+    TIdSoapTime
+  Soap Packet Classes
+    TIdSoapReader
+    TIdSoapWriter
+    TIdSoapNode
+  Private Worker Classes
+    TIdSoapWSDLToPascalConvertor
+    TIdSoapWSDLConvertor
+    TIdStringList
+    TIdCriticalSection
+    TIdSoapKeyList
+    IdSoapUtilities routines
+    TIdSoapITI
+    TIdSoapITIInterface
+    TIdSoapITIMethod
+    TIdSoapITIParameter
+    TIdBaseObject
+    TIdSoapInterfaceGlue
+Technical Information
+  Coding Style
+  DUnit testing information
+  Standards Compliance
+  Binary Encoding
+  TCP/IP Protocol
+  Security

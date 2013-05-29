@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>ITI</title>
+  <style>@import url(indysoap.css);</style>
+</head>
+<body>
+<h2>Interfaces and XML access</h2>
+<br>
+<span style="font-weight: bold;">XML types</span><br>
+<br>
+Most XML types do not map natively into pascal classes. ANy type can be
+specified to be nil, and pascal types cannot represent this. Other
+types simply have no equivalent in pascal. When you encounter these
+being used, you can use one of these types:<br>
+<br>
+<table cellpadding="2" cellspacing="0" border="1"
+ style="text-align: left; width: 90%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><a href="TIdSoapInteger.htm">TIdSoapInteger</a><br>
+      </td>
+      <td style="vertical-align: top;">Integer that can represent
+nil=true</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><a href="TIdSoapBoolean.htm">TIdSoapBoolean</a><br>
+      </td>
+      <td style="vertical-align: top;">Boolean that can represent
+nil=true</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><a href="TIdSoapDouble.htm">TIdSoapDouble</a><br>
+      </td>
+      <td style="vertical-align: top;">Double that can represent
+nil=true</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><a href="TIdSoapString.htm">TIdSoapString</a><br>
+      </td>
+      <td style="vertical-align: top;">String that can represent
+nil=true</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><a href="TIdSoapQName.htm">TIdSoapQName</a><br>
+      </td>
+      <td style="vertical-align: top;">Represents a QName type that
+integrates with the XML namespace handling<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<span style="font-weight: bold;">Direct XML access</span><br>
+<br>
+Since most SOAP servers work the same way as IndySoap - primarily an
+RPC mechanism, the types exchanged are generally fairly simple types
+that map directly into simple types are easily defined classes. However
+increasingly SOAP is being used to transfer complicated documents that
+have schemas which are not easy or not worth representing in a native
+delphi object model. Often these documents are mixed in with classic
+RPC type SOAP.<br>
+<br>
+To handle this situation, IndySoap includes a type <a
+ href="TIdSoapRawXML.htm">TIdSoapRawXML</a> which allows applications to
+directly access parts of the soap message<br>
+<br>
+</body>
+</html>

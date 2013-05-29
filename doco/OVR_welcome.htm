@@ -1,0 +1,137 @@
+<html>
+	<head>
+		<Title>Welcome</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>IndySoap Documentation
+		</H2>
+		<P>
+			Welcome to the IndySoap Project.
+		</P>
+		<UL>
+			<LI>
+			IndySoap is a Open Source framework for developing web services using Borland 
+			Compilers (Delphi, Kylix, CBuilder)
+			<LI>
+			IndySoap is intended to inter-operate with other SOAP/Web services 
+			implementations
+			<LI>
+			IndySoap will use Indy for it’s transport layers but will also offer transport 
+			layers for other network libraries as well
+			<LI>
+				IndySoap is primarily intended for use as an RPC framework using interfaces as 
+				the RPC metaphor. Other uses for Web services and SOAP may be supported at a 
+				later date
+			</LI>
+		</UL>
+		<P>IndySoap was developed and is maintained by:
+			<UL>
+				<LI>
+				Grahame Grieve, Kestral Computing P/L
+				<LI>
+				Andrew Cumming, Kestral Computing P/L
+				<LI>
+					Chad Hower (AKA Kudzu), AtoZedSoftware</LI></UL>
+			<H4>Components</H4>
+		<P><IMG src="palette.gif">
+		</P>
+		<P>
+			<TABLE id="Table1" cellSpacing="0" cellPadding="4" border="1">
+				<TR>
+					<TD><A href="TIdSoapClientHTTP.htm"><IMG src="c1.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapClientHTTP.htm">TIdSoapClientHTTP</A></TD>
+					<TD>Client (Request/Response) using HTTP (Indy TIdHTTP)<BR>
+						This is the client side of the classic HTTP Request/Response SOAP Paradigm</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapClientTCPIP.htm"><IMG src="c2.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapClientTCPIP.htm">TIdSoapClientTCPIP</A></TD>
+					<TD>Client (Request/Response) using Custom TCP/IP protocol)</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapClientDirect.htm"><IMG src="c3.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapClientDirect.htm">TIdSoapClientDirect</A></TD>
+					<TD>Client (Request/Response) using Direct connection (in process)</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapClientWinInet.htm"><IMG src="c4.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapClientWinInet.htm">TIdSoapClientWinInet</A></TD>
+					<TD>Client (Request/Response) using HTTP – Microsoft WinInet library)<BR>
+						This is the client side of the classic HTTP Request/Response SOAP Paradigm</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapServer.htm"><IMG src="c5.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapServer.htm">TIdSoapServer</A></TD>
+					<TD>Server (Request/Response) – core implementation</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapServerHTTP.htm"><IMG src="c6.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapServerHTTP.htm">TIdSoapServerHTTP</A></TD>
+					<TD>Server Transport Layer (Request/Response) – HTTP using Indy TIdHTTPServer<BR>
+						This is the&nbsp;server side of the classic HTTP Request/Response SOAP Paradigm 
+						for standalone servers</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapServerTCPIP.htm"><IMG src="c7.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapServerTCPIP.htm">TIdSoapServerTCPIP</A></TD>
+					<TD>Server Transport Layer (Request/Response) – Custom TCP/IP protocol)</TD>
+				</TR>
+				<TR>
+					<TD><IMG src="cd.gif" border="0"></TD>
+					<TD><A href="TIdSoapWebroker.htm">TIdSoapWebBroker</A></TD>
+					<TD>Transport Layer (Request/Response) – HTTP using Webbroker Architecture<BR>
+						This is the&nbsp;server side of the classic HTTP Request/Response SOAP Paradigm 
+						for ISAPI/CGI etc servers</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapMsgSendDirect.htm"><IMG src="c8.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapMsgSendDirect.htm">TIdSoapMsgSendDirect</A></TD>
+					<TD>Sender (One Way) – Direct connection (in process)</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapMsgSendEmail.htm"><IMG src="c9.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapMsgSendEmail.htm">TIdSoapMsgSendEmail</A></TD>
+					<TD>Sender (One Way) – Using SMTP)</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapListener.htm"><IMG src="ca.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapListener.htm">TIdSoapListener</A></TD>
+					<TD>Listener (One Way) – core implementation)</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapMsgSMTPListener.htm"><IMG src="cb.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapMsgSMTPListener.htm">TIdSoapMsgSMTPListener</A></TD>
+					<TD>Listener Transport Layer (One Way) – SMTP Server)</TD>
+				</TR>
+				<TR>
+					<TD><A href="TIdSoapMsgPopListener.htm"><IMG src="cc.gif" border="0"></A></TD>
+					<TD><A href="TIdSoapMsgPopListener.htm">TIdSoapMsgPopListener</A></TD>
+					<TD>Listener Transport Layer (One Way) – POP message poller)</TD>
+				</TR>
+				<TR>
+					<TD></TD>
+					<TD><A href="TIdSoapTwoWayTCPIP.htm">TIdSoapTwoWayTCPIP</A></TD>
+					<TD>
+						<P>Implements both a listener and a sender using a TCP/IP common channel.<BR>
+							This allows&nbsp;two programs to connect to each other and send each other SOAP 
+							messages</P>
+					</TD>
+				</TR>
+			</TABLE>
+		<P>
+		On the server/listener side, IndySoap usually requires 2 components, a core 
+		SOAP Services provider, which will be either TIdSoapServer or TIdSoapListener, 
+		and at least one transport provider. You can have as many transport providers 
+		as you like
+		<P>Note that due to the wide variety of ISAPI support layers, there is no ISAPI 
+			server implementation. It's easy to implement this yourself – write your own 
+			that passes incoming Content and Content-Type to a TIdSoapServer, and send the 
+			returned Content and Content-Type back. Donations of ISAPI layer support 
+			components gratefully received
+		</P>
+		<H4>&nbsp;</H4>
+		<p></p>
+	</body>
+</html>

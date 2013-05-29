@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<Title>Interfaces </Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>Defining Interfaces</H2>
+		The functionality available through SOAP is defined by the interfaces 
+		registered in the ITI. As the ITI is only a reproduction of the pascal 
+		interface (though including extra metadata), we will only ever consider 
+		interfaces in terms of their pascal definition.
+		<p>
+			A typical interface would be defined in a type declaration like this:
+			<pre>
+type
+  TKeyInformation = Class (TIdBaseSoapableClass)
+  Private
+    FName : string;
+    FStartKey : integer;    FNextKey : integer;
+  Published
+    Property Name : string read FName write FName;
+    Property StartKey : integer read FStartKey write FStartKey;
+    Property NextKey : integer read FNextKey write FNextKey;
+  End;
+
+  TKeyList  = array of TKeyInformation;
+
+  IKeyServer = Interface (IIdSoapInterface) ['{7C6A85A1-E623-4D6F-BA03-915BD49CE7D4}']
+    function GetNextKey ( AName : String ): integer; stdcall;
+    procedure ResetKey ( AUserName, APassword, AName : string; 
+                                 ANewValue : integer); stdcall;
+    procedure ListKeys(out VList : TKeyList); stdcall;
+  end;
+  </pre>
+			There is a number of rules about the way interfaces can be defined for use with 
+			IndySoap
+			<ol>
+				<li>
+				All Interfaces must descend from IIdSoapInterface which is defined in 
+				IdSoapTypeRegistry
+				<li>
+				All interfaces must have unique GUIDs (a certain IndySoap pit crew member 
+				always forgets to update them when copying and pasting interfaces!)
+				<li>
+				All types used as parameters must be registered with IdSoapTypeRegistry. See 
+				below for further information
+				<li>
+				All methods must be either functions or procedures
+				<li>
+				All methods must use the StdCall calling convention
+				<li>
+				Some simple parameter types are banned – see below for further information
+				<li>
+				Interfaces, pointers, methods, etc cannot be used as parameters
+				<li>
+				On the server, all interfaces must have a factory registered.
+				<li>
+					We recommend that you register interfaces through 
+					IdSoapIntfRegistry.IdSoapRegisterInterfaceName though this is not mandatory 
+					Interface -&gt; ITI Parsing Notes</li>
+			</ol>
+		When an interface is parsed to ITI, any $IFDEF’s will be completely ignored 
+		(this may be reviewed in the future).
+	</body>
+</html>

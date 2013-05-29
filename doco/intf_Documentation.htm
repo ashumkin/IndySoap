@@ -1,0 +1,48 @@
+<html>
+<head>
+<Title>Documentation
+</Title>
+<style>@import url(indysoap.css);</style>
+</head>
+<body><H2>Documentation</H2>
+
+The WSDL specification allows for the inclusion of documentation in the WSDL document. If you include documentation in the defined format in your pascal source, this will be reproduced in the WDL document.
+<p>
+
+The defined formats for documentation are as follows:
+<p>
+To comment on an interface:
+<p>
+
+<pre>
+  ISomeInterface = interface (ISomeAncestor) ['{6CBEEC80-96B4-4D5A-B31E-0D07D26E617B}']
+  {!SOAP information...}
+  {&write your doco here}
+</pre>
+
+To comment on a method:
+<p>
+
+<pre>
+  procedure SomeName(SomeParams);
+  {!SOAP information... (Response:RequestSomeName; Response: ResponseSomeName}
+  {&write your doco here}
+</pre>
+
+To comment on a parameter
+
+<p>
+<pre>
+  procedure SomeName(AParam1, {&write doco here for Param1}
+                     AParam2 : TSomething {&write doco here for Param2);
+</pre>
+
+If more than one line exists in a documentation comment, all lines of the comment will have the left most n spaces removed, where n is the smallest number of left spaces on a given line (other than the first line)
+<p>
+Any comments found will be added to the WSDL when it is produced. Comments can include any combination
+of text except for the character } (since it terminates the comment). Since the schema type for the documentation element in a WSDL is "mixed", and IndySoap will insert the documentation content "as is", you are free to introduce valid XHTML formatting tags in the content as required and supported by your target WSDL browser / reader
+
+
+</body>
+</html>
+

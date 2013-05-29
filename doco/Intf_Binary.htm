@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<Title>Binary Content </Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>Binary Content</H2>
+		<P>A common requirement is to transfer binary content in a SOAP packet. This can be 
+			done using several different types:
+		</P>
+		<P>
+			<TABLE id="Table1" height="206" cellSpacing="1" cellPadding="1" width="775" border="1">
+				<TR>
+					<TD width="165">Type</TD>
+					<TD width="162">Explanation</TD>
+					<TD width="202">Pro's</TD>
+					<TD>
+						<P>Con's</P>
+					</TD>
+				</TR>
+				<TR>
+					<TD width="165">TIdSoapAttachment</TD>
+					<TD width="162">Transfer content as an attachment using either Mime or Dime</TD>
+					<TD width="202">Faster as content doesn't need to be encoded (Dime only)</TD>
+					<TD>
+						<P>Not very interoperable. WSDL support is abysmal.
+						</P>
+						<P>Mime encoding requires base 64 encoding
+						</P>
+					</TD>
+				</TR>
+				<TR>
+					<TD width="165">TStream</TD>
+					<TD width="162">transfer content as a base64 encoded string in the soap message</TD>
+					<TD width="202">Good interoperability</TD>
+					<TD>base64 encoding takes time</TD>
+				</TR>
+				<TR>
+					<TD width="165">THexStream</TD>
+					<TD width="162">transfer content as a hex encoded string in the soap message</TD>
+					<TD width="202">Good interoperability</TD>
+					<TD>
+						<P>hex encoding takes time.</P>
+						<P>Hex encoded strings are longer than base64 encoded strings</P>
+					</TD>
+				</TR>
+				<TR>
+					<TD width="165">String</TD>
+					<TD width="162">Transfer content as a plain string. The string will be XML escaped 
+						as required</TD>
+					<TD width="202">easy to handle because strings are reference counted</TD>
+					<TD>
+						<P>Requires XML escaping, this is the slowest option.
+						</P>
+						<P>White space issues make it difficult to transfer exactly</P>
+					</TD>
+				</TR>
+			</TABLE>
+		</P>
+		<P>&nbsp;</P>
+		<P>Unless you need to use Attachments, we recommend that you use TStream</P>
+		<H4>TSteam and THexStream</H4>
+		<P>If a Parameter or property has the type "TStream", then the content of the 
+			stream will be interpreted as a Simple Binary of SOAP type "base64Binary".
+		</P>
+		<P>For any parameter handed to IndySoap by your code, either on server or client, 
+			you can pass any type of stream in the parameter. IndySoap will use a 
+			TIdMemoryStream when it passes the content back at the other end.
+		</P>
+		<P>If a parameter or property has the type "THexStream", then the content of the 
+			stream will be interpreted as Simple Binary of SOAP type "hexBinary".
+		</P>
+		<P>For THexStream, you will need to use THexStream types instead of any type of 
+			stream</P>
+		<p>
+			When used like this, Streams are always subject to the “native” lifetime 
+			management scheme (<A href="Intf_Classes.htm">described here</A>
+		), where the client accepts responsibility for freeing the Streams that come 
+		out of the SOAP layer, and the server will always free the Stream when the call 
+		is complete.
+		<p>&nbsp;</p>
+		<H4>Soap Attachments: TIdSoapAttachment</H4>
+		<P>IndySoap supports Soap attachments. However a note of warning is required: 
+			Attachments are not well implemented in SOAP/WSDL. While IndySoap is as 
+			flexible as it can be, IndySoap may need to be fine tuned to ensure that it 
+			sends exactly what the other end requires. The implementation of
+		</P>
+	</body>
+</html>

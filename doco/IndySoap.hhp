@@ -1,0 +1,16 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=IndySoap.chm
+Contents file=toc.hhc
+Default Window=default
+Default topic=OVR_Welcome.htm
+Display compile progress=Yes
+Index file=Index.hhk
+Language=0x409 English (United States)
+
+[WINDOWS]
+default=,"toc.hhc","Index.hhk","OVR_Welcome.htm","OVR_Welcome.htm",,,,,0x2120,,0x3046,,,,,,,,0
+
+
+[INFOTYPES]
+

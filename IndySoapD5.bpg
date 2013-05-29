@@ -1,0 +1,30 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = IdSoapTestsI9.exe IdSoap50.bpl IdSoapTools.exe DimeBrowser.exe
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+
+IdSoapTestsI9.exe: tests\IdSoapTestsI9.dpr
+  $(DCC)
+
+IdSoap50.bpl: packages\IdSoap50.dpk
+  $(DCC)
+
+IdSoapTools.exe: tools\wizard\IdSoapTools.dpr
+  $(DCC)
+
+DimeBrowser.exe: tools\dime\DimeBrowser.dpr
+  $(DCC)
+
+

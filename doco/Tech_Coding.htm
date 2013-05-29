@@ -1,0 +1,391 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+	<HEAD>
+		<TITLE>IndySoap: Coding For Confidence</TITLE>
+		<style>@import url(indysoap.css);
+	</style>
+	</HEAD>
+	<BODY>
+		<H1>IndySoap: Coding For Confidence</H1>
+		Version History:<P>
+			<UL>
+				<LI>
+					25 July 2002 Grahame Grieve first collated</LI>
+			</UL>
+		<P>
+			The kind of things that happen inside IndySoap are very different to normal 
+			code, and very difficult for users who are not familiar with the IndySoap 
+			internal processes to debug. These things include:
+			<UL>
+				<LI>
+				Extensive use of RTTI
+				<LI>
+				Dynamic generation of machine code
+				<LI>
+				Manipulation of the program stack
+				<LI>
+					Hard typecasting of parameters and direct memory access</LI>
+			</UL>
+		IndySoap is “plumbing”, and therefore it really needs to work reliably, as the 
+		implementation details of interfaces will mainly be hid from view. Bugs in 
+		IndySoap are not only hard to debug, they are hard to visualize.
+		<P>
+		However, IndySoap is also extremely exposed to bugs in the host application 
+		code. Uninitialised parameters will generally show as access violations or 
+		similar inside the IndySoap engine. In addition, weaknesses in the SOAP 
+		specification and interoperability issues may cause mystifying errors deep 
+		inside IndySoap
+		<P>
+		In addition, IndySoap will run inside mission critical servers and must be 
+		extremely reliable. In particular, IndySoap should not cause any memory leaks
+		<P>
+		Finally, debugging IndySoap will be confined to a few individuals who have 
+		other commercial obligations and will not be very responsive.
+		<P>
+		For these reasons, it is critical that IndySoap be extremely reliable and that 
+		it works first time, every time. This section outlines some of the steps taken 
+		to provide this assurance
+		<P>
+			<H2>Coding Standard</H2>
+		All the IndySoap code is generated under a variant of the Indy Pit Crew coding 
+		standard that applies to all IndyCode. Some of the guidelines are from Borland, 
+		and some are from the Indy team. There are some additional criteria specific to 
+		the IndySoap team which are discussed below. Adherence to this coding standard 
+		is quite demanding, and the cause of some argument within the Indy Pit Crew. 
+		The uniform adherence of the code to the coding standard is the first assurance 
+		that IndySoap will achieve the desired reliability, due to the care taken with 
+		the code, and the fact that many of the rules in the coding standard stem from 
+		past quality improvement procedures in the Indy team and elsewhere
+		<P>
+			The IndySoap coding standard is reproduced in full at the foot of this document
+			<H2>Class &amp; Object Tracking</H2>
+		One of the IndySoap specific coding rules concerns Live Object Tracking. For a 
+		variety of reasons, IndySoap has a high likelihood of leaking objects, and 
+		leaks cannot be tolerated. Another issue is that the internal engine of 
+		IndySoap often deals with objects outside the normal controlled paradigm of 
+		pascal coding, and many of the normal safeguards built into Object Pascal are 
+		lost.
+		<P>
+		For this reason, IndySoap includes a thorough object tracking system. All 
+		IndySoap Objects must be registered with this system, either by descending from 
+		IdBaseObject, or from some other class that registers itself with the IndySoap 
+		object tracking system
+		<P>
+		This system keeps track of the number of live objects by class type, and 
+		registers the address of each object in a hashed list of objects. This system 
+		is implement in IdSoapDebug.pas. The key features of this system can be 
+		described by one of it’s entry points. The following set of procedures allows 
+		any class of object to register with the system:
+		<P>
+			<pre>
+function IdObjectRegister(AObject: TObject): Cardinal;
+function IdObjectTestValid(AObject: TObject; AClassType: TClass = NIL): Boolean;
+procedure IdObjectBreakPointOnFree(AObject: TObject);
+procedure IdObjectDeregister(AObject: TObject);
+</pre>
+			<H4>Object Registration</H4>
+		When an object is registered, the count of AObject.ClassName will be 
+		incremented, and the address of the object itself will be registered in a 
+		hashed list of objects. A serial number unique to the object will be returned. 
+		This serial number can be used to check that the object is the same as 
+		expected.
+		<P>
+		When the object is deregistered, the count of AObject.ClassName will be 
+		decremented, and the address of the object will be removed from the list of 
+		registered objects. If the address of the object is not found in the list, a 
+		breakpoint will be called.
+		<P>
+		<P>Possible reasons for stopping at this breakpoint:
+			<UL>
+				<LI>
+				Failure to call IdObjectRegister (inherited create not called)
+				<LI>
+				Failure to call IdObjectRegister (exception in constructor prior to calling 
+				inherited create)
+				<LI>
+				Attempt to free an object for the second time
+				<LI>
+					Attempt to free a pointer that does not correspond to an object</LI>
+			</UL>
+		<p>
+		Generally, a base class will call IdObjectRegister and IdObjectDeregister in 
+		it’s constructor and destructor, hence the references to the inherited creates
+		<P>
+			<H4>Testing Validity</H4>
+		At any time, it is possible to ask the layer to verify that the object in 
+		question is an existent object, and that if it exists, it is of the type 
+		AclassType (or a descendent). If AObject is nil or the address cannot be found 
+		in the live object address list, then the object is not valid. And if the 
+		object is not of the appropriate class, then the result will be false.
+		<P>
+		<P>This test is used extensively in IndySoap assertions (see below)
+			<H4>Breakpoint</H4>
+		Sometimes, it is very difficult to trace when an object becomes invalid. This 
+		is particularly true in a multithreaded server environment where one thread 
+		could erroneously be freeing an object that belongs to another thread. The 
+		IndySoap object tracking infrastructure allows a particular address to be 
+		labeled so that when it is removed from the live address list, a breakpoint 
+		will be called, to assist in tracking rogue object destruction
+		<P>
+			<H4>Program Close</H4>
+		When a program that includes IdSoapDebug is closed, the total live registered 
+		object count is checked after most units have cleaned up, and any objects still 
+		live are counted. If there is any live objects, a windows messagebox listing 
+		the objects by class will be shown. These objects are almost certainly leaking 
+		objects, and need to be tracked down manually.
+		<P>
+		The dialog will not be shown if the IdSoapDebug unit is in a package or a 
+		library (dll/so), since this would generally be inappropriate.
+		<P>
+		This list of live objects is the most important way of checking that there is 
+		no object leaks in IndySoap. This still allows the possibility that there is 
+		string, dynamic array and other memory leaks in IndySoap, but these are much 
+		less likely than object leaks for a variety of reasons
+		<P>
+			<H4>Turning Object tracking off</H4>
+			There is a heavy performance penalty for object tracking, so you might want to 
+			turn it off in production. To turn it off, check the defines in 
+			IdSoapDefines.inc. You can turn address tracking off and completely turn the 
+			class tracking system off altogether.
+			<H2>Assertions</H2>
+		The IndySoap coding standard requires that assertions must be used to check 
+		every parameter (including the undeclared parameter self), and any other 
+		conditions that should be true when a procedure is called. This checking 
+		ensures that the conditions that were expected when the procedure was written 
+		are met when the procedure is actually used.
+		<P>
+		For each assertion, an error message must be provided, that starts with the 
+		text “&lt;unit&gt;.[&lt;class&gt;.]&lt;routine&gt;:”. In addition the error 
+		message must provide as much information as possible to assist in debugging, 
+		both concerning the problem, and any information that can be given about where 
+		the routines was called from.
+		<P>
+		Any information newly generated inside a routine is also subject to the same 
+		assertion checking.
+		<P>
+		Assertions may be turned off at compile time, and it is anticipated this would 
+		be done in production, so some checks which should always run use the IdRequire 
+		routine instead of Assert. This does the same thing and takes the same 
+		parameters, but won’t be compiled out. This is used where the data that is 
+		being checked arises from outside the code (i.e. from a message) and could be 
+		incorrect in production
+		<P>
+			<i>(Note: The IndySoap development team would appreciate having better control over 
+				the level of assertions that can be compiled in or out, and has requested this 
+				feature from Borland development)</i>
+		<P>
+		As an example, consider this routine inside the Soap encoding code.
+		<P>
+			<pre>
+procedure TIdSoapReaderXML.ReadBase(ARootElement : TdomElement; ASoapNode : TIdSoapNode);
+const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapReaderXML.ReadBase';
+var
+  LNode: TdomNode;
+  i: Integer;
+  LTemp : string;
+  LType : string;
+  LTypeNS : string;
+begin
+  assert(Self.TestValid(TIdSoapReaderXML), ASSERT_LOCATION+': self is not valid');
+  assert(IdSoapTestNodeValid(ARootElement, TdomElement), ASSERT_LOCATION+': XmlNode is not valid');
+  assert(ASoapNode.TestValid(TIdSoapNode), ASSERT_LOCATION+': SoapNode is not valid');
+</pre>
+		<p>
+		In this routine, we check each of the parameters passed by the call to 
+		ReadBase. All of the parameters must be valid.
+		<P>
+		The presence of these Assertions contributes considerably to the assurance of 
+		the IndySoap code. In particular the code is very robust. Error conditions will 
+		be picked up early, close to the source of the problem, rather than later when 
+		the effects are often difficult to relate to the cause.
+		<P>
+		In addition, the requirement to code the assertions leads to more careful 
+		coding practice, and more thought to what constitutes an error condition
+		<P>
+		The presence of the assertions does lead to some odd effects at times, as a bug 
+		will sometimes lead to a cascade of assertions as the conditions slowly 
+		deteriorate in the program
+		<P>
+		<P>Combined with Jedi Stack dumping <A HREF="http://www.delphi-jedi.org/">http://www.delphi-jedi.org</A>
+		) this is a powerful debugging tool. (and if you do manage to find a bug and 
+		submit it to the Indy team, you are reasonably likely to be asked to generate 
+		stack dumps in one form or another to send as part of your submission)
+		<P>
+			<H2>DUnit Testing</H2>
+			Finally, the most important part of the Assurance that IndySoap offers is the 
+			fact that it is extensively DUnit tested. Almost all of the development was 
+			done using DUnit testing. The advantages of DUnit testing are documented 
+			elsewhere (extensively. Start looking at <A HREF="http://www.sourceforge.net/projects/dunit">
+				http://www.sourceforge.net/projects/dunit</A>
+		if you are interested). The IndySoap DUnit tests are considered an integral 
+		part of the IndySoap project, and are made available for anyone to run
+		<P>
+		The IndySoap team expects that the DUnit tests should compile and run with no 
+		other preparation bar that outlined in the installation notes above. As bugs 
+		and interoperability issues are reported, further tests will be added.
+		<P>
+		It is also possible to add the DUnit tests for IndySoap to part of a larger 
+		suite of DUnit tests. All you need to do is use the unit 
+		&lt;indysoap&gt;\dunit\IdSoapTestsRegistration, and ensure that the 
+		&lt;indysoap&gt;\dunit directory is the current directory when 
+		IdSoapRegisterTests routine is executed, and when the test Suite it returns is 
+		executed
+		<P>
+		Note that the IndySoap DUnit tests use global type registries, so you may need 
+		to be a little careful of interactions between these tests and your tests. And 
+		for this reason, there is a few tests early in the test sequence that can only 
+		be run once per execution
+		<P>
+			<H3>Appendix: IndySoap coding standards</H3>
+		Irrevocable and perpetual permission is granted to cite all or part of this 
+		document provided and however one sees fit provided that appropriate credit is 
+		given to the original authors.
+		<p>
+			This document describes the standards we have for IndySoap. These standards are 
+			required to maintain several important goals which are:
+			<OL>
+				<LI>
+				Provide the level of quality assurance required for the IndySoap project
+				<LI>
+				Maintain portability of the code between Win32 operating systems and Linux 
+				distributions
+				<LI>
+					Support the following Borland Products
+					<UL>
+						<LI>
+						Delphi 4, 5, 6
+						<LI>
+						Kylix
+						<LI>
+							C++Builder 4, 5</LI>
+					</UL>
+				<LI>
+				Make sure that IndySoap can be used in a variety of programs such as Win32 GUI 
+				programs, CLX-based GUI programs, console applications, and multi-threaded 
+				programs including servers and some clients
+				<LI>
+				Ensure consistency throughout the entire the Indy classes and components
+				<LI>
+				Provide for International Usage
+				<LI>
+					Ensure that all code can be maintained for long periods of time and 
+					independently of the original author.</LI>
+			</OL>
+			<H4>Source Code</H4>
+			<OL>
+				<LI>
+					<B>Namespace </B>
+					<BR>
+				All IndySoap units begin with “IdSoap”. All IndySoap classes should begin with 
+				“TIdSoap”. This restriction does not hold in the testing or demo code.
+				<LI>
+					<B>Assertions</B><BR>
+				Every routine should begin with a series of assertions that check that self and 
+				all parameters have acceptable values. If a parameter can’t be checked, a 
+				comment should be added. A parameter should still be checked (or commented 
+				upon) even if it is certain that it would’ve been checked elsewhere
+				<LI>
+					<B>DUnit testing</B><BR>
+				All code should be DUnit tested. When writing code, you should start by 
+				defining a DUnit that fails because of the bug, or the missing feature. All 
+				DUnit tests should pass before you book code back in. Supporting Code (packet 
+				encoding, type registration, communications, etc) should be DUnit tested 
+				separately from the high level tests
+				<LI>
+					<B>Platform Specific Units</B><BR>
+				Windows Specific units (Windows, WinInet, Registry, ShellApi, etc) and Linux 
+				specific units (Libc, etc) should always be appropriately $IFDEFed.
+				<LI>
+					<B>Sysutils version issues</B><BR>
+				AnsiSameText, IncludeTrailingBackSlash, FreeAndNil are defined in 
+				IdSoapUtilities (for Delphi 4). If you use SysUtils, then you should also add 
+				IdSoapUtilities to the uses clause
+				<LI>
+					<B>No Goto Statements</B><BR>
+				Goto statements are prohibited.
+				<LI>
+					<B>Always use begin..end</B><BR>
+				All "if", "whiles", "for" must include a "begin...end" even if there was only 
+				one line of code in the condition. This is required because we often might have 
+				to add something else to conditional execution later on. In addition, compound 
+				lines (if condition then exit) can cause unexpected jumps during tracing.
+				<LI>
+					<B>Uses clauses</B><BR>
+				Unless there is something in a unit's interface which depends on it, a unit 
+				should be in the implementation uses clause. Uses clauses must be in 
+				alphabetical order. Uses clauses case is case sensitive
+				<LI>
+					<B>Compiler warnings and hints</B><BR>
+				The only compiler hints and warnings allowed related to deprecated functions 
+				and platform specific code. For each of these, a comment should be placed in 
+				the code indicating that it is OK to be a warning.
+				<LI>
+					<B>Variable prefixes</B><BR>
+				Arguments are prefixed with A, unless they are var or out arguments which are 
+				prefixed by V. Member variables are prefixed by F, global variables (not 
+				constants) by G, Local variables are prefixed by L, except for general purpose 
+				integers (i, j, k, ...) and general purpose strings (s, t, u, ...)
+				<LI>
+					<B>Constants </B>
+					<BR>
+				are defined in all uppercase with underscores between words
+				<LI>
+					<B>FreeAndNil</B><BR>
+				FreeAndNil should always be used, except when it cannot be used.
+				<LI>
+					<B>With</B><BR>
+				with statements are banned
+				<LI>
+					<B>Object ancestors</B><BR>
+				All IndySoap components must decend from TIdSoapComponent. All other classes 
+				that might descend from TObject must descend from TIdBaseObject.
+				<LI>
+					<B>DCR Bitmaps</B><BR>
+				refer to the Indy coding conventions for guidance
+				<LI>
+					<B>EIdException</B><BR>
+				All exceptions must be of type EIdException or a descendant of EIdException. By 
+				descending from EIdException, a developer can determine if an exception is 
+				related to Indy.
+				<LI>
+					<B>Property Editors</B><BR>
+				refer long comments in Indy coding conventions.
+				<LI>
+					<B>Published Properties</B><BR>
+					For TIdSoapComponent descendents, all published properties except for strings 
+					and certain objects (TStrings) have to have default values that will match the 
+					initial values in properties. The default value should be a constant.</LI>
+			</OL>
+			<H4>Internationalization</H4>
+		Supporting internationalization requires two things. It requires that certain 
+		hard-coded strings be placed in resource strings and that Multi-Byte Character 
+		Support (MCBS) compatible string routines be used.
+		<p>
+		In Indy, there are two types of hard-coded strings and it is important to 
+		understand the difference as the strings in either category are treated 
+		differently. The first type of string is a typical message for human 
+		convenience. These include exception Message text such as "No OnExecute 
+		specified" or human readable text parts of replies such as "Command not 
+		supported". These are defined as constants in the IdSoapResourceStrings unit 
+		which has a resourceString directive which causes those strings to placed in 
+		resources. The second type of hard-coded string is a protocol-specific string 
+		such a protocol command such as "'QUIT" or sometimes a specific reply code as 
+		"-ERR ". When using these strings, you add the comment, {Do not Localize} on 
+		the same line as the string. This is necessary to accommodate a translation 
+		which scans source-code files for hard-coded strings.
+		<p>
+		Assert messages do not need to be in ResourceStrings
+		<p>
+		MCBS support is done by using routines such as AnsiSameText to compare two 
+		strings and IndyPos instead of the standard Pos function. These functions can 
+		make accurate usage of MCBS when needed. This is necessary because some 
+		languages such as Chinese and Japanese require two or more bytes to accommodate 
+		individual characters instead of one byte for English, Romance Languages 
+		(French, Spanish, etc) and other European languages. We use IndyPos so that 
+		MCBS support can be used if needed or performance is gained if MCBS support is 
+		not needed on the end-user's computer. IdGlobals has initialization code which 
+		determines if MCBS support is required. Thus using IndyPos transparently 
+		handles things
+		<P></P>
+	</BODY>
+</HTML>

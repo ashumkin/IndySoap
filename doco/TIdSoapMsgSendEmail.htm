@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<Title>TIdSoapMsgSendEmail</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>
+			<H2>TIdSoapSendEmail</H2>
+		</H2>
+		<P>Ancestor: <A href="TIdSoapMsgSender.htm">TIdSoapBaseSender</A></P>
+		<P>Unit: IdSoapMsgEmail</P>
+		<P>TIdSoapClientDirect provides a One way client implementation that sends the SOAP 
+			Messages as EMail to an SMTP server.</P>
+		<P>&nbsp;</P>
+		<PRE>  property Destination : TIdEMailAddressItem; </PRE>
+		<P>the email address to send the messages too. You must provide an address. The 
+			other details are optional
+		</P>
+		<P>&nbsp;</P>
+		<PRE>  property SMTPHost : String; <BR>  property SMTPPort : word; </PRE>
+		<P>The details of the SMTP Server to use</P>
+		<P>&nbsp;</P>
+		<PRE>  property SMTP : TIdSMTP; </PRE>
+		<P>If you need to set advanced settings on the SMTP Client object, create another 
+			one, and point this property at it. This alternative SMTP object will be used 
+			instead</P>
+	</body>
+</html>

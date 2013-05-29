@@ -1,0 +1,159 @@
+<html>
+<head>
+<Title>TIdSoapNode</Title>
+<style>@import url(indysoap.css);
+	</style>
+</head>
+	<body>
+		<H2>TIdSoapNode</H2>
+		<P>Unit:&nbsp; IdSoapRpcPacket</P>
+		<P>&nbsp;</P>
+		<P>Each complex node in a SOAP packet is represented by a TIdSoapNode. (The root 
+			node is automatically considered a complex node, and automatically created for 
+			you)</P>
+		<P>A complex node has a list of parameters, each of which has a name, and a list of 
+			children (of type TIdSoapNode), each of which also has a name.</P>
+		<P>Usually a Node TIdSoapNode (and each child node) represents a class or an array, 
+			while the parameters represent parameters, fields and array elements which are 
+			simple types.</P>
+		<P>&nbsp;</P>
+		<H4>Differences in behaviour between different SOAP modes</H4>
+		<P>The TIdSoapNode is used as an intermediary between the XML structures and the 
+			programmer. The intent is to limit the impact of the different soap modes of 
+			operation from the program code as much as possible. This is not always 
+			possible. In particular the node structure behaves slightly between between 
+			type and untyped modes, and between encoded arrays, and in-line arrays.</P>
+		<P>RPC mode = typed mode, and encoded arrays (unless programmer specifies otherwise 
+			in the encoding options on the client or server obejct)</P>
+		<P>Doc|Lit mode = untyped, with arrays in-line (programmer cannot override)</P>
+		<P>When encoded arrays are used, Children and Parameter names must be unique within 
+			their combined space. This is enforced by the TIdSoapNode itself.
+		</P>
+		<P>When in-line arrays are used, the names of children and parameters can repeat. 
+			If a direct parameter accessor is used on a repeating name, only the first 
+			parameter with a matching name will be examined. When the Reader object is 
+			first asked for an array of a given name, it will restructure a children and 
+			parameters to assemble an array node. And children or parameters with the name 
+			of array will be moved to the new array node. <EM>You need to be careful of this if 
+				you are using the packet objects directly in doc|lit mode</EM>.</P>
+		<P>When typed mode is in use, XML nodes with simple schema types, or simple text 
+			content, will be interpreted as parameters</P>
+		<P>When untyped mode is in use, XML nodes with simple text content will be 
+			interpreted as parameters. This makes it unclear what to do with empty nodes 
+			(&lt;node/&gt;). They are interpreted as children instead of parameters <EM>(you 
+				need to be careful to check paramexists and supply some appropriate default, or 
+				take whatever action would be appropriate is the empty node exists. This is an 
+				unfortunate gotcha associated with the TIdSoapNode concept)</EM></P>
+		<P>&nbsp;</P>
+		<H4>Structural properties and Methods
+		</H4>
+		<PRE>constructor Create(AName, ATypeName, ATypeNamespace: String; AIsArray: Boolean; AParent: TIdSoapNode; AOwner: TIdBaseSoapPacket); </PRE>
+		<P>You only need to create a TIdSoapNode yourself if you are&nbsp;manually building 
+			a SOAP Packet to be sent. As well as creating the SoapNode you must also add 
+			the soap node to the children list of the parent (using AName as the name in 
+			the list).
+		</P>
+		<P>Parameters:</P>
+		<P>
+			<TABLE id="Table1" cellSpacing="1" cellPadding="1" width="300" border="1">
+				<TR>
+					<TD>AName</TD>
+					<TD>The name of the XML node</TD>
+				</TR>
+				<TR>
+					<TD>ATypeName</TD>
+					<TD>The name of the type (to go in the xsd:type attribute)</TD>
+				</TR>
+				<TR>
+					<TD>ATypeNamespace</TD>
+					<TD>the namespace of the type (to go in the xsd:type attribute)</TD>
+				</TR>
+				<TR>
+					<TD>AIsArray</TD>
+					<TD>Whether this node is an array or a class</TD>
+				</TR>
+				<TR>
+					<TD>AParent</TD>
+					<TD>The immediate parent node of this node</TD>
+				</TR>
+				<TR>
+					<TD>AOwner</TD>
+					<TD>The owner Reader or Writer Object</TD>
+				</TR>
+			</TABLE>
+		</P>
+		<PRE>property Children: TIdStringList; </PRE>
+		<P>The list of child nodes. The only time you should use this is immediately after 
+			creating a node. Add the new node to the list like this: 
+			Children.AddObject(ANode.Name, ANode); If you are reading a packet, and you 
+			want a child node, use one of the routines on TIdSoapReader</P>
+		<P>&nbsp;</P>
+		<PRE>property Owner: TIdBaseSoapPacket;<BR>property Stream: TMemoryStream;<BR>property Params: TIdStringList; <BR>property ReadingReferenceId: Integer; <BR>property ReadingReferenceName: String; <BR>property Parent: TIdSoapNode; </PRE>
+		<P>These properties exist for internal IndySoap use only. You should never use them</P>
+		<PRE>property IsArray: Boolean; </PRE>
+		<P>Whether this node is a class or an array (actually, a level of an array). This 
+			is read-only - it must be defined when the node is first created</P>
+		<PRE><BR>property IsComplexArray : boolean; </PRE>
+		<P>Whether the elements in the array (if this node is array) are arrays or classes. 
+			You need to set this so that the packet is rendered correctly</P>
+		<P>&nbsp;</P>
+		<H4>Descriptive properties</H4>
+		<PRE>property Name: String; </PRE>
+		<P>The XML node name for this node</P>
+		<P>&nbsp;</P>
+		<PRE>function Description: String; </PRE>
+		<P>Returns the Description of this node's parent, along with the node name 
+			appended. This is useful for quickly describing the node (usually in error 
+			messages)</P>
+		<P>&nbsp;</P>
+		<PRE>property TypeName: String; <BR>property TypeNamespace : string; </PRE>
+		<P>The type and namespace of the type. These is not required if the mode is 
+			doc|lit, or the SuppressTypes Option is true for this interface, or if this 
+			node is an array. You must always provide a namespace if you provide a type</P>
+		<P>&nbsp;</P>
+		<PRE>property Reference: TIdSoapNode; <BR>property ActualObject: TObject; <BR>property WritingReferenceId: Integer; </PRE>
+		<P>A series of properties that support the use of references in SOAP packets. 
+			References are used to allow the sender to indicate to the receiver that a 
+			single object is used in more than one place in the message. in addition, some 
+			SOAP libraries use references as a matter of course.
+		</P>
+		<P>When you are reading a SOAP message, and you get a node, always check that the 
+			node reference is nil. If it is not nil, you should follow the reference. 
+			(ANode := ANode.Reference;). The ActualObject property is provided so that when 
+			you create an object for the Node, you can store a pointer to it, so that if 
+			you come to the same reference again, you can return the original reference. <EM>(Note 
+				that TIdBaseSoapableObject has special support internally for the horrible 
+				clean up issues that can result from this)</EM></P>
+		<P>When you are writing a SOAP packet, if you wish to encode a reference, create 
+			the node, then set it's WritingReferenceId to a unique number for that packet. 
+			Create the same node again, and add it to the Writer.References list using the 
+			same Identifier. All parameters and other children should be added to the Node 
+			in the references list</P>
+		<P>&nbsp;</P>
+		<H4>Parameter Access</H4>
+		<P>&nbsp;</P>
+		<PRE>property ParamExists[const AName: String]: Boolean; </PRE>
+		<P>return whether an XML node was found in the packet for a given parameter</P>
+		<P>&nbsp;</P><PRE>property ParamBoolean[const AName: String]: Boolean;<BR>property ParamByte[const AName: String]: Byte; <BR>property ParamCardinal[const AName: String]: Cardinal; <BR>property ParamChar[const AName: String]: Char; <BR>property ParamComp[const AName: String]: Comp;<BR>property ParamCurrency[const AName: String]: Currency; <BR>property ParamDateTime[const AName: String]: TDateTime; <BR>property ParamDouble[const AName: String]: Double; <BR>property ParamExtended[const AName: String]: Extended; <BR>property ParamInt64[const AName: String]: Int64; <BR>property ParamInteger[const AName: String]: Integer; <BR>property ParamSet[const AName: String]: Integer; <BR>property ParamShortInt[const AName: String]: ShortInt; <BR>property ParamShortString[const AName: String]: ShortString; <BR>property ParamSingle[const AName: String]: Single; <BR>property ParamSmallInt[const AName: String]: SmallInt; <BR>property ParamString[const AName: String]: String; <BR>property ParamWideChar[const AName: String]: WideChar; <BR>		</PRE>
+		<P>A series of properties that will attempt to return the 
+SOAP parameter - if it exists - as the desired type. Exceptions will be raised 
+if the conversion&nbsp;fails. A few types will return default values if the 
+parameter does not exist&nbsp;(boolean = nil, string = ''). For other types, an 
+exception will be raised.<BR> &nbsp;&nbsp;
+		</P><PRE>
+		<P>property ParamEnumeration[const AName: String; ATypeInfo: PTypeInfo; ATypeName, 
+			ANamespace : string]: Integer;
+		</P></PRE>
+		<P>This property will attempt to return the SOAP parameter as the appropriate 
+			enumerated value. The value must exist in the enumerated type (Case 
+			insensitive). Type and namespace would not be required if mode is doc|lit</P><PRE>
+		<PRE>property ParamBinaryHex[const AName: String]: TStream; <BR>property ParamBinaryBase64[const AName: String]: TStream; <BR>property ParamIdSoapDateTime[const AName: String]: TIdSoapDateTime; <BR>property ParamIdSoapDate[const AName: String]: TIdSoapDate; <BR>property ParamIdSoapTime[const AName: String]: TIdSoapTime; </PRE>
+</PRE>
+		<P>These properties that will attempt to return the SOAP parameter - if it exists - 
+			as the desired type. Exceptions will be raised if the conversion fails. if the 
+			conversion succeeds, a new object will be returned each time. The calling 
+			routine becomes responsible for the life time management of the returned object</P>
+<P>
+		<P>&nbsp;</P>	</P>
+	</body>
+</html>

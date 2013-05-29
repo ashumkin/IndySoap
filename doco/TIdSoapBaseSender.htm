@@ -1,0 +1,101 @@
+<html>
+	<head>
+		<Title>TIdSoapBaseSender</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapBaseSender
+		</H2>
+		<P>Ancestor: <A href="TIdSoapITIProvider.htm">TIdSoapITIProvider</A></P>
+		<P>Unit: IdSoapClient</P>
+		<P>TIdSoapSender is the base implementation for Sending Soap messages. There is 
+			descendent types for Request/Response and One-Way message modes. TIdSoapSender 
+			serves as an interface factory. Any calls to these interfaces will be converted 
+			to SOAP requests transparently to the program. You do not use TIdSoapSender 
+			directly. Instead, you use a descendent that also provides a transport 
+			implementation. (<A href="TIdSoapClientHTTP.htm">TIdSoapClientHTTP</A>, <A href="TIdSoapClientTCPIP.htm">
+				TIdSoapClientTCPIP</A>, <A href="TIdSoapClientWinInet.htm">TIdSoapClientWinInet</A>
+			or <A href="TIdSoapMsgSendEmail.htm">TIdSoapMsgSendEmail</A>)</P>
+		<P>To use a sender, simply declare an interface, type cast the component to the 
+			interface, and then use the interface.
+		</P>
+		<PRE>var <BR>&nbsp; LIntf : IMyInterface; <BR>begin LIntf := IdSoapClientHTTP1 as IMyInterface;<BR>&nbsp; LIntf.DoProc(AParam); </PRE>
+		<P>You do not need to free the interface - it will be garbage collected. In order 
+			to do this, IMyInterface must be described in the ITI that the sender is using.</P>
+		<P>You can also build the SOAP packet directly yourself if the interface mode isn't 
+			suitable. To do this, ask the Object to create a Writer object, fill it out, 
+			and then send it directly.
+		</P>
+		<PRE>var <BR>&nbsp; LWriter : TIdSoapWriter; <BR>&nbsp; LReader : TIdSoapReader; <BR>begin <BR>&nbsp; LWriter := IdSoapClientHTTP1.CreateWriter; <BR>&nbsp; LWriter.SetMessageName('TestProc', 'urn:test'); <BR>&nbsp; LWriter.BaseNode.ParamString['param1'] := 'Value'; <BR>&nbsp; LReader := IdSoapCLientHTTP1.SoapSend(LWriter, 'SoapAction..'); <BR>&nbsp; try <BR>&nbsp;&nbsp;  result := LReader.ParamInteger['result']; <BR>&nbsp; finally <BR>&nbsp;&nbsp;  FreeAndNil(LReader); <BR>&nbsp; end; <BR>end; </PRE>
+		<H4>Properties</H4>
+		<PRE>&nbsp;</PRE>
+		<PRE>  property SoapVersion : TIdSoapVersion; </PRE>
+		<P>Which version of SOAP the sender uses. There is multiple versions of the SOAP 
+			and WSDL Specifications. This property controls which version the sender will 
+			use. As yet, only one version is supported, which is Soap V1.1
+		</P>
+		<P>&nbsp;</P>
+		<PRE>  property GarbageCollectObjects : boolean;</PRE>
+		<P>By default IndySoap does not garbage collect objects that the soap layer returns 
+			to the application. This leaves the application responsible for freeing the 
+			object, but in control of their lifetime. If this property is set to true, then 
+			the sender will free all objects from the last call upon the next call, or when 
+			closing.</P>
+		<PRE>  property TIdSoapSender.CreateWriter : TIdSoapWriter;</PRE>
+		<P>This function is a factory to build the right kind of TIdSoapWriter to use when 
+			building SOAP packets manually to be sent using SoapSend
+		</P>
+		<P>&nbsp;</P>
+		<PRE>  procedure SoapSend(AWriter : TIdSoapWriter; ASoapAction : string = '') : TIdSoapReader;</PRE>
+		<P>Used to send a manually built Soap Packet. If, for some reason, it's not 
+			possible or appropriate to use the interface mode, it's possible to build a 
+			SOAP packet directly, using a TIdSoapWriter (use CreateWriter to create it). 
+			Once all the parameters etc have been provided, Use SoapSend to send the 
+			packet. You may need to provide an appropriate SoapAction for the receiver.</P>
+		<P>If the SoapSender is running in Request/Response mode, a TIdSoapReader object 
+			will be returned with the contents of the Soap Response. If a Soap Fault is 
+			returned, an exception will be raised. If the SoapSender is running in One-Way 
+			Message sending mode, this function will return nil
+		</P>
+		<P>&nbsp;</P>
+		<PRE>  property GarbageContext : TIdBaseSoapableClassContext;</PRE>
+		<P>not for use by application
+		</P>
+		<P>&nbsp;</P>
+		<PRE>  procedure TestSoapRequest; </PRE>
+		<P>Used in DUnit testing - not for use by application</P>
+		<P>&nbsp;</P>
+		<PRE>  procedure ListAllInterfaceNames (AList : TStrings); </PRE>
+		<P>List all the interface names that this SOAP Object supports. Primarily provided 
+			so that you can get a WSDL from the client</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; procedure GetWSDL(AInterfaceName : string; AStream : TStream); </PRE>
+		<P>Get the WSDL for a given interface. This is the WSDL that the client will use 
+			when excecuting the given interface. This is provided so that you can compare 
+			it with a server WSDL</P>
+		<PRE>  property SendHeaders : TIdSoapHeaderList read FSendHeaders; <BR>  property RecvHeaders : TIdSoapHeaderList read FRecvHeaders; </PRE>
+		<P>Access the the headers. You can use SendHeaders to control the SoapHeaders that 
+			will be sent with the next soap call made using the client, and RecvHeaders to 
+			read the Soap Headers from the last call</P>
+		<H4>Reference Counting</H4>
+		<P>IndySoap implements a slightly unusual system for reference counting the sender 
+			object and the interfaces. This is required to provide the convenience of a 
+			component to control the soap sender behaviour, but still have reference 
+			counting on the interfaces.
+		</P>
+		<P>The issue here is that we wish to typecast the sender object to an interface. In 
+			delphi all interfaces are reference counted. So delphi will naturally free the 
+			interface, and therefore the sender object, when the interface goes out of 
+			scope. For this reason, the Interface returned behind the scenes in the 
+			QueryInterface function (called implicitly as part of the "as" command) points 
+			to a child object rather than the sender object itself. This call is redirected 
+			to the sender by the child object. It's possible to free the sender component 
+			while leaving the child objects behind, as their interface is still in scope 
+			somewhere. In this situation, any attempt to use the interface will generate an 
+			exception
+		</P>
+		<P>
+		</P>
+	</body>
+</html>

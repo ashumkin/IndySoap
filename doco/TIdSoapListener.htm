@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<Title>TIdSoapListener</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapListener</H2>
+		<P>Ancestor: <A href="TIdSoapITIProvider.htm">TIdSoapITIProvider</A></P>
+		<P>Unit: IdSoapServer</P>
+		<P>TIdSoapListener is the base class for all classes that receive and process 
+			incoming SOAP messages.
+		</P>
+		<P>TIdSoapListener and descendents will take incoming SOAP requests and convert 
+			them to a native pascal call of an interface.&nbsp; TIdSoapListener is 
+			inherently thread safe. Most server side implementations will use it in a 
+			multi-threaded manner so any interfaces it uses will also generally need to be 
+			thread safe. TIdSoapListener does not provide any transport implementation. You 
+			will need one or more Transport layer components to provide message transport.
+		</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; property SoapVersions&nbsp; : TIdSoapVersionSet;</PRE>
+		<P>A Set specifying the versions of the SOAP Specification that the server will 
+			accept. There is multiple versions of the SOAP and WSDL Specifications. This 
+			set controls which version the server will support. The idea is that server 
+			will respond to each message in it's original specification. As yet, only one 
+			version is accepted, which is Soap V1.1</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; procedure ListValidCalls (AList : TStrings);</PRE>
+		<P>This procedure will list all the request messages that are valid for this server 
+			at this time. The format is "Namespace","MessageName". Only Soap messages with 
+			a first body element with a name and namespace on this list will be processed 
+			by the SOAP Server The list will be empty if the Server is not active</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; procedure GenerateWSDLPage(APrefix, AParam, ALocation: String; AResponse: TStream; Var VContentType : string);</PRE>
+		<P>The Transport layers use this routine to ask the server to generate a WSDL 
+			document describing the interfaces it offers using this routine. This routine 
+			is geared towards HTTP. Other entry points may be needed for other purposes. 
+			Parameters:
+		</P>
+		<BLOCKQUOTE dir="ltr" style="MARGIN-RIGHT: 0px">
+			<P>
+				<TABLE id="Table1" height="143" cellSpacing="0" cellPadding="4" width="871" border="1">
+					<TR>
+						<TD height="33">APrefix</TD>
+						<TD height="33">The Path prefix to apply to any internal links provided. For 
+							HTTP/HTML this is the the WSDL path on the TIdSoapServerHTTP</TD>
+					</TR>
+					<TR>
+						<TD height="29">AParam
+						</TD>
+						<TD height="29">If this parameter is blank, the server will return an HTML page 
+							listing the interfaces that the server provides. If this value is non blank, it 
+							should be the name of one of the interfaces provided, in which case the WSDL 
+							for that interface will be returned</TD>
+					</TR>
+					<TR>
+						<TD height="13">ALocation</TD>
+						<TD height="13">This is the stated location of the transport layer end point. This 
+							value is provided since it depends on the transport layer</TD>
+					</TR>
+					<TR>
+						<TD height="12">AResponse</TD>
+						<TD height="12">An empty stream that will have the response placed in it</TD>
+					</TR>
+					<TR>
+						<TD>VContentType
+						</TD>
+						<TD>The content type for the stream
+						</TD>
+					</TR>
+				</TABLE>
+			</P>
+		</BLOCKQUOTE>
+		<P dir="ltr">&nbsp;</P>
+		<P dir="ltr">&nbsp;</P>
+	</body>
+</html>

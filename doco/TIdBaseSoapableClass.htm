@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<Title>TIdBaseSoapableClass</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdBaseSoapableClass</H2>
+		<P>unit: TIdSoapTypeRegistry</P>
+		<P>TIdBaseSoapableClass is the base class for objects that can be transferred 
+			across SOAP. TIdBaseSoapableClass supports the lifetime management options 
+			offered by the IndySoap client and server.</P>
+		<P>You do not actually transfer TIdBaseSoapableClass objects. Instead, you define 
+			descendent classes that include the properties you want, and ignore the 
+			TIdBaseSoapableClass properties (usually)</P>
+		<P>Refer to <A href="Intf_Classes.htm">Using Classes with&nbsp;Interfaces</A> for 
+			further information about managing object lifetimes and setting 
+			TIdBaseSoapableClass properties</P>
+		<H4>Properties</H4>
+		<PRE>property OwnsObjects:boolean; </PRE>
+		<P>Whether this object owns any objects found in published properties of the actual 
+			class type. Default is true</P>
+		<P>&nbsp;</P>
+		<PRE>property ServerLeaveAlive : boolean; </PRE>
+		<P>Whether the server object should leave this object alive after a SOAP call 
+			completes</P>
+		<P>&nbsp;</P>
+		<PRE>function ValidateTree(ASession : integer; Var VMsg : string):boolean; </PRE>
+		<P>Check that the tree is valid. This should only be used internally to IndySoap</P>
+		<P>&nbsp;</P>
+		<PRE>procedure&nbsp;DeReference; </PRE>
+		<P>Delete a reference to the object. This is used when cleaning up a tree of 
+			TIdBaseSoapableClass&nbsp;objects. Again, it should only be used by IndySoap</P>
+	</body>
+</html>

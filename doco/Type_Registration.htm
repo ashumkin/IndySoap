@@ -1,0 +1,218 @@
+<html>
+	<head>
+		<Title>Registration Routines </Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>IndySoap Registration Routines</H2>
+		. IndySoap provides a number of registration routines that must be used to 
+		register resources so that IndySoap can find them when they are needed.
+		<p>
+			<H3>Type Registration
+			</H3>
+		Any types used in interface routines or objects must be registered using one of 
+		these 2 routines:
+		<p>
+			<pre>
+unit IdSoapTypeRegistry
+
+procedure IdSoapRegisterType(ATypeDetails: PTypeInfo; ATypeName: String = ''; ABaseType: PTypeInfo = nil);
+</pre>
+			<table border="0" cellspacing="3">
+				<tr>
+					<td>ATypeDetails</td>
+					<td>TypeInfo(xx) where xx is your class or type</td>
+				</tr>
+				<tr>
+					<td>ATypeName</td>
+					<td>If you want to, you can specify another name by which the type is known. If you 
+						don't specify the type, the native pascal name will be used. You generally need 
+						to register a type with a manually supplied name where the type is only an 
+						alias. LongInt is a good example</td>
+				</tr>
+				<tr>
+					<td>ABaseType</td>
+					<td>
+						Where the type is a dynamic array, and the compiler is D5 or D6, the type of 
+						the array elements must also be registered. This is not required on D6, but is 
+						allowed for code compatibility</td>
+				</tr>
+			</table>
+		<p>
+		Registered types must have unique unqualified names - you cannot register the 
+		same type twice, or 2 different types with the same name
+		<P>&nbsp;<PRE>procedure IdSoapRegisterClass(ATypeDetails: PTypeInfo; ASubstitutionList : Array of PTypeInfo; ARegisterSubstitutionList:boolean); </PRE>
+		<P>
+			<TABLE id="Table1" cellSpacing="3" border="0">
+				<TR>
+					<TD>ATypeDetails</TD>
+					<TD>TypeInfo(xx) where xx is your class</TD>
+				</TR>
+				<TR>
+					<TD>ASubstitutionList</TD>
+					<TD>A list of classes that are legal substitutions in a SOAP packet for the class 
+						being registered. All these types must be descendents of the class identified 
+						in ATypeDetails</TD>
+				</TR>
+				<TR>
+					<TD>ARegisterSubstitutionList</TD>
+					<TD>Whether to register the types in the ASubstitutionList. These types must be 
+						registered, but you have the option to register them manually</TD>
+				</TR>
+			</TABLE>
+		<p>
+		<p>
+		&nbsp;
+		<P>
+			The following types are pre-registered by the IndySoap infrastructure: <blockquote> 
+				Integer<br>
+				Cardinal<br>
+				Shortint<br>
+				Smallint<br>
+				Longint<br>
+				Int64<br>
+				Byte<br>
+				Word<br>
+				Longword<br>
+				Real<br>
+				Single<br>
+				Double<br>
+				Extended<br>
+				Comp<br>
+				Currency<br>
+				Char<br>
+				Boolean<br>
+				LongBool<br>
+				AnsiChar<br>
+				WideChar<br>
+				ShortString<br>
+				AnsiString<br>
+				AnsiString<br>
+				WideString<br>
+				TStream<br>
+				TDateTime<br>
+				TIdSoapTimeZoneInfo<br>
+				TIdSoapDateTime<br>
+				TIdSoapDate<br>
+				TIdSoapTime<br>
+			</blockquote>
+		<p>
+			<H3>Exception Registration
+			</H3>
+		If the server raises an exception, this will be returned to the client as a 
+		SOAP fault. The common RTL, Indy and OpenXML exceptions are automatically 
+		transferred across and their class is maintained. If you raise one of your own 
+		exceptions on the server, it will be raised as a EIdUnknownRemoteException on 
+		the client by remote. If you want the class of the exception raised on the 
+		client to be right, define the exception as a descendent of 
+		EIdBaseSoapableException, and register it on the client:
+		<p>
+			<pre>
+
+Uni: IdSoapTypeRegistry
+
+procedure IdRegisterException(AExceptionClass: TIdBaseSoapableExceptionClass; AManualName: String = '');
+
+</pre>
+			<table border="0" cellspacing="3">
+				<tr>
+					<td>AExceptionClass</td>
+					<td>
+						The type of exception being registered. The exception must descend from 
+						EIdBaseSoapableException.</td>
+				</tr>
+				<tr>
+					<td>AManualName</td>
+					<td>
+						The name for the exception. You can map multiple server exception types to a 
+						single exception class by registering it multiple times under different names. 
+						By default, the name is the same as the class name</td>
+				</tr>
+			</table>
+		<p>
+		You don't need to register exception classes on Servers, as clients do not (or 
+		should not) pass exceptions to servers.
+		<p>
+			<H3>Implementation Registration</H3>
+		On the server, implementations for interfaces must be registered with IndySoap 
+		using one of the following two routines:
+		<p>
+			<pre>
+Unit IdSoapIntfRegistry
+
+procedure IdSoapRegisterInterfaceClass(AInterfaceName: String; // the name of the interface as found in the source &amp; ITI
+  AClassType: pTypeInfo;  // the typeinfo for the class (i.e. TypeInfo(TMyImplementation)
+  AClass: TIdSoapBaseImplementationClass);
+</pre>
+			<table border="0" cellspacing="3">
+				<tr>
+					<td>AInterfaceName</td>
+					<td>
+						The name of the interface for which this is an implementation</td>
+				</tr>
+				<tr>
+					<td>AClassType</td>
+					<td>
+						The type of the object being registered. TypeInfo(xx) where xx is the class</td>
+				</tr>
+				<tr>
+					<td>AClass</td>
+					<td>
+						The class itself</td>
+				</tr>
+			</table>
+		<p>
+		The class being registered must descend from TIdSoapBaseImplementation
+		<p>
+			<pre>
+procedure IdSoapRegisterInterfaceFactory(AInterfaceName: String; // the name of the interface as found in the source &amp; ITI
+  AClassType: pTypeInfo;  // the typeinfo for the class (i.e. TypeInfo(TMyImplementation)
+  AFactory: TIdSoapImplementationFactory);
+</pre>
+			<table border="0" cellspacing="3">
+				<tr>
+					<td>AInterfaceName</td>
+					<td>
+						The name of the interface for which this is an implementation
+					</td>
+				</tr>
+				<tr>
+					<td>AClassType</td>
+					<td>
+						The type of the object being registered. TypeInfo(xx) where xx is the class
+					</td>
+				</tr>
+				<tr>
+					<td>AFactory</td>
+					<td>
+						A routine that returns an instance of the class type being registered. Servers 
+						can use to maintain prebuilt implementations for performance, or to implement 
+						multiple implementations and choose the right one at run time. The factory must 
+						be a routine with the following declaration:
+						<pre>
+  function(AInterfaceName: String): TInterfacedObject;
+</pre>
+					</td>
+				</tr>
+			</table>
+		<p>
+			the class the factory returns must be interface aware and have RTTI. This will 
+			be true if:
+			<ul>
+				<li>
+				Your object descends from TInterfacedPersistent
+				<li>
+				Your object descends from TInterfacedObject and it a descendent was compiled 
+				using $M+ (see TPersistent for example)
+				<li>
+					[Advanced] Your object descends from TPersistent (or had $M+ applied) and you 
+					manually added interface support (_AddRef, _Release, _QueryInterface)</li>
+			</ul>
+		<p>
+		The factory need not create a new instance of the object everytime - it can 
+		serve up the same object everytime if the object is thread-safe (since the 
+		Server implementation is implicitly multi-threaded).
+		<p></p>
+	</body>
+</html>

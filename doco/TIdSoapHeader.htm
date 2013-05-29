@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<Title>TIdSoapHeaderList</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapHeaderList
+		</H2>
+		<P>Ancestor : TIdBaseObject</P>
+		<P>Unit : IdSoapRpcPacket</P>
+		<P>Encapsulates a SOAP Header.</P>
+		<P>&nbsp;</P>
+		<H4>Properties</H4>
+		<PRE>&nbsp; </PRE>
+		<PRE>property PascalName : String;</PRE>
+		<P>Pascal name of the header - use if it is a declared header</P>
+		<P>&nbsp;</P>
+		<PRE>property Namespace : string; <BR><PRE>property Name : string; </PRE></PRE>
+		<P>Name and Namespace of the header - use if it is not a declared header</P>
+		<P>&nbsp;</P>
+		<P>Name of the header</P>
+		<P>&nbsp;</P>
+		<PRE>property Content : TIdBaseSoapableClass; </PRE>
+		<P>content of the header - must be a declared and registered type</P>
+		<P>&nbsp;</P>
+		<PRE>property Persistent : boolean; </PRE>
+		<P>whether the header is persistent (Client only)</P>
+		<P>&nbsp;</P>
+		<PRE>property MustSend: boolean; </PRE>
+		<P>whether the header&nbsp;should be sent even if it's not declared for this 
+			method&nbsp;(Client only)</P>
+		<PRE><P>&nbsp;</P>property MustUnderstand : boolean; </PRE>
+		<P>whether the receiver and any intermediaries must understand this header</P>
+		<P>&nbsp;</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

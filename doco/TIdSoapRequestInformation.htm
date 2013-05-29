@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<Title>TIdSoapRequestInformation</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapRequestInformation
+		</H2>
+		<P>On the server, an instance of TIdSoapRequestInformation is created for each SOAP 
+			call handled. This instance is available through the thread local global 
+			variable
+		</P>
+		<PRE>threadvar <BR>GIdSoapRequestInfo : TIdSoapRequestInformation; </PRE>
+		<P>This is defined in IdSoapRequestInfo.pas. You do not need to create an instance 
+			of this object yourself (unless you are writing your own trasnport layer 
+			implementation).</P>
+		<P>GIdSoapRequestInfo provides access to information about the SOAP packet itself. 
+			This includes:</P>
+		<UL>
+			<LI>
+			Information about the client communications
+			<LI>
+				Access to the Packet Objects, which provides access to SOAP Headers, and direct 
+				access to the packet structures</LI></UL>
+		<P>In addition, several of the transport layers extend TIdSoapRequestInformation to 
+			add specific information relating to the transport type. These include:</P>
+		<UL>
+			<LI>
+			TIdSoapRequestInformationHTTP: Indy HTTP Server implementation - TIdHTTPServer 
+			information
+			<LI>
+				TIdSoapRequestInformationTCPIP: Binary protocol Server information</LI></UL>
+		<P>These classes are all documented here. Typically you use the extra information 
+			from the transport layers to identify the client.</P>
+		<P>&nbsp;</P>
+		<H4>Properties</H4>
+		<P>&nbsp;</P>
+		<PRE> property CommsType : TIdSoapClientCommsType;</PRE>
+		<P>Identify the transport layer provided. Possible Values:</P>
+		<UL>
+			<LI>
+			cctHTTP:&nbsp;Classic Soap on HTTP using&nbsp;IdSoapServerHTTP
+			<LI>
+			cctTCPIP: IndySoap custom TCP/IP protocol
+			<LI>
+			cctDirect: IdSoapClientDirect
+			<LI>
+				cctEmail: Email (One Way) protocol</LI></UL>
+		<PRE>&nbsp;</PRE>
+		<PRE>  property ClientCommsSecurity : TIdSoapClientCommsSecurity;</PRE>
+		<P>summary providing information about the client comms security. Possible values:</P>
+		<UL>
+			<LI>
+			ccsUnknown: Transport layer doesn't know&nbsp;
+			<LI>
+			ccsInsecure: Transport Layer knows that the client is anonymous and insecure
+			<LI>
+			ccSecure: Comms are secure (SSL, TLS, etc) but client is not identified
+			<LI>
+				ccAuthenticated): Client is both secure and unambiguously identified (by some 
+				PKI system)</LI></UL>
+		<P>
+		</P>
+		<PRE>  property Reader : TIdSoapReader;<BR>  property Writer : TIdSoapWriter; </PRE>
+		<P>The Reader and Writer are made available for you to examine them, primarily for 
+			access to the headers.&nbsp;We advise against writing directly to the writer. 
+			This has not been tested.
+		</P>
+		<P>&nbsp;</P>
+		<PRE>  property Server : TObject;</PRE>
+		<P>This is the server that handled the request. The object will always be valid, 
+			and will always refer to a TIdSoapBaseListener or descendent. However this 
+			class cannot be used here due to circular unit reference issues.</P>
+		<P>&nbsp;</P>
+		<PRE>  property Session : TObject;</PRE>
+		<P>This is the session for the request, assuming that a valid session was 
+			associated with the user request.
+		</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; property Thread : TIdPeerThread; </PRE>
+		<P>The Thread property is defined in both TIdSoapRequestInformationHTTP and 
+			TIdSoapRequestInformationTCPIP. It provides access to the base Indy Thread. You 
+			use this to get the client IP address (though this is often the proxy address 
+			in HTTP)</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; Property RequestInfo : TIdHTTPRequestInfo;<BR>&nbsp; Property ResponseInfo: TIdHTTPResponseInfo; </PRE>
+		<P>[TIdSoapRequestInformationHTTP only] Direct access to the TIdHTTPServer packet 
+			objects. Primarily available for cookie support.
+		</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

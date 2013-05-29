@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>TIdSoapHashTable</title>
+		 		
+  <style>@import url(indysoap.css);
+	</style>
+</head>
+	<body>
+		
+<h2>TIdSoapHashTable 		</h2>
+		
+<p>Ancestor : TIdBaseObject</p>
+		
+<p>Unit : IdSoapUtilities</p>
+		
+<p></p>
+<pre><br></pre>
+This class is based on the Java HashTable Object. It provides similar
+functionality. Conceptually it is a quick way to store things indexed
+by some non-numerical identifier. The non-numerical identifier may be a
+string, or an object. If it is an object, the <br>
+object must override the Idhash and IdIsEqual function, seee below<br>
+<br>
+The thing that is stored must be a 4 byte value. It can either be an
+integer, a pointer, or an object. Usually this class is used for
+storing objects. The class does not maintain a type indicator
+internally, you need to ensure that your access of the thing knows what
+type it is<br>
+<br>
+If you wish to index things by a numerical key, the class
+TIdSoapKeyList is very fast, and has a similar API to this class. <br>
+<h2>Properties and Routines</h2>
+<pre><br>  constructor create(AHashSize: Integer = DEFAULT_HASH_SIZE);<br></pre>
+If you want, you can provide a HashSize which will be used by the
+internal Hash stoage. Use larger values for Hash Tables that will
+contain more data. The default value is 100, which is suitable for
+somewhere around a few thousand records<br>
+<pre><br>  property CaseSensitive : boolean;<br></pre>
+Set whether the Hash Table is sensitive to case on strings or not. You
+must set this value before you start using the Hash Table<br>
+<pre><br>  property AsPtr[AObj: TIdBaseObject]: pointer;<br>  property AsInt[AObj: TIdBaseObject]: Integer;<br>  property AsObj[AObj: TIdBaseObject]: TObject;<br></pre>
+Access a thing - either object, pointer or integer by an object
+identifier. See below for using objects as identifiers<br>
+<pre><br>  property AsPtrSt[AStr: string]: pointer Read;<br>  property AsIntSt[AStr: string]: Integer Read;<br>  property AsObjSt[AStr: string]: TObject Read; Default;<br></pre>
+Access a thing - either object, pointer or integer by a name. AsObjSt
+is the default parameter.<br>
+<pre><br>  property Exists[AObj: TIdBaseObject]: Boolean;<br>  property ExistsSt[AStr: string]: Boolean Read GetExistsSt;<br></pre>
+returns true if any value is known for this identifier<br>
+<pre><br>  type  TOnIdSoapKeyListDisposeEvent = procedure(ASender: TObject; APtr: pointer) of object;<br>  property OnDispose: TOnIdSoapKeyListDisposeEvent;<br></pre>
+If assigned, this event is called each time a value is disposed. it is
+up to the application to decide how or whether the object or pointer
+should be cleaned up.<br>
+<br>
+<pre>  procedure DisposeObject(ASender: TObject; APtr: pointer);<br></pre>
+In general use, it is appropriate that the Hash Table assumes ownership
+of the objects assigned to the values. In this case, the procedure
+DisposeObject is provided for convenience. Simply assigning the event
+OnDispose to the DisposeObject procedure will mean that the <br>
+Hash Table takes ownership of the objects assigned to it. This does
+mean that only objects can be used as the values for the Hash Table<br>
+<pre><br>  procedure Delete(AObj: TIdBaseObject);<br>  procedure DeleteSt(AStr: string);<br></pre>
+Delete a specific value. This will not raise an exception if the value
+is not found <br>
+<pre><br>  procedure Clear;<br></pre>
+empty the Hash Table completely<br>
+<pre><br></pre>
+<h1>Using Objects as identifiers</h1>
+You can use objects rather than strings as identifiers. A typical
+reason for doing this is that the information you wish to index by is a
+complex string and you already have an object that contains an
+appropriate structure, but you may have multiple objects<br>
+from different sources which are semantically identical. In this case,
+you can't simply attach the value to the identifying object, and you
+need to use the Hash Table. <br>
+<br>
+If you wish to do this, you must use a descendent of TIdBaseObject as
+the identifier, and you must override the functions idHash and idIsEqual<br>
+<pre><br>  function idIsEqual(AObj : TIdBaseObject) : boolean; virtual;<br></pre>
+return true if 2 objects are semantically equal. The default
+implementation is to check whether the addresses of self are the same,
+but a useful implementation would check all the attributes of the 2
+objects (if they are the same class)<br>
+<pre><br><br>  function idHash : integer; virtual;<br></pre>
+When you override this function, the most important rule about the
+value is that when AObj1.idIEqual(AObj2), then also, AObj1.idHash =
+AObj2.idHash must be true - otherwise the hash table won't work. in
+other words, the Hash value <br>
+must be reproducible. <br>
+<br>
+Secondly, the Hash value should be good at differentiating between
+objects, so that as few different objects return the same hash value as
+possible. The better the hash value in these terms, the faster the Hash
+Table will perform,<br>
+as there will be fewer clashes. <br>
+<br>
+The Java string Hash function is provided for convenience as
+IdSoapHashString. Where you are calculating a hash value across
+multiple strings, simply multiply the Hash for each string together.
+Remember to turn off range checking for this<br>
+calculation<br>
+<br>
+Note that the internal structure of the hash table includes an actual
+hash table based on the the size specified in the constructor. Each
+entry in this list contains a sorted list by hash. Each entry in this
+list includes an unsorted list of objects <br>
+that have this hash value.<br>
+<br>
+Note: Although the Hash Table may be configured to take ownership of
+the values, it doesn't assume ownership of the identifying object,
+unless the identifying object is a TIdSoapHashString and it's AOwned
+property is true (which is intended for internal <br>
+use only)<br>
+<pre><br><br></pre>
+<p></p>
+	
+</body>
+</html>

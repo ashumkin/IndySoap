@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<Title>TIdSoapClientWinInet</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapClientWinInet
+		</H2>
+		<P>Ancestor: <A href="TIdSoapBaseClient.htm">TIdSoapBaseClient</A></P>
+		<P>Unit: IdSoapClientWinInet</P>
+		<P>Provides a SOAP mapping to the HTTP specification but using WinInet instead of 
+			Indy for HTTP communications. The primary advantage of the the WinInet control 
+			is that it can use the IE proxy settings, without having to ask the user for 
+			the settings. The primary disadvantage is that windows sockets uses messages, 
+			and will block other applications that make DDE requests while SOAP requests 
+			are being made (YAY Microsoft!)</P>
+		<P>&nbsp;</P>
+		<PRE>  property SoapURL&nbsp;: string;</PRE>
+		<P>Summary: HTTP URL for the soap service
+		</P>
+		<PRE><BR>&nbsp; property UseIEProxySettings : boolean</PRE>
+		<P>Summary: Turn IE Proxy settings support off - primarily for DUnit testing
+		</P>
+	</body>
+</html>

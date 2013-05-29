@@ -1,0 +1,98 @@
+<html>
+<head>
+<Title>ITI
+</Title>
+<style>@import url(indysoap.css);</style>
+</head>
+<body><H2>Interfaces and ITI
+</H2>
+While objects have been completely described internally 
+using RTTI since Delphi 1, Interface are only properly 
+described using RTTI in Delphi 6 enterprise. For this 
+reason, IndySoap needed to come up with a different way 
+to describe Interfaces. IndySoap interface information 
+is referred to as ITI (Interface Type Information). An 
+ITI contains method and parameter lists for a set of 
+interfaces. ITI’s are generated at design time, then 
+stored in an .iti file which will be required at run time. 
+The ITI is the basis of the IndySoap RPC engine that 
+handles all the work, and also the basis of the WSDL 
+generation
+<p>
+Since different client and server objects have their 
+own ITI, different client and server objects can publish 
+different interfaces (though where types, interfaces and 
+methods have the same namespace/name combination – and 
+therefore are the same – the information must be compatible)
+<p>
+Generally the ITI must be generated at compile time. For 
+further information regarding ITI generation, see the <a href="Tools_IdSoapCfg.htm">IndySoap Tools.IdSoapCfg documentation</a>
+<p>
+
+<H3>Loading the ITI at Run-time</H3>
+
+The IndySoap Client and Server Objects both require access to the ITI, and include a number of shared properties are used to locate the ITI at run time.
+<p>
+
+<table border=0>
+<tr><td>ITISource</td><td>
+ Defines where the ITI should be found. Possible values are
+ <table border=1 cellspacing=0>
+   <tr><td>islNotDefined (default)</td><td>
+       This is not valid and will raise an exception at run 
+       time when the SOAP Component is activated</td></tr>
+   <tr><td>islFile</td><td>
+       from a file. Use the ITIFileName property or 
+       OnGetITIFileName to provide the filename</td></tr>
+   <tr><td>islEvent   </td><td>
+       application will provide Stream containing ITI in 
+       OnGetITIStream</td></tr>
+   <tr><td>islResource</td><td>
+       ITI is embedded in the application as a resource. 
+       Provide the name in ITIResourceName </td></tr>
+   <tr><td>islRTTI</td><td>
+       ITI is built from Interface RTTI (only valid in D6/K2 
+       Enterprise). Interfaces may be listed in RTTINames</td></tr>
+ </table>
+</td></tr>
+
+<tr><td>ITIFileName</td><td>
+ Name of file that contains the ITI
+</td></tr>
+
+
+<tr><td>OnGetITIFileName</td><td>
+ Event that will be used to get filename if ITIFileName is blank
+</td></tr>
+
+
+<tr><td>OnGetITIStream</td><td>
+ Event used for Application to provide stream. The variable 
+ VFreeStream controls whether the provider will free the 
+ stream when it has finished with it
+</td></tr>
+
+
+<tr><td>ITIResourceName</td><td>
+ Name of resource in executable.
+</td></tr>
+
+
+<tr><td>RTTINames</td><td>
+  A list of names defining the interfaces to include or exclude 
+  in the ITI. Names will be included or excluded based on The 
+  property RTTINamesType
+</td></tr>
+
+
+<tr><td>RTTINamesType</td><td>
+  If this is rntInclude, then the ITI Will include the interfaces 
+  listed. (default)
+  If this is rntExclude, then the ITI will include any interfaces
+  registered through IdSoapIntfRegistry.IdSoapRegisterInterfaceName 
+  unless they are listed in RTTINames
+</td></tr>
+</table>
+
+</body>
+</html>

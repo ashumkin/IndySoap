@@ -1,0 +1,53 @@
+<html>
+<head>
+<Title>Architecture
+</Title>
+<style>@import url(indysoap.css);</style>
+</head>
+<body>
+
+This diagram summarises the IndySoap architecture:<p>
+
+<img src="architecture.gif">
+<p>
+
+<b>Important Points:</b>
+<ol>
+<li>Refer below for a description of what the ITI is and why it is important
+<li>The Transport and Encoding layer choices are independent
+<li>The server implementations are fully multithread safe
+<li>The client side is thread safe, but a single client can only be used in one thread at a time
+</ol><p>
+
+<H3>Story Board
+</H3>
+This brief story board will assist in understanding the IndySoap process:
+<p>
+
+<b>Client</b><br>
+The client wishes to make an RPC call to the server. The client asks an IndySoap Client object to generate an interface of the appropriate type. The client then calls the desired method of the interface with the appropriate parameters
+<p>
+
+<b>Request</b><br>
+When the client calls the interface, control passes to a small stub routine that looks up the interface description in the ITI, and then builds a virtual structure that describes the parameters to the call. Once this structure is completely built, the client will ask an encoder to turn this virtual structure into a packet. (There is 2 kinds of encoders, a custom binary encoder that writes the virtual structure straight to the stream, and a SOAP Compliant XML encoder that will generate a SOAP compliant XML message. The choice of Encoder is driven by the property EncodingType on the client)
+<p>
+Once the packet is encoded, it will be passed to the transport layer to be sent to the client. (There is a number of transport layer implementations. The actual transport layer depends on which descendent of the Base IndySoap client is actually created)
+<p>
+The IndySoap transport server will receive the packet, and deliver it to the server, where the server will decode the packet to create a replica of the virtual structure that describes the parameters. Then the server will use the interface factory to create an implementation of the relevant interface, and call the requested method with the parameters taken from the virtual structure
+<p>
+<b>Server</b><br>
+The server code handles the procedure call as it desires. Then it returns control to the IndySoap Server.
+<p>
+<b>Response</b><br>
+The IndySoap server layer will prepare a new virtual structure describing the result and out/var parameters, then ask an encoder to encode this into a response packet. (By default, the same kind of encoding will be used as in the request. This is controlled by the EncodingType on the TIdSoapServer)
+<p>
+The transport server will return the response packet to the client, where the IndySoap client object will decode the packet to an equivalent virtual structure, and then return the appropriate parameters to the original client code
+<p>
+<b>Client</b><br>
+Control will return to the client as if the interface call had been made locally
+<p>
+<b>Non IndySoap Clients and Servers</b><br>
+You can interoperate with clients and servers implemented in other langauges. Where there are issues, please discuss them at indy-soap-public@yahoogroups.com
+<p>
+</body>
+</html>

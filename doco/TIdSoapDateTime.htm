@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<Title>TIdSoapDateTime</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapDateTime</H2>
+		<P>unit: IdSoapDateTime</P>
+		<P>TIdSoapDateTime encapsulates an XML schema datetime. XML date times differ from 
+			TDateTime in 2 fundamental respects.
+		</P>
+		<P>The first is that some portions of the date precision may be empty. TDateTime 
+			cannot represent this.</P>
+		<P>The second is that the XML schema datetime type includes timezone information</P>
+		<H4>Properties</H4>
+		<PRE>  property Year : word read; <BR>  property Month : word; <BR>  property Day : word; <BR>  property Hour : word; <BR>  property Minute : word; <BR>  property Second : word; <BR>  property Nanosecond : Cardinal; </PRE>
+		<P>Set individual parts of the DateTime object as specified</P>
+		<P>&nbsp;</P>
+		<PRE>Type<BR>  TIdSoapTimeZoneInfo = (tzUnknown, tzUTC, tzNegative, tzPositive); </PRE>
+		<PRE>  property Timezone : TIdSoapTimeZoneInfo; <BR>  property tzHours : word; <BR>  property tzMinutes : word; </PRE>
+		<P>Set timezone parts.
+		</P>
+		<P>&nbsp;</P>
+		<PRE>property AsDateTime : TDateTime; </PRE>
+		<P>Read the date in local timezone as a TDateTime</P>
+		<P>&nbsp;</P>
+		<PRE>Property AsXMLString : string; </PRE>
+		<P>Get the XML representation for the date</P>
+		<P>&nbsp;</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

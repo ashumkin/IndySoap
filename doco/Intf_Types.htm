@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<Title>Simple Types </Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>Using Simple Types in Interfaces</H2>
+		You can use any registered types in an interface. IndySoap automatically 
+		registers all the common types that are defined in System.pas. You cannot use 
+		the following simple types in an Interface:
+		<ul>
+			<li>
+			PChar
+			<li>
+			Real48
+			<li>
+				Variants</li>
+		</ul>
+		This also means that you cannot have objects that have these types as published 
+		properties and refer to these objects in the interface anywhere, either 
+		directly or indirectly
+		<p>
+			If you use a simple type by another name, then you should register that too. 
+			i.e.
+			<pre>
+type
+  TSimpleReference = type cardinal;
+</pre>
+		Note the use of the Type in the type declaration to ensure the there really is 
+		a type TSimpleReference defined
+		<p>
+			To register a simple type (or a class), use the procedure IdSoapRegisterType in 
+			the unit IdSoapTypeRegistry:
+			<pre>
+procedure IdSoapRegisterType(
+                 ATypeDetails: PTypeInfo; 
+                 ATypeName: String = ''; 
+                 ABaseType: PTypeInfo = nil); 
+</pre>
+			<ul>
+				<li>
+				The TypeDetails must be provided. I.e. TypeInfo(TSimpleReference).
+				<li>
+				The TypeName is optional, and allows you to register the same type under a 
+				different name (but there is arely any use for this)
+				<li>
+					BaseType parameter is for dynamic arrays and is documented in the section 
+					concerning dynamic arrays</li>
+			</ul>
+		All Type registration should be done during unit initialization
+		<p>
+			<b>Strings</b><br>
+		Eoln's in strings are a problem. The XML libraries differ in how they handle 
+		EOL. Currently, any EOLs in strings are converted to #10 before being sending. 
+		If the encoding option eoUseCrLf is selected, then the strings will be 
+		converted to #13#10 when they are read.
+		<p>
+			<b>Sets</b><br>
+		IndySoap supports Sets. This has been tested for interoperability with 
+		.Net&nbsp;
+		<p></p>
+	</body>
+</html>

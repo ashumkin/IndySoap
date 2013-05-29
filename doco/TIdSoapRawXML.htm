@@ -1,0 +1,482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>TIdSoapDate</title>
+		 		
+  <style>@import url(indysoap.css); 
+
+	</style>
+</head>
+<body>
+		
+<h2></h2>
+		
+<h2>TIdSoapRawXML</h2>
+		
+<p> 			unit: IdSoapRawXML</p>
+		This type exposes a property XML which is the link to the element
+that it represents in the RAW SOAP message. You would use this type
+where the soap consumer - either client or server - needs to read the
+XML directly<br>
+<br>
+A soap consumer may need to read/write XML directly for several
+reasons: <br>
+<br>
+<ul>
+  <li>the xml schema for the data is sufficiently complex that the
+highest level object representation that is useful is a DOM. This is
+particularly likely if the exchange type is doc|lit</li>
+  <li>the xml schema is of a type that indysoap doesn't yet process
+properly (uses attributes, for instance)</li>
+  <li>The Xml schema for the data is dynamic and changes over the
+course of the service lifetime</li>
+  <li>the xml schema is not defined by the service (i.e. anyType)</li>
+  <li>the data needs to be available as XML because it will be subject
+to further processing as XML (i.e. XML schema, transforms etc)</li>
+</ul>
+<br>
+The XML property is a type TIdSoapXMLElement, which is a proxy class
+for a real XML implementation. Any library wishing to make use of this
+will need to treat this as one of the real implementations in order to
+access the native XML implementation<br>
+<br>
+<span style="font-weight: bold;">About using this type</span><br>
+<br style="color: rgb(153, 0, 0);">
+<span style="color: rgb(153, 0, 0);">There is a number of caveats
+related to the use of this class.</span><br>
+<br>
+1. Namespaces &amp; writing SOAP packets<br>
+<br>
+<div style="margin-left: 40px;"> You can use this class as a parameter
+to a SOAP call on a client, and pass objects of this type back to the
+client from the server (i.e. if there is a var parameter of type
+TIdSoapRawXML or a var object with a property of type TIdSoapRawXML<br>
+<br>
+However in both these cases, the XML written is written in it's own
+context and cloned into the message when the message is being finally
+assembled. Cloning XML around like this is a real problem when the XML
+involves namespaces. The problem is that the implementation of this move
+is delegated to the XML implementation, and the different
+implementations behave differently<br>
+<br>
+</div>
+<table cellpadding="2" cellspacing="0" border="1"
+ style="text-align: left; width: 80%; margin-left: 40px;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">OpenXML</td>
+      <td style="vertical-align: top;">(importNode) The XML is imported
+as is. Namespace declarations are ignored and will be left invalid</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">MSXML</td>
+      <td style="vertical-align: top;"> (cloneNode) The XML is imported
+and Namespaces will be defined at the first node to use them</td>
+    </tr>
+  </tbody>
+</table>
+<div style="margin-left: 40px;"> <br>
+Note that MSXML will only pick up the use of namespaces where they are
+used by elements or attributes. Where the content of the attribute or
+element is a QName, the namespace usage will be ignored (even if the
+type of the element is declared as a xs:QName on the element)<br>
+<br>
+Since on the server, a var TIdSoapRawXML is read out the sender's
+message and then cloned back into the response you might get caught out
+here. BEWARE<br>
+<br>
+For this reason, you are strongly advised not to attempt using this
+with namespaces. This remains an area of real concern. If you need to
+use namespaces, your best bet is to use OpenXML, and then remediate the
+missing namespace definitions in the event OnSendMessageDOM. Other ideas
+for resolving this are sought<br>
+<br>
+Note that the following namespace definitions will be defined on the
+document root in every message written by IndySoap:<br>
+</div>
+<table cellpadding="2" cellspacing="0" border="1"
+ style="width: 90%; text-align: left; margin-left: 40px;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">soap</td>
+      <td style="vertical-align: top;">http://schemas.xmlsoap.org/soap/envelope/</td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"> soap-enc&nbsp;</td>
+      <td style="vertical-align: top;">http://schemas.xmlsoap.org/soap/encoding/</td>
+      <td style="vertical-align: top;">RPC mode</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">xs</td>
+      <td style="vertical-align: top;">http://www.w3.org/2001/XMLSchema<br>
+http://www.w3.org/1999/XMLSchema<br>
+      </td>
+      <td style="vertical-align: top;">Rpc[RequireTypes]<br>
+(If client used this namespace)<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"> xsi</td>
+      <td style="vertical-align: top;">http://www.w3.org/2001/XMLSchema-instance<br>
+http://www.w3.org/1999/XMLSchema-instance<br>
+      </td>
+      <td style="vertical-align: top;">Rpc[RequireTypes]<br>
+(If client used this namespace)<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div style="margin-left: 40px;"><br>
+Note that the MSXML clonenode handling of namespaces makes it virtually
+impossible for you to make use of these definitions&nbsp;&nbsp;&nbsp; <br>
+</div>
+<br>
+<br>
+2. Reading received XML on the client<br>
+<br>
+<div style="margin-left: 40px;">If you want to read the XML on the
+client after the soap call, this requires the XML environment to exist
+after the soap call has completed and control has returned to the host
+application. Normally the XML environment will be cleaned up before
+control is returned. However, if a TIdSoapRawXML is created as the
+message is read on a client, the XML environment will be attached to
+the garbage collection environment. This means:<br>
+<br>
+</div>
+<ol style="margin-left: 40px;">
+  <li>You can only use the TIdSoapRawXML until the next soap call using
+the same client (when the underlying infrastructure will be garbage
+collected)</li>
+  <li>There may be an apparent leak, particularly in terms of windows
+O/S handles when the XML provider is msxml. But this is only transient
+due to the delay in garbage collection</li>
+</ol>
+<br>
+3. RPC mode<br>
+<br>
+<div style="margin-left: 40px;">When using SOAP in RPC mode, a type
+will be required on the root node, unless the option seoRequireTypes is
+not in the encodingOptions)<br>
+</div>
+<br>
+4. Using binary transport<br>
+<br>
+<div style="margin-left: 40px;">It doesn't really make sense to try to
+use direct XML access when using the binary encoding type. But the
+easiest way to handle the DUnit tests was to get direct XML access
+working with binary encoding. The XML fragment will be treated as a
+single XML document in the binary stream.<br>
+</div>
+<br>
+<span style="font-weight: bold;"> How to Use this type</span><br>
+<br>
+If, after reading all that, you still want to use the type, this is how
+to use it.<br>
+<br>
+You would use TIdSoapRawXML in place of a some other type. You might
+have this:<br>
+<br>
+<span style="font-family: courier new,courier,monospace;"> &nbsp;
+IMyInterface = interface (...) [GUID]</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp;
+published</span><br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">
+&nbsp;&nbsp;&nbsp; procedure doThis(AType : TMyComplexType);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp; end;</span><br>
+<br>
+where TMyComplexType is a TIdBaseSoapableClass descendent. Instead, you
+would replace it with a declaration like this:<br>
+<br>
+<span style="font-family: courier new,courier,monospace;"> &nbsp;
+IMyInterface = interface (...) [GUID]</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp;
+published</span><br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">
+&nbsp;&nbsp;&nbsp; procedure doThis(AType : TIdSoapRawXML);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp; end;</span><br
+ style="font-family: courier new,courier,monospace;">
+<br>
+If you are a server hosting this interface, you simply access the XML
+using AType.XML. You will want direct access to the DOM, this will
+depend on your xml provider, and will be either<br>
+<span style="font-family: courier new,courier,monospace;"> &nbsp;
+(AType.XML as TIdSoapOpenXmlElement).XMLElement</span><br>
+or<br>
+<span style="font-family: courier new,courier,monospace;"> &nbsp;
+(AType.XML as TIdSoapMSXmlElement).XMLElement</span><br
+ style="font-family: courier new,courier,monospace;">
+which will be a handle to the native DOM object or interface
+respectively<br>
+<br>
+If you are a client making the call, you create an instance of
+TIdSoapRawXML, inform it that it hosts it's own DOM, and populate the
+DOM. Unless you are running Garbage collection, you can create the
+TIdSoapRawXML object and submit it to SOAP repeatedly<br>
+<br>
+<span style="font-family: courier new,courier,monospace;"> v</span><span
+ style="font-family: courier new,courier,monospace;">ar</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp; LRaw :
+TIdSoapRawXML;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> begin</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp;&nbsp;
+LRaw := TIdSoapRawXML.create;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp;&nbsp;
+LRaw.Init(xpOpenXML);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp;&nbsp;
+// if you're in RPC mode:</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp;&nbsp;
+LRaw.TypeNamespace := '...';</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp;&nbsp;
+LRaw.TypeName := '...';</span><br
+ style="font-family: courier new,courier,monospace;">
+<br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp;
+(AType.XML as TIdSoapOpenXmlElement).XMLElement.AppendChild(...);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp; // etc
+- populate the node</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"> &nbsp;
+IIntf.doThis(LRaw)</span><br
+ style="font-family: courier new,courier,monospace;">
+<br>
+When you call Init, you must identify the same XML provider as used by
+the client.<br>
+<br>
+Creating a TIdSoapRawXML on the server for an out or var parameter is
+similar - you must init with a provider type. If the TIdSoapRawXML was
+created during the reading phase (i.e. a var parameter) you don't need
+to do anything but you can Init if this is cleaner for you (effectively
+the same as "clear")<br>
+<br>
+<span style="font-weight: bold;">WSDL generation</span><br>
+<br>
+You may wish to declare the details of the XML schena you use in the
+RawXML context in the WSDL, particularly if you are writing a server.
+The SOAP library does not know anything<br>
+about the structure of the XML, so you must provide these details. For
+internal reasons, the parts must be described in 2 steps.<br>
+<br>
+In both steps, the IdSoapRawXML object is named by a path. The path
+takes the form<br>
+<span style="font-family: courier new,courier,monospace;"> &lt;interface
+name&gt;.&lt;method Name&gt;.&lt;paramName&gt;.[fieldname]n</span><br>
+where fieldnames will be added as required. If the parameter or any of
+the fields are an array, they will also have [] appended to their name<br>
+<br>
+The first step involves naming the type. If you wish, you can provide a
+name and a namespace for the type. If you do not use this event, or
+leave VHandled set to false, then the schema definition will need to be
+done in-line at the next step. Note: if the item is a parameter, and
+the encoding mode is RPC, then you must name the type or an exception
+will be raised.<br>
+<br>
+The second step occurs when the WSDL is encoded to XML. At this point,
+you can define types as you see fit. If you did not provide a type name
+in the first event then you must do the definitions in line. If you did
+provide a type name, then you need to define the relevent type(s) <br>
+<br>
+If you make use of neither event, then IndySoap will declare the
+standard schema declaration for open content for the element, unless is
+is a message parameter and the mode is RPC - you must declare a type in
+this case.<br>
+<br>
+Refer to <a href="TIdSoapITIProvider.htm">TIdSoapITIProvider</a> for
+details about the events. <br>
+<br>
+Example:<br>
+<br>
+Say that you wished to declare the XML structure as a complexType TTest
+in the namespace uri:test.<br>
+<br>
+In the first event, simply declare the names:<br>
+<br>
+<span style="font-family: courier new,courier,monospace;"><span
+ style="font-weight: bold;">procedure </span>THelper.GetSchemaType(ASender
+: TIdSoapITIProvider; const APath : string; ADocLit : boolean;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp; var
+VHandled : boolean; var VNamespace, VTypeName : string);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span
+ style="font-family: courier new,courier,monospace; font-weight: bold;">begin</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;
+VHandled := true;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;
+VNamespace := 'uri:test';</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;
+VTypeName := 'TTest';</span><br
+ style="font-family: courier new,courier,monospace;">
+<span
+ style="font-family: courier new,courier,monospace; font-weight: bold;">end;</span><br
+ style="font-family: courier new,courier,monospace;">
+<br>
+In the second event, you need to find the schema root for the namespace
+uri:test, and if it doesn't exist, create it. Then, if the type TTest
+has not been defined, define it<br>
+<br style="font-weight: bold;">
+<span
+ style="font-family: courier new,courier,monospace; font-weight: bold;"></span><span
+ style="font-family: courier new,courier,monospace;"><span
+ style="font-weight: bold;">procedure </span>THelper.GetSchema(ASender
+: TIdSoapITIProvider; const APath, ANameSpace, ATypeName : string; <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ANamespaces :
+TIdSoapXmlNamespaceSupport; var VHandled : boolean; AElement, ATypes :
+TdomElement);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span
+ style="font-family: courier new,courier,monospace; font-weight: bold;">var</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;
+LSchema : TdomElement;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;
+LElement : TdomElement;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;
+LSequence : TdomElement;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp; LNode
+: TdomElement;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span
+ style="font-family: courier new,courier,monospace; font-weight: bold;">begin</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;
+VHandled := true;</span><br
+ style="font-family: courier new,courier,monospace;">
+<br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;
+LSchema :=
+ATypes.getFirstChildElement(ANameSpaces.GetNameSpaceCode(ID_SOAP_NS_SCHEMA_2001,
+true)+'schema');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp; <span
+ style="font-weight: bold;">while </span>assigned(LSchema) <span
+ style="font-weight: bold;">and </span>(LSchema.getAttribute('targetNamespace')
+&lt;&gt; 'uri:test') <span style="font-weight: bold;">do</span></span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">begin</span></span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LSchema :=
+LSchema.getNextSiblingElement(ANameSpaces.GetNameSpaceCode(ID_SOAP_NS_SCHEMA_2001,
+true)+'schema');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">end</span>;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp; <span
+ style="font-weight: bold;">if </span><span style="font-weight: bold;">not</span>assigned(LSchema)<span
+ style="font-weight: bold;">then</span></span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">begin</span></span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LSchema :=
+ATypes.ownerDocument.createElement(ANameSpaces.GetNameSpaceCode(ID_SOAP_NS_SCHEMA_2001,
+true)+'schema');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+ATypes.appendChild(LSchema);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LSchema.setAttribute('targetNamespace', '</span><span
+ style="font-family: courier new,courier,monospace;">uri:test</span><span
+ style="font-family: courier new,courier,monospace;">');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">end</span>;</span><br
+ style="font-family: courier new,courier,monospace;">
+<br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;
+LElement :=
+LSchema.getFirstChildElement(ANameSpaces.GetNameSpaceCode(ID_SOAP_NS_SCHEMA_2001,
+true)+'complexType');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp; <span
+ style="font-weight: bold;">while </span>assigned(LElement) <span
+ style="font-weight: bold;">and </span>(LElement.getAttribute('name')
+&lt;&gt; 'TTest') <span style="font-weight: bold;">do</span></span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">begin</span></span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LElement :=
+LSchema.getNextSiblingElement(ANameSpaces.GetNameSpaceCode(ID_SOAP_NS_SCHEMA_2001,
+true)+'complexType');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">end</span>;</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"><span
+ style="font-weight: bold;">&nbsp; if </span>not assigned(LElement) <span
+ style="font-weight: bold;">then</span></span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">begin</span></span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LElement :=
+ATypes.ownerDocument.createElement(ANameSpaces.GetNameSpaceCode(ID_SOAP_NS_SCHEMA_2001,
+true)+'complexType');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LSchema.appendChild(LElement);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LElement.setAttribute('name', 'TTest');<br>
+<br>
+&nbsp; &nbsp; // populate the type</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LSequence :=
+ATypes.ownerDocument.createElement(ANameSpaces.GetNameSpaceCode(ID_SOAP_NS_SCHEMA_2001,
+true)+'sequence');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LElement.appendChild(LSequence);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LNode :=
+ATypes.ownerDocument.createElement(ANameSpaces.GetNameSpaceCode(ID_SOAP_NS_SCHEMA_2001,
+true)+'element');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LSequence.appendChild(LNode);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LNode.setAttribute('name', 'prop1');</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+LNode.setAttribute('type',
+ANameSpaces.GetNameSpaceCode(ID_SOAP_NS_SCHEMA_2001, true)+'string');<br>
+&nbsp; &nbsp; // etc....</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;"></span><span
+ style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+end;</span><br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">end;</span><br>
+<br>
+	
+</body>
+</html>

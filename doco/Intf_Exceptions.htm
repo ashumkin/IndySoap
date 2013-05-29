@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<Title>Exceptions </Title>
+		<style>@import url(indysoap.css);</style>
+	</head>
+	<body>
+		<H2>Exceptions</H2>
+		If the server raises an exception, this will be returned to the client as a 
+		SOAP fault. The common RTL, Indy and OpenXML exceptions are automatically 
+		transferred across and their class is maintained. If you raise one of your own 
+		exceptions on the server, it will be raised as a EIdUnknownRemoteException on 
+		the client by remote. If you want the class of the exception raised on the 
+		client to be right, define the exception as a descendent of 
+		EIdBaseSoapableException, and register it on the client using the 
+		IdSoapTypeRegistry procedure IdRegisterException.
+	</body>
+</html>

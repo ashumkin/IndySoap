@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+	<HEAD>
+		<TITLE>Security</TITLE>
+		<style>@import url(indysoap.css);
+	</style>
+	</HEAD>
+	<BODY>
+		<H2>Security</H2>
+		<H4>Network Security</H4>
+		IndySoap provides a path from incoming network traffic to a procedural 
+		invocation engine. IndySoap aims to provide security that assures that a valid 
+		request with a valid set of parameters that is addressed to a properly defined 
+		interface will be delivered to that interface in code with all parameters being 
+		valid object pascal types. Any other circumstances will result in a transport 
+		layer error or a SOAP fault returned to the client
+		<p>
+		IndySoap does not use static buffers, and is not subject to buffer overruns. 
+		Underlying Indy Code (or other transport layers that may be defined) may use 
+		static buffers, IndySoap makes no promises about this
+		<p>
+		In general, this security goal translates to assurance that IndySoap works as 
+		expected.
+		<p>
+		Security flaws in IndySoap should be reported on the Yahoogroups.com group 
+		Indy-Soap-Public. Genuine security issues will be dealt with as the first 
+		priority by the IndySoap team
+		<p>
+			<H4>Communications Security</H4>
+		IndySoap does not provide any of this. It’s up to the application to configure 
+		the network traffic accordingly.
+		<p>
+			<H4>Application Security</H4>
+		<P>IndySoap publishes information about the Soap request that led to the interface 
+			being called. The unit IdSoapRequestInfo publishes a thread local variable 
+			called GIdSoapRequestInfo which will contain a transport layer specific 
+			descendent of TIdSoapRequestInformation that will make as much information as 
+			possible about the request available to the client. If the interface is not 
+			invoked by IndySoap, then GIdSoapRequestInfo will be nil
+		</P>
+		<P>In addition, IndySoap provides support for an application session. IndySoap can 
+			be asked to enfore that a valid session exists before allowing access (on the 
+			server). For further information about sessions, see <A href="SessionManagement.htm">
+				SessionManagement</A></P>
+		<p></p>
+	</BODY>
+</HTML>

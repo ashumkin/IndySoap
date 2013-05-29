@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<Title>TIdSoapServerHTTP </Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapServerHTTP</H2>
+		<P>TIdSoapServerHTTP is the server side implementation of the SOAP/HTTP transport 
+			mapping. TIdSoapServerHTTP will take HTTP Calls and redirect the calls to the 
+			assigned TIdSoapServer. TIdSoapServerHTTP is a descendent of 
+			TIdCustomHTTPServer, and provides all the behaviours expected of TIdHTTPServer, 
+			except for OnGetCommand, so that you can run other web services through the 
+			same port.
+		</P>
+		<P>This documentation describes the features introduced to support SOAP HTTP 
+			service.
+		</P>
+		<H4>Properties</H4>
+		<PRE>&nbsp; property SOAPServer : TIdSoapServer;</PRE>
+		<P>The TIdSoapServer that provides the actual SOAP services. You must assign a 
+			valid TIdSoapServer to this property for SOAP to work
+		</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; property SOAPPath&nbsp;: string;</PRE>
+		<P>This is the path where soap services are found. Usually this is /SOAP/ but can 
+			be any other value. Any calls made to the path /SOAP/xxx will be redirected to 
+			the SOAPServer</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; property WSDLPath : string; </PRE>
+		<P>Path where WSDL's describing SOAP services provided can be found Description: 
+			Usually this is /wsdl
+		</P>
+		<P>&nbsp;</P>
+		<PRE>type<BR>  TIdSOAPPreExecuteEvent = procedure(AThread: TIdPeerThread; ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo; var VHandled: Boolean) of object;<BR>&nbsp; property OnPreExecute : TIdSOAPPreExecuteEvent;</PRE>
+		<P>This event is called for every incoming HTTP request. The application can use 
+			this to prescreen HTTP calls and handle them before they reach the SOAP 
+			service. This is an ideal place to implement security if desired. If the Event 
+			parameter VHandled is set to true, then the server will do nothing more with 
+			the request. Other than this, the parameters are the same as for the 
+			TIdCustomHTTPServer.OnGetCommand</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; property OnNonSoapExecute : TIdHTTPGetEvent;</PRE>
+		<P>Event called when a non-SOAP/non-WSDL request is received from a client (based 
+			on Path matching). Description: This Event has the same parameters and function 
+			as TIdCustomHTTPServer.OnGetCommand. If this event is not found, the server 
+			will return "404 Access Denied"</P>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<Title>TIdSoapWriter</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapWriter</H2>
+		<P>unit : TIdSoapPacket</P>
+		<P>TIdSoapWriter can be used to build a SOAP packet manually. You use this when 
+			handling SOAP packets manually. This class is also used internally when 
+			processing interface calls.</P>
+		<P>You should read about <A href="TIdSoapNode.htm">TIdSoapNode</A> before reading 
+			more about TIdSoapWriter. You don't create a TIdSoapWriter yourself. Use the 
+			client factory to do so.</P>
+		<H4>Properties/Routines</H4>
+		<PRE>  procedure SetMessageName(const AName, ANamespace: String); </PRE>
+		<P>Each SOAP message has a root node containing a name. (actually Doc|Lit messages 
+			may not. The effect of this is still be considered). You must give a message 
+			name &amp; namespace while you are building the message</P>
+		<P>&nbsp;</P>
+		<PRE>  function AddStruct(ANode: TIdSoapNode; const AName, AClassName, AClassNamespace: String; AItem: TObject): TIdSoapNode; </PRE>
+		<P>Add a struct ( = class) to the packet. ANode = nil if it is at the base level. 
+			AItem is the object itself - this is used for situations where you wish objects 
+			to be encoded by reference. In this case, the routine may return nil, and the 
+			object has already been encoded</P>
+		<P>&nbsp;</P>
+		<PRE>  function AddArray(ANode: TIdSoapNode; const AName, ABaseType, ABaseTypeNS: String; ABaseTypeComplex : boolean): TIdSoapNode; </PRE>
+		<P>Add an array to the message. Parameters and children of the array node should 
+			have their index as their name.&nbsp;Unless you want a sparse array, start the 
+			index names at "0".</P>
+		<P>&nbsp;</P>
+		<PRE>  property MimeType : string read GetMimeType; </PRE>
+		<P>The mimetype that the particular writer will produce (for internal IndySoap use)</P>
+		<P>&nbsp;</P>
+		<H4>Soap Header Access</H4>
+		<PRE>&nbsp; property Headers : TIdSoapHeaderList; </PRE>
+		<P>Access to the SOAP headers list</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; procedure UseSoapHeaders(AHeaders : TIdSoapHeaderList); </PRE>
+		<P>Internal use only - for transfer of object ownership</P>
+		<H4>parameter routines</H4>
+		<P>All these routines are reproductions of the properties of <A href="TIdSoapNode.htm">TIdSoapNode</A>. 
+			Do not use these as they will refactored out of existence sometime. Refer doco 
+			on <A href="TIdSoapNode.htm">TIdSoapNode</A> for further information</P>
+		<PRE>procedure DefineParamBinaryBase64(ANode: TIdSoapNode; const AName: String; AStream: TStream); <BR>procedure DefineParamBinaryHex(ANode: TIdSoapNode; const AName: String; AStream: THexStream); <BR>procedure DefineParamBoolean(ANode: TIdSoapNode; const AName: String; AValue: Boolean); <BR>procedure DefineParamByte(ANode: TIdSoapNode; const AName: String; AValue: Byte);<BR>procedure DefineParamCardinal(ANode: TIdSoapNode; const AName: String; AValue: Cardinal); <BR>procedure DefineParamChar(ANode: TIdSoapNode; const AName: String; AValue: Char); <BR>procedure DefineParamComp(ANode: TIdSoapNode; const AName: String; AValue: Comp); <BR>procedure DefineParamCurrency(ANode: TIdSoapNode; const AName: String; AValue: Currency); <BR>procedure DefineParamDateTime(ANode: TIdSoapNode; const AName: String; AValue: TDateTime); <BR>procedure DefineParamDouble(ANode: TIdSoapNode; const AName: String; AValue: Double); <BR>procedure DefineParamEnumeration(ANode: TIdSoapNode; const AName: String; ATypeInfo: PTypeInfo; ATypeName, ANamespace : string; AItiLink : TIdSoapITIBaseObject; AValue: Integer); <BR>procedure DefineParamExtended(ANode: TIdSoapNode; const AName: String; AValue: Extended); <BR>procedure DefineParamInt64(ANode: TIdSoapNode; const AName: String; AValue: Int64); <BR>procedure DefineParamInteger(ANode: TIdSoapNode; const AName: String; AValue: Integer); <BR>procedure DefineParamSet(ANode: TIdSoapNode; const AName, ATypeName, ANamespace: String; ATypeInfo : pTypeInfo; AValue: Integer); <BR>procedure DefineParamShortInt(ANode: TIdSoapNode; const AName: String; AValue: ShortInt); <BR>procedure DefineParamShortString(ANode: TIdSoapNode; const AName: String; AValue: ShortString); <BR>procedure DefineParamSingle(ANode: TIdSoapNode; const AName: String; AValue: Single); <BR>procedure DefineParamSmallInt(ANode: TIdSoapNode; const AName: String; AValue: SmallInt); <BR>procedure DefineParamString(ANode: TIdSoapNode; const AName, AValue: String); <BR>procedure DefineParamWideChar(ANode: TIdSoapNode; const AName: String; AValue: WideChar); <BR>procedure DefineParamWideString(ANode: TIdSoapNode; const AName: String; const AValue: WideString); <BR>procedure DefineParamWord(ANode: TIdSoapNode; const AName: String; AValue: Word); <BR>procedure DefineParamXML(ANode: TIdSoapNode; AName : string; AXml : TIdSoapXmlElement; ATypeNamespace, ATypeName : string); </PRE>
+		<PRE> </PRE>
+	</body>
+</html>

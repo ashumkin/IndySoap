@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+	<head>
+		<title>Conformance to Specifications</title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<h1>IndySoap: Conformance to Specifications</h1>
+		Version History:
+		<ul>
+			<li>
+				25 July 2002 Grahame Grieve – first collated</li>
+		</ul>
+		<p>
+			IndySoap is a nearly full implementation of the Soap 1.1 and WSDL 1.1. We have 
+			attempted to implement the standard as completely as possible. Many of our 
+			deviations from the standard are due to the fact that supporting some features 
+			requires specific application knowledge, or they represent esoteric 
+			functionality. But since this is about system to system interfacing, any of 
+			them may be important for a particular requirement. Hence we have attempted to 
+			document all of the known non-compliances that exist in IndySoap. We cannot say 
+			which of these are significant
+		</p>
+		<p>
+		</p>
+		<p>
+			Specification locations:
+		</p>
+		<BLOCKQUOTE>
+			<P>
+				SOAP: <a target="_blank" href="http://www.w3.org/TR/2000/NOTE-SOAP-20000508">http://www.w3.org/TR/2000/NOTE-SOAP-20000508</a><br>
+				WSDL: <a target="_blank" href="http://www.w3.org/TR/2001/NOTE-wsdl-20010315">http://www.w3.org/TR/2001/NOTE-wsdl-20010315</a>
+			</P>
+		</BLOCKQUOTE>
+		<P>These are the specific versions against which this conformance statement is made</P>
+		<P>&nbsp;</P>
+		<p>
+		</p>
+		<h4>Types, Schemas</h4>
+		<UL>
+			<li>
+			Type systems other than XML Schema are not supported in either SOAP messages or 
+			WSDL's
+			<li>
+			Variable type arrays are not supported (except&nbsp;via polymorphism)
+			<li>
+			A null value may only be indicated by xsi:null value “1” (typo in Soap v1.1) or 
+			xsi:nil value “true”(correct). “other application-dependent attributes and 
+			values” (whatever this means) are not supported
+			<li>
+			IndySoap supports Pascal types rather than schema types. This may leave some 
+			schema types unsupported. This will be reviewed on an ongoing basis
+			<li>
+			SOAP-ENC:string is not supported (SOAP-ENC:string is variant of xsi:string that 
+			can be referenced)
+			<li>
+				Enumerations based on types other than string are not supported</li></UL>
+		<h4>Soap Encoding</h4>
+		<UL>
+			<li>
+			Namespaces for Serializations other than that represented by 
+			“http://schemas.xmlsoap.org/soap/encoding/” are not supported (though 
+			extensions within that space will be accepted). The encoding scheme must be 
+			specified. The scope of the encoding scheme is not observed
+			<li>
+			Mixed content&nbsp;may not be supported in messages. Any whitespace mixed 
+			content will be ignored. Any non whitespace mixed type may generate an error. 
+			Mixed content may be included in an element with a type xsi:string, though this 
+			may not be properly supported. Mixed Content handled outside of a TIdSoapRawXML 
+			will be ignored or cause an error
+			<LI>
+			Non self-describing messages (refer to SOAP 1.1 section 5.1) are only partially 
+			supported.
+			<li>
+			Schema processing (validity/type recognition/default values/PSVI) for SOAP 
+			messages is not supported
+			<li>
+				SOAP root Attribute is not supported. The presence of an ID attribute is used 
+				instead&nbsp;&nbsp;</li></UL>
+		<h4>Soap messaging Protocols</h4>
+		<ul>
+			<li>
+			IndySoap will only act as a SOAP End-point and will assume that it is the 
+			message default receiver. SoapActor is not supported.
+			<li>
+				FaultCode. IndySoap always identifies errors from the server with 
+				“Server”.&nbsp; We do not attempt to guess whether the error was due to a 
+				client problem</li>
+		</ul>
+		<h4>Soap/HTTP binding</h4>
+		<ul>
+			<li>
+			SOAPAction will be sent by the client but is not used by the server
+			<li>
+			HTTP extension framework is not supported
+			<li>
+				parameterOrder is ignored (generally, parameter order has no significance since 
+				parameter identification is done by name only, except in SOAP arrays)</li>
+		</ul>
+		<h4>WSDL</h4>
+		<ul>
+			<li>
+			Import statements are only partially supported in WSDL's
+			<li>
+			Only direct children of xs:schema nodes can define types, and all direct 
+			children of xs:schema elements must define types
+			<li>
+			wsdl:required is not supported in WSDL's
+			<li>
+			Only Request/Response is supported in WSDL
+			<li>
+			IndySoap does not name Faults or Fault elements in WSDL's
+			<li>
+				The only WSDL binding understood by IndySoap is SOAP using HTTP&nbsp;</li>
+		</ul>
+		<h4>Some additional notes about IndySoap, XML schema, and Namespaces</h4>
+		<ul>
+			<li>
+			All methods in a WSDL must share the same Namespace.
+			<LI>
+			All methods in a WSDL are assumed to live at the same SOAP address.
+			<li>
+				The following namespaces are considered to refer to the Normative XML schema
+				<ul>
+					<li>
+						<a href="http://www.w3.org/1999/XMLSchema">http://www.w3.org/1999/XMLSchema</a>
+					(an early draft of XML schema occasionally encountered in the real world)
+					<li>
+						<a href="http://www.w3.org/2001/XMLSchema">http://www.w3.org/2001/XMLSchema</a></li>
+				</ul>
+			<li>
+			Only one of these can be used in a message instance
+			<li>
+			If the 1999 namespace is used, it must be declared in either the envelope or 
+			body nodes
+			<li>
+				Only the 2001 namespace is supported for WSDL documents</li>
+		</ul>
+	</body>
+</html>

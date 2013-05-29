@@ -1,0 +1,69 @@
+<html>
+	<head>
+		<Title>Getting Started: Server </Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>Getting started with a server</H2>
+		The first question to be asked is what interface the server should present. 
+		SOAP Server interfaces are described in terms of WSDL documents. However WSDL 
+		is a obtuse format.
+		<p>
+		It's a lot easier to start by defining your server using pascal interfaces. In 
+		this case, you define the interface. IndySoap will generate the WSDL on the 
+		fly.
+		<p>
+		If you start with a WSDL which you need to implement, you can use the IndySoap 
+		tools to generate a pascal interface declaration that matches the WSDL 
+		document. (When IndySoap converts this back to a WSDL, you will get something 
+		slightly different but it should be functionally equivalent)
+		<p>
+		Once you have an interface, you must create an ITI for that interface. This 
+		will be done by editing a .IdSoapCfg file, and compiling it manually using the 
+		IndySoap Tools, or giving it the same name as the project, in which case it 
+		will be precompiled when the project is compiled.
+		<p>
+		Once you have ITI compiled, you must create 2 objects. The first is the actual 
+		Server implementation. In addition you must create one (or more) transport 
+		implementations, and connect these to the server
+		<P>For server transport implementations, you currently have 2 choices
+		</P>
+		<P>
+			<table border="1" cellspacing="0">
+				<tr>
+					<td>TIdSoapServerHTTP</td>
+					<td>
+						This implements an HTTP server based on the Indy TIdHTTPServer. This is 
+						suitable for implementation in a standalone server program. In addition, you 
+						can also use this HTTP Server as a normal TIdHTTPServer</td>
+				</tr>
+				<tr>
+					<td>TIdSoapServerTCPIP</td>
+					<td>
+						This is the server side implementation of the custom IndySoap encoding which is 
+						intended to be used as an RPC service in a tightly coupled client/server 
+						application where both client and server are written using IndySoap</td>
+				</tr>
+			</table>
+		</P>
+		<P>
+			<b></b>&nbsp;</P>
+		<P>You must register an implementation of any interface that will be called through 
+			the SoapServer. This needs to be some form of object that implements the 
+			interface in question. The implementation should be thread safe, as the 
+			TIdSoapServer is inherently multi-threaded
+		</P>
+		<P>&nbsp;</P>
+		<P><STRONG>ISAPI?</STRONG></P>
+		<P><STRONG></STRONG><br>
+			Support for ISAPI/NSAPI isn't&nbsp;included in the base IndySoap 
+			package&nbsp;due to the wide variety of implementations out there. It's easy to 
+			implement - just pass the post content, content-type header to a TIdSoapServer, 
+			and return the content and content-type that it returns. You will also need to 
+			create a TIdSoapRequestInfo object or descendent and assign it to 
+			GIdSoapRequestInfo.
+		</P>
+		<p></p>
+	</body>
+</html>

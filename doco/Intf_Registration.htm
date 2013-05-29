@@ -1,0 +1,48 @@
+<html>
+<head>
+<Title>Interface Registration
+</Title>
+<style>@import url(indysoap.css);</style>
+</head>
+<body><H2>Server interface Registration
+</H2>
+The server must know how to generate a concrete implementation of the interface at run time. You must register an interface, along with a class or factory so that this can happen.
+<p>
+You have the choice of using 2 different routines from IdSoapIntfRegistry to register a server implementation
+<p>
+
+<pre>
+procedure IdSoapRegisterInterfaceClass(
+    AInterfaceName: String; // the name of the interface as found in the source & ITI
+    AClassType: pTypeInfo;  // the typeinfo for the class (i.e. TypeInfo(TMyImplementation)
+    AClass: TIdSoapBaseImplementationClass);
+</pre>
+
+This registers a class as the implementation of the interface. IndySoap will create a object of that class when it needs an implementation of the named interface. The implementation will be freed when the request terminates. For this kind of registration, the class must be a descendent from TidSoapBaseImplementation.
+<p>
+
+<pre>
+procedure IdSoapRegisterInterfaceFactory(
+    AInterfaceName: String; // the name of the interface as found in the source & ITI
+    AClassType: pTypeInfo;  // the typeinfo for the class (i.e. TypeInfo(TMyImplementation)
+    AFactory: TIdSoapImplementationFactory);
+</pre>
+
+This registers a factory for the interface implementation. The Factory must have be a function declared like this:
+<p>
+<pre>
+function(AInterfaceName: String): TInterfacedObject;
+</pre>
+
+The object the factory returns must be interface aware and have RTTI. This will be true if:
+<ul>
+<li>Your object descends from TInterfacedPersistent
+<li>Your object descends from TInterfacedObject and it a descendent was compiled using $M+ (see TPersistent for example)
+<li>[Advanced] Your object descends from TPersistent (or had $M+ applied) and you manually added interface support (_AddRef, _Release, _QueryInterface)
+</ul>
+In addition, of course, the object must implement the interface in question.
+<p>
+The factory need not create a new instance of the object everytime - it can serve up the same object everytime if the object is thread-safe (since the Server implementation is implicitly multi-threaded). The implementation object is reference counted so it will be alive as long as the factory maintains a reference to it.
+
+</body>
+</html>

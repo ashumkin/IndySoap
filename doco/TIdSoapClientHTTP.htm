@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<Title>TidSoapClientHTTP</Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapClientHTTP
+		</H2>
+		<P>Ancestor: <A href="TIdSoapBaseClient.htm">TIdSoapBaseClient</A></P>
+		<P>Unit: IdSoapClientHTTP</P>
+		<P>TIdSoapClientHTTP provides an implementation of the classic SOAP/HTTP mapping. 
+			To use the SOAP/HTTP protocol, simply define the SoapURL property. If you need 
+			more advanced control over the HTTP request, create your own Indy HTTP client 
+			(TIdHTTP), configure it how you want, and set the HTTPClient to point to your 
+			TIdHTTP instance.</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; property SoapURL : string;</PRE>
+		<P>HTTP URL for the soap server
+		</P>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; property HTTPClient : TIdHTTP;</PRE>
+		<P>You may need to configure the client specially. Usually this is in regard to 
+			timeout, proxy settings, etc. You do this by creating a TidHTTP client, 
+			configuring it how you want, and assigning it to this property
+		</P>
+	</body>
+</html>

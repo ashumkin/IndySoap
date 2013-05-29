@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+	<HEAD>
+		<TITLE>Security</TITLE>
+		<style>@import url(indysoap.css); 
+	</style>
+	</HEAD>
+	<BODY>
+		<H2>Performance Tips</H2>
+		<P>This is a list of tips for how to get the bext performance out of indySoap</P>
+		<UL>
+			<LI>
+			Don't use references (in the soap client or server options)- this makes 
+			everything slower
+			<LI>
+			use doc|lit - there is less in the packet
+			<LI>
+				The different XML providers have an impact on speed. Roughly, OpenXML is twice 
+				as fast as msXML and the Custom XML provider is twice as fast again. If you can 
+				use the custom provider (check first - see <A href="TIdSoapITIProvider.htm">here 
+					for more info</A>), this is the fastest option. Only about 20% of the 
+			processing time is actually handling XML
+			<LI>
+			Set OwnsObjects = false on your TIdSoapableObject descendents. If you have big 
+			object graphs, the method for handling recursive references can be quite slow. 
+			So manage the lifetime of owned objects manually, and set OwnsObjects to false
+			<LI>
+				Turning the assertions and object tracking off should result in a speed 
+				increase of between 30% and 70%. You can do this in IdSoapDefines.inc or by 
+				turning assertions off for the whole project</LI></UL>
+		<P>&nbsp;</P>
+	</BODY>
+</HTML>

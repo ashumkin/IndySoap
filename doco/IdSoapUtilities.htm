@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<Title>IdSoapUtilities</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>IdSoapUtilities useful routines</H2>
+		<PRE>function IdStrToIntWithError(const AStr, AError: String): Integer;<BR>function IdStrToIntWithErrorAndRange(ALowValue, AHighValue: Integer; const AStr, AError: String): Integer;<BR>function IdStrToInt64WithError(const AStr, AError: String): Int64; <BR>function IdStrToInt64WithErrorAndRange(ALowValue, AHighValue: Int64; const AStr, AError: String): Int64; <BR>function IdStrToSingleWithError(const AStr, AError: String): Single; <BR>function IdStrToDoubleWithError(const AStr, AError: String): Double; <BR>function IdStrToCompWithError(const AStr, AError: String): Comp; <BR>function IdStrToExtendedWithError(const AStr, AError: String): Extended; <BR>function IdStrToCurrencyWithError(const AStr, AError: String): Currency; </PRE>
+		<P>These functions exist to convert strings to numerical representations. They 
+			differ from their equivalents in SysUtils in that they require you to pass in 
+			an error which will be appended to the error associated with the conversion (so 
+			much better than " is not an integer" as an error message). In addition some 
+			allow you to give a valid range for the value. values outside this range will 
+			generate an error</P>
+		<P>&nbsp;</P>
+		<PRE>function IdSingleToStr(AValue: Single): String; <BR>function IdDoubleToStr(AValue: Double): String; <BR>function IdCompToStr(AValue: Comp): String; <BR>function IdExtendedToStr(AValue: Extended): String; <BR>function IdCurrencyToStr(AValue: Currency): String; </PRE>
+		<P>These functions convert values to their nearest match in schema types</P>
+		<PRE><BR>function IdEnumIsValid(ATypeInfo: PTypeInfo; AIndex: Integer): Boolean; <BR>function IdEnumToString(ATypeInfo: PTypeInfo; AIndex: Integer): String; <BR>function IdStringToEnum(ATypeInfo: PTypeInfo; const AStr: String): Integer; </PRE>
+		<P>Interconversion between enumerations and their string representations. The 
+			borland functions in TypInfo.pas will produce unpredictable results if the 
+			enumeration value is not in range</P>
+		<PRE><BR>function IdStripTrailingEOL(AValue : string):String; <BR>function IdCheckURIValid(AValue : string; var VErrorMessage : string):boolean; </PRE>
+		<P>not documented - title is self documenting</P>
+		<PRE><BR>function IdSoapD4Interface(AObject : TObject) : IUnknown; </PRE>
+		<P>Delphi 4 does allow to you to typecast an object to an interface (i.e. Interface 
+			= object as ISomeInterface). And D5 and D6 have a compiler bug related to this. 
+			So this function is very useful - typecast the return value of this function to 
+			your interface (i.e. Interface = IdSoapD4Interface(Object) as ISomeInterface)</P>
+		<P>&nbsp;</P>
+		<PRE>Type TIdSoapTextLineBreakStyle = (tislbsLF, tislbsCRLF); <BR>Function IdSoapAdjustLineBreaks(const AStr: string; AStyle: TIdSoapTextLineBreakStyle): string; </PRE>
+		<P>Interconvert between DOS and UNIX formats - SysUtils function only goes one way 
+			in D4 and D5.</P>
+		<P>&nbsp;</P>
+		<PRE>function IdSoapSameDateTime(Const ADateTime1,ADateTime2: TDateTime): Boolean; <BR>function IdSoapSameDate(Const ADateTime1,ADateTime2: TDateTime): Boolean; <BR>function IdSoapSameTime(Const ADateTime1,ADateTime2: TDateTime): Boolean; </PRE>
+		<P>TDateTime comparisons. The milliseconds can have floating point reounding errors 
+			that make&nbsp;a direct compare of no use if equality is important. The 
+			routines&nbsp;provide for a correct equality test.&nbsp;The IdSoapSameDate was 
+			included for completeness.
+		</P>
+		<P>&nbsp;</P>
+		<PRE>function IdSoapMakeXmlPretty(ASrc:string):String; </PRE>
+		<P>Take an XML string with no whitespace between nodes, and format it nicely. 
+			(CDATA sections are not handled)</P>
+		<P>&nbsp;</P>
+		<PRE>procedure SplitString(const AStr, AToken: String; var VLeft, VRight: String); </PRE>
+		<P>SplitString splits a string into left and right parts,&nbsp;i.e. 
+			SplitString('Namespace:tag', ':'..) will return 'Namespace' and 'Tag'
+			<BR>
+		</P>
+		<PRE>function CommaAdd(Const AStr1, AStr2:String):string; </PRE>
+		<P>commaadd will append AStr2 to the right of AStr1 and return the result. if there 
+			is any content in AStr1, a comma will be added
+		</P>
+	</body>
+</html>

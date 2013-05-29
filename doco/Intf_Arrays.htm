@@ -1,0 +1,64 @@
+<html>
+<head>
+<Title>Arrays
+</Title>
+<style>@import url(indysoap.css);</style>
+</head>
+<body><H2>Dynamic Arrays
+</H2>
+Dynamic arrays are supported by IndySoap. You must declare the array as a type in advance. For instance, the following declaration is not legal:
+
+<pre>
+    procedure ListKeys(out VList : array of TKeyInformation); stdcall;
+</pre>
+
+instead, you must declare the type in advance and use that, like this:
+
+<pre>
+  TKeyList  = array of TKeyInformation;
+
+    procedure ListKeys(out VList : TKeyList); stdcall;
+</pre>
+
+When you register arrays in Delphi 4 or 5 you must also register the base class for the array. In the case of TKeyList, it would look like this:
+
+<pre>
+  IdSoapRegisterType(TypeInfo(TKeyList), '', '', TypeInfo(TKeyInformation));
+</pre>
+
+Be aware, when dealing with arrays of objects, that finalizing the array does not destroy the objects in the array – you must do this manually (unless other lifetime management options mean that you do not need to clean the objects up)
+
+<b>Arrays as Properties of Classes</b>
+<p>
+Properties that are arrays do not have RTTI (and therefore can’t be published) in Delphi 4 and Delphi 5. You can use the following procedures to register Arrays with IndySoap.
+<p>
+There are 3 possible ways a property can be read or written. Either the property read/write accessor is a FIELD,
+a STATIC function, or a VIRTUAL function. You need to read the accessor. Use one of the following methods:
+
+<table border=0>
+<tr><td>FIELD</td><td>Property X:TY read FX</td><td>IdSoapFieldProp(@TMyObject(nil).FMyField)</td></tr>
+<tr><td>STATIC</td><td>Property X:TY read GetXFunction GetX;</td><td>IdSoapStaticProp(@TMyObject.MyStaticMethod);</td></tr>
+<tr><td>VIRTUAL</td><td>Property X:TY read GetXFunction GetX; virtual;</td><td>IdSoapVirtualProp(TMyObject,@TMyObject.MyStaticMethod);</td></tr>
+</table>
+
+It is not possible to test the parameters you provide. If you provide the wrong types, or the wrong accessor information, then unpredictable results will occur.
+<p>
+
+So, to register a property defined as
+
+<pre>
+   Property MyProp: TIntegerArray read FMyProp write SetMyProp;
+</pre>
+
+where SetMyProp is a static (or non-virtual) method for the class TMyClass. You would do
+
+<pre>
+  IdSoapRegisterProperty('TMyClass.MyProp',
+                         IdSoapFieldProp(@TMyClass(nil).FMyProp),
+                         IdSoapStaticProp(TMyObject.SetMyProp),
+                         TypeInfo(TIntegerArray));
+</pre>
+
+This can also be used in D6, though it is only required in D4 and D5. You can register any property in this fashion, not just arrays
+</body>
+</html>

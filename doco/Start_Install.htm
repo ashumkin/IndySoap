@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<Title>Installation </Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>Installation Procedure</H2>
+<OL>
+			<li>
+			You need the latest Indy release (9.011 or more recent)
+			<li>
+				You need the latest DUnit source to run the DUnit tests (from <a href="http://dunit.sourceforge.net">
+					http://dunit.sourceforge.net</a>)
+			<li>
+				You need to have MSXML 4.1 installed to use the xpMsXml xml provider. You also 
+				need MsXml installed to run the Dunit tests (from <a href="http://msdn.microsoft.com/xml">
+					http://msdn.microsoft.com/xml</a>)
+			<li>
+			Create a SOAP Directory in your Indy directory. This directory is referred to 
+			as &lt;indysoap&gt; hereafter
+			<li>
+				Copy the IndySoap directory structure into &lt;IndySoap&gt; Directory.<br>
+			To actually use IndySoap, you only need the files in the root soap directory, 
+			but the other files will be useful from time to time
+			<li>
+			Add &lt;indysoap&gt; to your delphi library path
+			<li>
+			Review the compiler defines in &lt;indySoap&gt;\IdSoapDefines.inc - you may 
+			want to change these&nbsp;to reflect your system and what&nbsp;features you 
+			want&nbsp;
+			<li>
+			[optional but recommended] Compile and run the DUnit tests in 
+			&lt;indysoap&gt;\dunit\IdSoapTests.dpr
+			<li>
+				Open the IdSoapXX.dpk file, then press the install 
+  button. 
+  <LI>Package Hell. You might have problems getting IndySoap compiling and 
+  installing. here's some tips:</LI>
+  <OL>
+    <LI>Make sure that your Indy package is updated before installing 
+    indysoap</LI>
+    <LI>Let delphi modify the package dependencies as it sees fit</LI>
+    <LI>when compiling design time packages, delphi compiles off the source in 
+    the dcp file, not the unit itself. So weird compile errors can be reported 
+    in defiance of the actual source. If you are really having problems, delete 
+    any existing indy dcu's and dcp's and recompile the indy package from 
+    scratch</LI>
+   </OL>
+</OL>
+<P>If you have problems installing IndySoap, please compile and run 
+&lt;indysoap&gt;\dunit\IdSoapTests.dpr before reporting the problems to the 
+IndySoap team </P>
+</body>
+</html>

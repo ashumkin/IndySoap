@@ -1,0 +1,134 @@
+<html>
+	<head>
+		<Title>Getting Started: Client </Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>A SOAP/Web services&nbsp;Primer</H2>
+		<p>
+		<P>Welcome to the IndySoap web services primer. This document should server as a 
+			basic introduction&nbsp;to web services. You should have a basic delphi 
+			programming ability and some concept of XML and HTTP to understand this primer
+			<H4>SOAP
+			</H4>
+		<P>
+		SOAP stands for Simple Object Access Protocol. This is a W3C protocol for 
+		exchanging data between systems using XML. The basic SOAP Specification defines 
+		an "XML envelope" to deliver XML content to a "Object" which is some service 
+		accessible through HTTP. In addition, it makes some specific recommendation 
+		about how to encode an RPC call in XML
+		<P>Web services is a name for the use of XML/RPC as defined by SOAP (and by other 
+			methods) to provide software components that can be reused across multiple 
+			langauges and platforms
+			<H4>WSDL</H4>
+		<P>
+			WSDL stands for "Web Services Description language". WSDL is a specification 
+			for a particular XML structure that describes how a web service operates - what 
+			methods it provides, how they can be called, and where it can be found. It's 
+			customary to publish a WSDL along with a SOAP server as a form of structured 
+			documentation of the interface
+			<H4>Uses for Web Services
+			</H4>
+		<P>It's best to understand the uses of Web Services as a spectrum.&nbsp;This 
+			diagram outlines the spectrum of uses for Web services:</P>
+		<TABLE id="Table1" cellSpacing="0" cellPadding="0" width="596" border="0" height="433">
+			<TR>
+				<TD><IMG alt="" src="Start_webservices.gif" border="0"></TD>
+				<TD><TABLE id="Table2" cellSpacing="0" cellPadding="0" width="453" border="0" height="288">
+						<tr>
+							<TD valign="center">1&nbsp;</TD>
+							<td>
+								<P>Unstructured XML message.
+								</P>
+								<P>Message is delivered to the application</P>
+								<P>Receiving application reads XML manually</P>
+							</td>
+						</tr>
+						<tr>
+							<TD valign="center">2&nbsp;</TD>
+							<td>
+								<P>Unstructured XML message.</P>
+								<P>Message wrapper indicates a destination with the application</P>
+								<P>Receiving application reads XML manually.
+								</P>
+							</td>
+						</tr>
+						<tr>
+							<TD valign="center">3&nbsp;</TD>
+							<td>
+								<P>Semi-Structured XML message.
+								</P>
+								<P>Message wrapper indicates a destination with the application</P>
+								<P>Receiving application reads XML manually but the XML document is tightly 
+									structured</P>
+							</td>
+						</tr>
+						<tr>
+							<TD valign="center">4&nbsp;</TD>
+							<td>
+								<P>Highly Structured XML message.
+								</P>
+								<P>Message wrapper indicates a destination with the application</P>
+								<P>Receiving application reads XML into object representation before processing</P>
+							</td>
+						</tr>
+						<tr>
+							<TD valign="center">5&nbsp;</TD>
+							<td>
+								<P>Highly Structured XML message.
+								</P>
+								<P>Message wrapper indicates a destination with the application</P>
+								<P>Receiving application reads XML into stack representation before processing</P>
+							</td>
+						</tr>
+					</TABLE>
+				</TD>
+			</TR>
+		</TABLE>
+		<P>&nbsp;</P>
+		<P>This is only a broad indicative spectrum. Reality is far more muddled than this. 
+			However it serves to illustrate the purpose. IndySoap is primarily concerned 
+			with case #4 and #5. This is mostly what people have in mind when they say "Web 
+			services". However note that WSDL documents can be used to describe cases 1 - 
+			3, and so you may encounter WSDL documents describing functionality that 
+			IndySoap doesn't support.</P>
+		<H4>SOAP for RPC</H4>
+		<P>The original SOAP specification described a general&nbsp;use for SOAP which 
+			would support all of the cases in the diagram above. Generally, a SOAP packet 
+			consists of some SOAP wrapper elements, and an XML payload. There is few rules 
+			concerning the XML payload of a SOAP message</P>
+		<P>In addition, the specification described a specific set of rules for encoding an 
+			RPC call. In this case, the XML structure of the payload was highly dictated. 
+			This was intended to support RPC marshalling engines in any language. Using 
+			SOAP in this fashion results in rather odd looking messages that are intended 
+			for consumption by RPC marshalling engines. Specifically, no repeating elements 
+			are allowed, and a wierd Array construct is introduced. In addition, all 
+			elements must be typed using the XML schema type attribute.</P>
+		<P>SOAP services that operate in this fashion are described as "RPC" services in 
+			the WSDL documents that describe them, with an encoding type of "encoded". 
+			Usually the services are simply referred to as "RPC services"</P>
+		<H4>Doc|Lit mode</H4>
+		<P>The problem with this very constrained RPC Mode is that it isn't the usual way 
+			that XML is generated, and it's difficult, if not impossible in practice, to 
+			write schemas that properly describe the XML packets. So many SOAP Services use 
+			a less highly structured XML format for data exchange. In the WSDL documents 
+			describing these interfaces, they are described as "document" services, and the 
+			encoding type is "literal". It's common to refer to these services as "Doc|Lit" 
+			services.</P>
+		<P>Many Doc|Lit services are still using highly structured data that may be 
+			represented by some object representation. However there is no boundary between 
+			services that use data of this type, and services that use XML that isn't 
+			properly described, or at least, may not be representable in OOP 3GL 
+			constructs.
+		</P>
+		<P>In addition, Microsoft has thoroughly muddied the waters by using doc|lit mode 
+			in .Net for what is essentially an RPC usage</P>
+		<P>IndySoap attempts to make the most of doc|lit services, and allows you to 
+			provide Doc|Lit services. However many things that are possible in Doc|Lit 
+			aren't possible in IndySoap for various architectural reasons - mainly related 
+			to OOP 3GL constraints. For these things, IndySoap introduces the TIdSoapRawXML 
+			to allow direct access to the XML source of the SOAP packet</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

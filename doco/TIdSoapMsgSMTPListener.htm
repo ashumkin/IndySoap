@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<Title>TIdSoapMsgSMTPListener</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2></H2>
+		<H2>TIdSoapMsgSMTPListener</H2>
+		<P>&nbsp;</P>
+		<P>TIdSoapMsgSMTPListener hosts&nbsp;a SOAP Server that processes incoming SMTP 
+			EMail messages as SOAP messages. SOAP messages are processed in the SMTP Server 
+			thread.</P>
+		<P>There is no IdCustomSMTPServer, so the TIdSoapMsgSMTPListener object descends 
+			straight off the the TIdSMTPServer. This event publishes all the normal events 
+			of a TIdSMTPServer, but you cannot use any of the following properties&nbsp;/ 
+			events:</P>
+		<UL>
+			<LI>
+				OnReceiveRaw
+			</LI>
+			<LI>
+				OnReceiveMessage
+			</LI>
+			<LI>
+				OnReceiveMessageParsed
+			</LI>
+			<LI>
+				ReceiveMode
+			</LI>
+		</UL>
+		<P>using any of these will render the server inoperable. The only SOAP Specific 
+			property that you have to set is
+		</P>
+		<P>&nbsp;</P>
+		<PRE>  property Listener: TIdSoapMsgReceiver;</PRE>
+		<P>The SOAP Listener that provides SOAP messaging services</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

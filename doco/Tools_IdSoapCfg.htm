@@ -1,0 +1,120 @@
+<html>
+ <head>
+  <Title>IdSoapCfg Documentation </Title>
+  <style>@import url(indysoap.css);
+  </style>
+ </head>
+ <body>
+ <H2>IdSoapCfg documentation</H2>
+IndySoap provides 2 tools that are required to work with Web services using IndySoap:
+ <ul>
+   <li>
+    An ITI generator. The IndySoap ITI generator parses a pascal definition of an
+    interface into an ITI file which is required for IndySoap operation.</li>
+   <li>
+    A WSDL parser. The IndySoap WSDL parser will read a WSDL file and generate and
+    IndySoap interface declaration that is equivalent to the WSDL</li>
+ </ul>
+
+<p>
+Both tools are configured through IdSoapCfg files. This is an Ini file with a
+particular format. A single IdSoapCfg file can configure both tools, and both
+will be executed when the IdSoapCfg file is executed in the IndySoap Tools
+<p>
+The IndySoap design time package will automatically execute a .IdSoapCfg file
+with the same name as the project file, if it exists, before the project is
+compiled. This is important for keeping the ITI in sync with the pascal
+declaration
+
+<H3>Configuring the ITI generator</H3>
+The ITI generator is configured by the following comands:
+<table>
+  <tr><td><b>[Project]</b></td><td>This section is optional</td></tr>
+  <tr><td>Directory=&lt;dir&gt;</td><td>The root directory for all files</td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+  <tr><td><b>[Source]</b></td><td>This section is required</td></tr>
+  <tr><td>&lt;file&gt;<br>&lt;file&gt;</td>
+    <td>a list of files that contain interfaces to be parsed into the ITI you can use
+    full path names if the files are in different directories at least one file
+    must be listed</td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+  <tr><td><b>[Inclusions]</b></td><td>This section is optional</td></tr>
+  <tr><td>&lt;name&gt;<br>&lt;name&gt;</td>
+     <td>if you list any interfaces by name here, then only the interfaces listed will be part of the ITI</td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+  <tr><td><b>[Exclusions]</b></td><td>This section is optional</td></tr>
+  <tr><td>&lt;name&gt;<br>&lt;name&gt;</td>
+    <td>If you list any interfaces by name here, then they will not be included in the ITI. the inclusions list overrides the exclusions list</td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+  <tr><td><b>[Output]</b></td><td>This section is required. It specifies where the ITI source should go after itis built. You must specify at least one of BinOutput and ResOutput</td></tr>
+  <tr><td>BinOutput=&lt;file&gt;</td><td>specifies the file for the Binary ITI</td></tr>
+  <tr><td>ResOutput=&lt;file&gt;[;ResourceName]</td><td>specifies filename to save as a Resource</td></tr>
+  <tr><td>XMLOutput=&lt;file&gt;</td><td>specifies filename to save XML output</td></tr>
+</table>
+
+<p>
+All 3 Output formats encode the same information. The IndySoap run time
+components only make use of the Binary or resource formats, depending on how
+they are configured. The XML format is provided for viewing convenience. Tell
+us if you figure out some clever transform...
+<p>
+<i>Note that sections, names and Filenames are case sensitive on Linux</i>
+<p>
+
+<H3>Configuring the WSDL parser</H3>
+The WSDL Parser is configured by the following comands, all contained in the
+section [WSDL]:
+<p>
+<table border="0" cellspacing="2">
+  <tr><td>Source=</td><td>(required) location of WSDL. can be http://, or file://</td></tr>
+  <tr><td>Proxy=</td><td>http proxy details if required (address:port)</td></tr>
+  <tr><td>Auth=</td><td>Authentication details for http if required (username:password)</td></tr>
+  <tr><td>Pascal=</td><td>(required) pascal file to create</td></tr>
+  <TR><TD>Exclude=</TD><TD>Types to exclude. See comment below</TD></TR>
+  <TR><TD>Uses=</TD><TD>List of units to add to the uses clause</TD></TR>
+  <tr><td>Factory= 1</td><td>If you want factory code for the interface generated as well</td></tr>
+  <tr><td>PrependTypes= 1</td><td>If you want "T" prepended to type names</td></tr>
+  <tr><td>MakeITIBin= 1</td><td>If you want an ITI File generated as well (as xx.iti, where xx is the name of the pascal file)</td></tr>
+  <tr><td>MakeITIRes= 1</td><td>if you want an ITI File generated as well (as xx.res, resource name will be xx)</td></tr>
+  <TR><TD>OnlyOneInterface = 1</TD><TD>If you want multiple services in the WSDL telescoped into a single interface</TD></TR>
+  <TR><TD>InterfaceName =</TD><TD>if you want to give your own name to the interface<BR>instead of the first service name (only when OnlyOneInterface = 1)</TD></TR>
+</table>
+
+<p>
+You can also use the [Project] section directory setting to specify the working
+directory for all the other file names
+<p>
+You can have multiple WSDL sections. Repeat WSDL sections must be named WSDL.N
+You do not need to number sections sequentially, but repeat WSDL sections will
+be ignored unless a [WSDL] section exists
+<p>
+<p>
+<P>Excluding Types</P>
+<P>Sometimes a group of related WSDL documents will repeat the same type a number
+of times. For this reason you can exclude types from the conversion process.
+Note the following issues with suppressing types:</P>
+ <UL>
+  <LI>Although the class is not written into the file, it still must be&nbsp;defined and registered with IndySoap somewhere in the final executable
+  <LI>For internal reasons, you can't suppress a tree of types simply&nbsp;by suppressing the root type - IndySoap must iterate them all,&nbsp;so you must exclude each type you want excluded
+  <LI>if a type name mapping is required (namespaces differ or the name is&nbsp;not a valid pascal name, then the mapping will still be generated.
+ </LI>
+</UL>
+
+<P>You exclude types based on their schema name, so the format is a series of {namespace}name combinations</P>
+<P>&nbsp;</P>
+
+<h3>Batch</h3>
+An IdSoapCfg file can refer to other .IdSoapCfg files using the batch Section. This
+is simply a list of other files to execute:
+<pre>
+[Batch]
+filename
+filename
+</pre>
+
+Notes:
+<ul>
+ <li>The batch section is executed first, followed by the WSDL sections, then finally by the ITI builder.
+ <li>If a full pathname is specified, then the the current directory will be set to the path before the IdSoapCfg file is executed
+</body>
+</html>

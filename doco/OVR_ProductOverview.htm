@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<Title>Product Overview </Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>IndySoap Product Overview
+		</H2>
+		<H3>Overview</H3>
+		IndySoap provides:
+		<ul>
+			<li>
+			Soap through interfaces
+			<li>
+			WSDL -&gt; Interface conversion
+			<li>
+			Dynamic WSDL generation on both Server and Client
+			<li>
+			Support for both Doc|Lit and RPC mode
+			<li>
+			Extensive Published DUnit tests
+			<li>
+			Direct accesss to Soap packets network information
+			<li>
+			Direct packet access mode
+			<li>
+				Custom encoding format for high speed RPC</li>
+		</ul>
+		<H3>Details
+		</H3>
+		IndySoap provides 2 different metaphors for dealing with SOAP, one where the 
+		SOAP packet is desconstructed into interface calls and all the SOAP details are 
+		handled transparently to the program. The other mode presents an object based 
+		view of SOAP messages to the program. You can use the one interface for both 
+		modes as required.
+		<p>
+		In addition, IndySoap provides a tools for converting a WSDL to an interface 
+		specification.
+		<p>
+		In order to provide support for interfaces, IndySoap needs to know the methods 
+		and their parameters for the interfaces used. Rather than use interface RTTI, 
+		which is only available in Delphi 6 (Enterprise/Professional editions), 
+		IndySoap preprocesses the interfaces into a structure known as "ITI". In 
+		addition, SOAP related metadata is also stored in ITI's as well. ITI's are 
+		analagous to WSDL's in function, but store information that is missing from the 
+		Delphi RTTI.
+		<p>
+			On the server, information about the raw packet, such as network addresses, 
+			SOAP Headers etc is available through the <a href="TIdSoapRequestInformation.txt">GIdSoapRequestInfo</a>
+		thread variable.
+		<p></p>
+	</body>
+</html>

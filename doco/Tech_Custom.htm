@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>IndySoap Custom Formants</TITLE>
+<style>@import url(indysoap.css);</style>
+</HEAD>
+<BODY>
+<H2>IndySoap Binary Format and TCP/IP Protocol</H2>
+
+Version History:
+<UL>
+ <LI>25 July 2002 Grahame Grieve  &ndash; Version History added, all doco restructured
+</UL>
+<p>
+
+<H4>Note about Custom formats</H4>
+
+These are custom implementations intended to make the RPC layer work as fast as
+possible. You must have IndySOAP at both ends to use thse. Some notes
+regarding implementation of this encoding type:
+<UL>
+ <LI>The protocols may be overhauled at any time, and no attempt will be made to provide
+     backward compatibility. You need to be able to upgrade both clients
+     and server at the same time in order to safely use these formats
+</UL>
+For these reasons, these custom formats should only be used where the client and server are tightly bound
+<p>
+
+<H4>Binary Format</H4>
+
+A fault packet looks like this:
+
+<TABLE BORDER=1 CELLPADDING=0 CELLSPACING=0>
+ <TR VALIGN=TOP>
+  <TD BGCOLOR="#c0c0c0">Type</TD>
+  <TD BGCOLOR="#c0c0c0">Value</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Cardinal</TD>
+  <TD WIDTH=399>MAGIC</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Byte</TD>
+  <TD WIDTH=399>#1</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>ShortString</TD>
+  <TD WIDTH=399>Class</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>String</TD>
+  <TD WIDTH=399>Message</TD>
+ </TR>
+</TABLE>
+<p>
+
+A Request looks like this:
+<TABLE BORDER=1 CELLPADDING=0 CELLSPACING=0>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175 BGCOLOR="#c0c0c0">Type</TD>
+  <TD WIDTH=399 BGCOLOR="#c0c0c0">Value</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Cardinal</TD>
+  <TD WIDTH=399>MAGIC</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Byte</TD>
+  <TD WIDTH=399>#2</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>String</TD>
+  <TD WIDTH=399>Namespace</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>ShortString</TD>
+  <TD WIDTH=399>MethodName</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Node Structure</TD>
+  <TD WIDTH=399>RootNode</TD>
+ </TR>
+</TABLE>
+<p>
+
+A Response looks like this:
+
+<TABLE BORDER=1 CELLPADDING=0 CELLSPACING=0>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175 BGCOLOR="#c0c0c0">Type</TD>
+  <TD WIDTH=399 BGCOLOR="#c0c0c0">Value</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Cardinal</TD>
+  <TD WIDTH=399>MAGIC
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Byte</TD>
+  <TD WIDTH=399>#3</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>String</TD>
+  <TD WIDTH=399>Namespace</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>ShortString</TD>
+  <TD WIDTH=399>MethodName</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Node Structure</TD>
+  <TD WIDTH=399>RootNode</TD>
+ </TR>
+</TABLE>
+<p>
+
+A Node Structure looks like this:
+
+<TABLE BORDER=1 CELLPADDING=0 CELLSPACING=0>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175 BGCOLOR="#c0c0c0">Type</TD>
+  <TD WIDTH=399 BGCOLOR="#c0c0c0">Value</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>ShortString</TD>
+  <TD WIDTH=399>Name</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Byte</TD>
+  <TD WIDTH=399>Type (1=class, 2=array)</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>ShortString</TD>
+  <TD WIDTH=399>Type (class or Array content)</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Byte</TD>
+  <TD WIDTH=399>Next Item Type (#1 = param, #2 = Node)</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>lt;Node Structure&gt; or &lt;param&gt;</TD>
+  <TD WIDTH=399></TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Byte</TD>
+  <TD WIDTH=399>0 (terminator)</TD>
+ </TR>
+</TABLE>
+<p>
+
+A Param looks like this:
+
+<TABLE BORDER=1 CELLPADDING=0 CELLSPACING=0>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175 BGCOLOR="#c0c0c0">Type</TD>
+  <TD WIDTH=399 BGCOLOR="#c0c0c0">Value</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>ShortString</TD>
+  <TD WIDTH=399>Name</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>Byte</TD>
+  <TD WIDTH=399>Type</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=175>varies</TD>
+  <TD WIDTH=399>value</TD>
+ </TR>
+</TABLE>
+<p>
+
+The format of the Content depends on the type:
+<TABLE BORDER=1 CELLPADDING=0 CELLSPACING=0>
+ <TR VALIGN=TOP>
+  <TD WIDTH=207>String,	WideString</TD>
+  <TD WIDTH=367>Cardinal Length, Content</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=207>ShortString</TD>
+  <TD WIDTH=367>Byte Length , Content</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=207>Stream</TD>
+  <TD WIDTH=367>Cardinal Length, Content</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=207>Enumeration</TD>
+  <TD WIDTH=367>Shortstring Type, Cardinal Value</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=207>TDateTime</TD>
+  <TD WIDTH=367>Native format, but adjusted to UTC</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=207>All other types</TD>
+  <TD WIDTH=367>native (sizeof)</TD>
+ </TR>
+</TABLE>
+
+<H4>TCPI/IP Protocol Description</H4>
+
+Network protocol for request:
+<TABLE BORDER=1 CELLPADDING=0 CELLSPACING=0>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>	ID</TD>
+  <TD WIDTH=154>Block</TD>
+  <TD WIDTH=64>Size</TD>
+  <TD WIDTH=319>Description</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#1</TD>
+  <TD WIDTH=154>Header</TD>
+  <TD WIDTH=64>4 bytes</TD>
+  <TD WIDTH=319>IndySoap Identifier - IDSQ</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#2</TD>
+  <TD WIDTH=154>PacketID</TD>
+  <TD WIDTH=64>4 bytes</TD>
+  <TD WIDTH=319>Serially incrementing number for each request</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#3</TD>
+  <TD WIDTH=154>Method Name Length</TD>
+  <TD WIDTH=64>4 bytes</TD>
+  <TD WIDTH=319>Length of Method Name String</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#4</TD>
+  <TD WIDTH=154>Packet Length</TD>
+  <TD WIDTH=64>4 bytes</TD>
+  <TD WIDTH=319>Length of IndySoap Packet</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#5</TD>
+  <TD WIDTH=154>Method Name</TD>
+  <TD WIDTH=64>see #3</TD>
+  <TD WIDTH=319>Name of method</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#6</TD>
+  <TD WIDTH=154>Packet</TD>
+  <TD WIDTH=64>see #4</TD>
+  <TD WIDTH=319>Actual IndySoap Packet</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#7</TD>
+  <TD WIDTH=154>Footer</TD>
+  <TD WIDTH=64>4 bytes</TD>
+  <TD WIDTH=319>IndySoap Identifier - IDSE</TD>
+ </TR>
+</TABLE>
+<p>
+
+Network protocol for response:
+<TABLE BORDER=1 CELLPADDING=0 CELLSPACING=0>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>	ID</TD>
+  <TD WIDTH=154>Block</TD>
+  <TD WIDTH=64>Size</TD>
+  <TD WIDTH=319>Description</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#1</TD>
+  <TD WIDTH=154>Header</TD>
+  <TD WIDTH=64>4 bytes</TD>
+  <TD WIDTH=319>IndySoap Identifier - IDSA</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#2</TD>
+  <TD WIDTH=154>PacketID</TD>
+  <TD WIDTH=64>4 bytes</TD>
+  <TD WIDTH=319>PacketID of packet for which this is an answer</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#3</TD>
+  <TD WIDTH=154>Packet Length</TD>
+  <TD WIDTH=64>4 bytes</TD>
+  <TD WIDTH=319>Length of IndySoap Packet</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#4</TD>
+  <TD WIDTH=154>Packet</TD>
+  <TD WIDTH=64>see #3</TD>
+  <TD WIDTH=319>Actual IndySoap Packet</TD>
+ </TR>
+ <TR VALIGN=TOP>
+  <TD WIDTH=37>#5</TD>
+  <TD WIDTH=154>Footer</TD>
+  <TD WIDTH=64>4 bytes</TD>
+  <TD WIDTH=319>IndySoap Identifier &ndash; IDSE</TD>
+ </TR>
+</TABLE>
+
+
+</BODY>
+</HTML>

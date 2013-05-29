@@ -1,0 +1,242 @@
+<html>
+	<head>
+		<Title>Soap Metadata </Title>
+		<style>@import url(indysoap.css); 
+	</style>
+	</head>
+	<body>
+		<H2>SOAP Operational information</H2>
+		SOAP requires a few names that are not defined in the interface. By default, 
+		these names are generated for you but these names may not be appropriate when 
+		the server is not an IndySoap Server. There is several ways to deal with this 
+		situation. One way is to define the names in the Interface source itself.
+		<p>
+			To do this, you add a comment with the following format to the interface:
+			<pre>
+{!name: value; Name: value}
+</pre>
+		You can add a comment like this to the interface itself or to a method, as 
+		appropriate. (refer below for locations)<p>
+			<b>Interface Definitions:</b>
+			<table border="1" cellspacing="0">
+				<tr>
+					<td>Name</td>
+					<td>Default Value</td>
+					<td>Comment</td>
+				</tr>
+				<tr>
+					<td>Namespace</td>
+					<td>&lt;Unit Name&gt;&lt;Interface&gt;</td>
+					<td>The namespace for this interface
+					</td>
+				</tr>
+				<tr>
+					<td>SoapAction</td>
+					<td>&lt;Namespace&gt;#method</td>
+					<td>The SOAP action (client only). method name will be added on a per method name 
+						if the terminating character is #.</td>
+				</tr>
+				<tr>
+					<td>Visibility</td>
+					<td>Advertised</td>
+					<td>Whether then interface is shown in the WSDL: 
+                                          <ul>
+                                           <li><b>Advertised</b> The Interface is shown as normal
+                                           <li><b>Described</b> The Interface isn't shown in the list of interfaces
+                                               but it will be described if asked for directly and also in the all interfaces list
+                                           <li><b>Secret</b> The WSDL provider will refuse to acknowledge that the interface 
+                                               exists (though it will still work)
+                                          </ul>
+                                        </td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td>absent</td>
+					<td>Redefine the SOAP name for a variable or field</td>
+				</tr>
+				<tr>
+					<td>Category</td>
+					<td></td>
+					<td>Catgory the interface is shown in when a categorised list of interfaces is shown on the WSDL page</td>
+				</tr>
+				<tr>
+					<td>Type</td>
+					<td>absent</td>
+					<td>Redefine the SOAP name and/or namespace for a class (see below)</td>
+				</tr>
+				<tr>
+					<td>Encoding</td>
+					<td>RPC</td>
+					<td>“Document” or “RPC”. Will apply to all methods unless overridden in the method</td>
+				</tr>
+				<TR>
+					<TD>Session</TD>
+					<TD>"Not Required"</TD>
+					<TD>"Required" or "Not Required" - whether a valid session is required for methods 
+						in this&nbsp;interface to be used by a client. This setting is only effective 
+						at the method level, but you can set a default for the interface at this level</TD>
+				</TR>
+				<TR>
+					<TD>Attachments</TD>
+					<TD>Mime</TD>
+					<TD>Mime or Dime - type of encoding used for attachments. This only has meaning 
+						when&nbsp;a packet is written, IndySoap will accept either encoding when 
+						reading a packet</TD>
+				</TR>
+			</table>
+		<p>
+			<b>Method Definitions:</b>
+			<table border="1" cellspacing="0">
+				<tr>
+					<td>Name</td>
+					<td>Default Value</td>
+					<td>Comment</td>
+				</tr>
+				<tr>
+					<td>Request</td>
+					<td>&lt;Method Name&gt;+’Request’</td>
+					<td>The SOAP message name that requests this method</td>
+				</tr>
+				<tr>
+					<td>Response</td>
+					<td>&lt;Method Name&gt;+’Response’</td>
+					<td>The SOAP message name for a response for this method</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td>absent</td>
+					<td>Redefine the SOAP name for a variable or field</td>
+				</tr>
+				<tr>
+					<td>Type</td>
+					<td>absent</td>
+					<td>Redefine the SOAP name and/or namespace for a class (see below)</td>
+				</tr>
+				<tr>
+					<td>Encoding</td>
+					<td>&lt;interface value&gt;</td>
+					<td>“Document” or “RPC”. Will override default value specified in interface</td>
+				</tr>
+				<TR>
+					<TD>Session</TD>
+					<TD>&lt;interface value&gt;</TD>
+					<TD>"Required" or "Not Required" - whether a valid session is required for 
+						the&nbsp;method to be used by a client</TD>
+				</TR>
+				<TR>
+					<TD>Header</TD>
+					<TD></TD>
+					<TD>
+						<P>Headers on the message from the client to the server</P>
+						<P>name&nbsp;= type. The name of the header, and it's pascal type, which must be a 
+							valid registered pascal type. Names and types are subject to redefinition by 
+							the Name and Type definitions above</P>
+					</TD>
+				</TR>
+				<TR>
+					<TD>RespHeader</TD>
+					<TD></TD>
+					<TD>
+						<P>Headers on the message returned by the server</P>
+						<P>name&nbsp;= type. The name of the header, and it's pascal type, which must be a 
+							valid registered pascal type. Names and types are subject to redefinition by 
+							the Name and Type definitions above</P>
+					</TD>
+				</TR>
+				<TR>
+					<TD>Attach</TD>
+					<TD></TD>
+					<TD>True or False. Whether a method allows attachments. Refer to Attachments for 
+						further information</TD>
+				</TR>
+			</table>
+		<p>
+			<b>Parameter &amp; ITI Definitions:</b>
+			<table border="1" cellspacing="0">
+				<tr>
+					<td>Name</td>
+					<td>Default Value</td>
+					<td>Comment</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td>absent</td>
+					<td>Redefine the SOAP name for a variable or field</td>
+				</tr>
+				<tr>
+					<td>Type</td>
+					<td>absent</td>
+					<td>Redefine the SOAP name and/or namespace for a class (see below)</td>
+				</tr>
+				<TR>
+					<TD>Attribute</TD>
+					<TD>-</TD>
+					<TD>
+						<P>Comma separated list of className.PropertyName specifying that the properties 
+							listed are encoded in the soap packet as attributes not elements</P>
+					</TD>
+				</TR>
+			</table>
+		<p>
+		Note that generally all these values are case sensitive, though the names are 
+		not
+		<P>
+		<P>
+		ITI definitions are made the same way - a comment that begins with {!, but are 
+		found before any actual interface definitions in a pascal unit. These&nbsp;name 
+		and type definitions&nbsp;apply globally across the ITI. This is usually the 
+		best place to declare renaming and attributes.
+		<P>
+		You can only mark simple types as attributes - not arrays and classes
+		<p>
+			<H3>Changing Names and Namespaces for Parameters and Types
+			</H3>
+		Different SOAP implementations have quite different naming policies that are 
+		not possible to reproduce in Pascal. For this reason, it's possible to redefine 
+		the name of a parameter, a field, or a type, and additionally to redefine the 
+		namespace of a type (by definition, parameters are in the namespace of the 
+		interface, and fields are in the namespace of their type).
+		<p>
+		You can do this at any level of the declaration, either for a parameter, for a 
+		method, or for a interface, in the operational notes for the level (comments 
+		starting with {!). At each point the syntax is the same. When an element is 
+		being read or written to the SOAP packet, the definitions will be consulted in 
+		the order Parameter, Method, Interface. When a match is found, the search will 
+		terminate. Name replacement is not recursive.
+		<p>
+			Parameters and fields are renamed using the follwing syntax:
+			<pre>
+	Name: [ClassName.]PascalName = SoapName;
+</pre>
+		Classname is optional; If specified, the name definition applies to the 
+		property named. Both ClassName (if provided) and PascalName should refer to 
+		valid pascal identifiers that are defined elsewhere in the code (though this is 
+		not checked at any point by IndySoap). SoapName must be a valid XML identifier 
+		that matches the name used in the WSDL (it will if IndySoap produces the WSDL). 
+		Note that while IndySoap allows for fields to be redefined on a method or 
+		parameter level, it will be unable to produce a completely valid WSDL if you 
+		do.
+		<p>
+		The parameter and field needs to work in both directions. This means that there 
+		must be only one SoapName for a given ClassName/PascalName, and only only one 
+		PascalName for a given ClassName/PascalName. IndySoap will give an exception 
+		compiling the ITI if this is not true
+		<p>
+			Types are renamed using the following syntax:
+			<pre>
+	Type: ClassName = [SoapName] [in SoapNamespace];
+</pre>
+		If a SoapName is not provided, the SoapName defaults to the ClassName. If a 
+		SoapNamespace is not provided, the namespace defaults to the interface name.
+		<p>
+			Examples:
+			<pre>
+    Type: TtestClass = TestClass in http://www.kestral.com.au/schema;
+    Type: TtestClass1 = TestClass3;
+    Type: TtestClass2 = in http://www.kestral.com.au/schema;
+</pre>
+		You can't rename the type of a Special IndySoap class such as TStream, or the 
+		date time types
+		<p></p>
+	</body>
+</html>

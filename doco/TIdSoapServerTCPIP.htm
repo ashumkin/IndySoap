@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<Title>TIdSoapServerTCPIP</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>TIdSoapServerTCPIP
+		</H2>
+		<P>TIdSoapServerTCPIP is the server side implementation of the custom IndySOAP 
+			TCPIP proctocol. IndySoap provides a custom TCP/IP protocol for use with SOAP 
+			request/response. The major advantage of this protocol is that a connection is 
+			held open, and the protocol is extremely light weight. This makes this protocol 
+			suitable for use in a LAN environment with tightly bound client/server 
+			environment
+		</P>
+		<P>TIdSoapServerTCPIP is a descendent of TIdTCPServer, and provides all the 
+			behaviours that of a normal TIdTCPServer.&nbsp;Assing a SoapServer,&nbsp;set 
+			the default port to the value you want, and set active to true</P>
+		<H4>Properties</H4>
+		<P>&nbsp;</P>
+		<PRE>&nbsp; property SOAPServer : TIdSoapServer;</PRE>
+		<P>The TIdSoapServer that provides the actual SOAP services. You must assign a 
+			valid TIdSoapServer to this property for SOAP to work
+		</P>
+		<P>&nbsp;</P>
+	</body>
+</html>

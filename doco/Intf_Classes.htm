@@ -1,0 +1,187 @@
+<html>
+	<head>
+		<Title>Classes </Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>Classes</H2>
+		Classes are used to model SOAP complex types. The SOAP “complex type” has it’s 
+		origin in the XML schema types. This does not correspond to either a class or a 
+		record but Classes are used to model complexTypes as they have the RTTI which 
+		is required to implement them. For this reason there is a number of unusual 
+		things about the way classes behave when they are used in IndySoap interfaces.
+		<p>
+			The following rules describe the way classes work in IndySoap interfaces
+			<UL>
+				<li>
+				All classes used and registered must descend from TIdBaseSoapableClass
+				<li>
+					Any information to be carried in these classes must be published as properties. 
+					You can have the same types for properties as you can have for parameters:
+					<ul>
+						<li>
+						registered simple types
+						<li>
+						Registered Classes
+						<li>
+							Dynamic arrays (though see the note below about Properties that are dynamic 
+							arrays)</li>
+					</ul>
+				<li>
+				Default values for classes can be defined, and they will be observed when 
+				sending messages
+				<LI>
+				Properties cannot have index accessors (i.e. property 
+				strings[i:integer]:string…)
+				<li>
+				Polymorphism is supported, but you must explicitly declare the substutition 
+				rules.
+				<LI>
+				you can use SetXXX property writers to implement parameter checking though you 
+				may find it difficult to manage the errors
+				<li>
+				If the server modifies a property of the class, the client will not receive 
+				this change. Conceptually, what is happening here is that the class is not 
+				passed to the server (as in a usual procedure call), but the class is used to 
+				encode the parameters into the RPC call. If you want the server to send stuff 
+				back, make an OUT or var parameter of the class, and then a new copy of the 
+				class will be sent back (var and out are synonymous here). In this sense, 
+				classes behave like records
+				<li>
+				Var Class Parameters *MUST* be initialized prior to calling the client, either 
+				to nil or a valid object. Weird access violations will occur if you don't
+				<li>
+					If objects cross link with each other, or children point back at parents, then 
+					you must use Object References (see Encoding Options). If you don’t then you’ll 
+					get stack crashes
+				<li>
+					By default, all the properties of a class are optional, both in the run-time 
+					SOAP implementation and the WSDL definition. You can override the IsMandatory 
+					function to make particular parameters labelled as required in the WSDL. The
+					run-time engine will not enforce that the parameters are present even if this 
+					method indicates that they are - you will have to test this in your code. 
+				</li></UL>
+			<H3>Options for managing class lifetime
+			</H3>
+		By default, TIdBaseSoapableClass descendents run in what is called “native 
+		mode”. It’s best to describe Native Mode with a series of storyboards 
+		describing the possible object lifetimes
+		<p>
+			<b>Client Scenarios</b><br>
+			<table border="1" cellspacing="0">
+				<tr>
+					<td>In Parameter</td>
+					<td>User Creates</td>
+					<td>IndySoap uses, leaves untouched</td>
+					<td>User must free</td>
+				</tr>
+				<tr>
+					<td>Out Parameter</td>
+					<td>User irrelevent</td>
+					<td>IndySoap Creates</td>
+					<td>User must free if non nil</td>
+				</tr>
+				<tr>
+					<td>Var Parameter</td>
+					<td>User creates</td>
+					<td>IndySoap will free and recreate</td>
+					<td>User must free</td>
+				</tr>
+			</table>
+			<b>Server Scenarios</b><br>
+			<table border="1" cellspacing="0">
+				<tr>
+					<td>In Parameter</td>
+					<td>IndySoap creates</td>
+					<td>User uses, leaves untouched</td>
+					<td>IndySoap frees</td>
+				</tr>
+				<tr>
+					<td>Out Parameter</td>
+					<td>IndySoap sets to nil</td>
+					<td>User creates</td>
+					<td>IndySoap frees</td>
+				</tr>
+				<tr>
+					<td>Var Parameter</td>
+					<td>IndySoap creates</td>
+					<td>User can free + recreate if desired</td>
+					<td>IndySoap frees</td>
+				</tr>
+			</table>
+		Similar lifetime storyboards apply to dynamic arrays of objects. Where it makes 
+		sense, nil is an option too. I.e. for In parameters, User can leave as nil. In 
+		this case the server side In Parameter will also be nil
+		<p>
+		By default objects that are properties of other objects are owned by the parent 
+		objects and live and die with them.
+		<p>
+		On the client, the user accepts responsibility for freeing objects that are 
+		created in the IndySoap engine. On the server, the user accepts that IndySoap 
+		will free objects that it comes across.
+		<p>
+			IndySoap gives some control over the way this works. The following settings are 
+			available to control object lifetime management
+			<table border="1" cellspacing="0">
+				<tr>
+					<td>Class/Property</td>
+					<td>Default</td>
+					<td>Meaning</td>
+				</tr>
+				<tr>
+					<td>TIdBaseSoapableClass. OwnsObjects</td>
+					<td>True</td>
+					<td>
+				If this is true, then when the object is freed, it will iterate any of it’s 
+				published properties, freeing any that are classes. If this is false, then the 
+				application (usually in the form of a TIdBaseSoapableClass descendent 
+				destructor) is responsible for freeing the properties where it deems 
+				appropriateThere is no way to alter the default setting of newly created 
+				objects other then be overriding the constructor in a descendent
+				<tr>
+					<td>TIdBaseSoapableClass. ServerLeaveAlive</td>
+					<td>False</td>
+					<td>If this is true, then the server will not free the object when it cleans up 
+						after a IndySoap interface callIf this is false, then the server will free the 
+						object when it encounters the object.There is no way to alter the default 
+						setting of newly created objects other than by overriding the constructor in a 
+						descendent</td>
+				</tr>
+				<tr>
+					<td>TIdSoapBaseClient.GarbageCollectObjects</td>
+					<td>False</td>
+					<td>If this is true, then any objects the client encounters will be garbage 
+						collected. The garbage collection process is described in detail below.If this 
+						is false, then no objects will be garbage collected</td>
+				</tr>
+			</table>
+			<b>Client side Garbage collection</b><br>
+			When TIdSoapBaseClient.GarbageCollectObjects is set to true, the client will 
+			garbage collect TIdBaseSoapableClass descendents. Only objects that meet at 
+			least one of the following criteria are garbage collected:
+			<ul>
+				<li>
+				Passed as a parameter to an IndySoap interface call
+				<li>
+				Passed as a member of a dynamic array which is a parameter to an IndySoap call
+				<li>
+				Returned as an out parameter or a result of an IndySoap interface call
+				<li>
+					Returned as a member of a dynamic array which an out parameter or a result to 
+					an IndySoap call</li>
+			</ul>
+		Objects that are properties of other objects are covered by different 
+		arrangements (see TIdBaseSoapableClass. OwnsObjects above)
+		<p>
+		The IndySoap client maintains a garbage deletion context. At the beginning of 
+		an IndySoap interface call, the client will free any objects associated with 
+		the last call. Any objects associated with the new call according to the rules 
+		above will be added to the new context. (note: This garbage collection could 
+		potentially cause problems if one client is being used in more than one thread, 
+		as the context may be cleaned up by a different thread before the objects in 
+		the context have actually been used. Be careful if you mix garbage collection 
+		and threads)
+		<p></p>
+	</body>
+</html>

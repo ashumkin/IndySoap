@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<Title>Getting Started: Client </Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2>Getting Started with clients</H2>
+		To use IndySoap on the client, you need an interface, and a server that 
+		implements the interface using SOAP. You can get that interface from one of 2 
+		places
+		<UL>
+			<LI>
+				Server is also implemented using IndySoap. In this case, the client can use the 
+				same pascal source for the interface as the server
+			</LI>
+			<LI>
+				Server is implemented using Some other SOAP library in delphi, or some other 
+				language. Soap servers describe their interfaces using a format known as 
+				"WSDL". IndySoap provides a tool that can convert a WSDL to an equivalent 
+				interface for IndySoap
+			</LI>
+		</UL>
+		<p>
+			<i>Note: IndySoap Soap ready interfaces are not compatible with Borland Soap ready 
+				interfaces due to philosphical differences in approach, though it is not hard 
+				to interconvert between them.</i>
+		<p>
+		Once you have an interface, you must create an ITI for that interface. This 
+		will be done by editing a .IdSoapCfg file, and compiling it manually using the 
+		IndySoap Tools, or giving it the same name as the project, in which case it 
+		will be precompiled when the project is compiled.
+		<p>
+		Once you have ITI compiled, you create the client that implements the right 
+		kind of transport. Currently, you have the following choices:
+		<p>
+			<table border="1" cellspacing="0">
+				<tr>
+					<td>TIdSoapClientDirect</td>
+					<td>
+						This connects directly to a SOAP Server bound into the same executable. This is 
+						mainly used for testing</td>
+				</tr>
+				<tr>
+					<td>TIdSoapClientHTTP</td>
+					<td>
+						This Uses a Indy HTTP client to make HTTP Requests</td>
+				</tr>
+				<tr>
+					<td>TIdSoapClientWinInet</td>
+					<td>
+						This uses the Microsoft WinInet library to make HTTP requests</td>
+				</tr>
+				<tr>
+					<td>TIdSoapClientTCPIP</td>
+					<td>
+						This uses the IndySoap proprietary TCP/IP protocol. The main use of this is for 
+						tightly bound RPC implementations where IndySoap is used at both ends</td>
+				</tr>
+			</table>
+		<p>
+		once you have created and configured the client appropriately, using it is 
+		simple. Just define a variable of the right interface type, and typecast the 
+		client to it:
+		<p>
+			<pre>
+Var
+  LIntf : IMyInterface;
+begin
+  LIntf := IdSoapClientHTTP1 as IMyInterface
+</pre>
+		From there on, just use the interface. THe interface is reference counted and 
+		will be freed automatically when it goes out of scope.
+		<p>
+		The IndySoap client implementation is thread safe, as long as you use one 
+		client object in only one thread at a time.
+		<p>
+			Also, consult the tutorials for further examples of writing interfaces.</p>
+	</body>
+</html>

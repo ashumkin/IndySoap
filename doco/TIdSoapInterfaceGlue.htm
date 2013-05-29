@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<Title>TIdSoapInterfaceGlue</Title>
+		<style>@import url(indysoap.css);
+	</style>
+	</head>
+	<body>
+		<H2></H2>
+		<H2>
+			TIdSoapInterfaceGlue</H2>
+		<P>An instance of TIdSoapInterfaceGlue is generated everytime a new IndySoap 
+			interface is created. The interface reference&nbsp;counting actually applies to 
+			the TIdSoapInterfaceGlue instance. The glue maintains a link to it's 
+			TIdSoapSender which will be broken if the TIdSoapSender is freed before the 
+			interface goes out of scope</P>
+		<P>There is no circumstance under which you should (or could) use a 
+			TIdSoapInterfaceGlue object directly. The primary cause for documenting this is 
+			that you may get an IndySoap leak report concerning this. If you do, there is 
+			some interface reference counting problem, and the interface is never being 
+			freed.</P>
+	</body>
+</html>
