@@ -113,6 +113,7 @@
         <DCCReference Include="IndySystem.dcp"/>
         <DCCReference Include="IndyProtocols.dcp"/>
         <DCCReference Include="IndyCore.dcp"/>
+        <DCCReference Include="vcl.dcp"/>
         <DCCReference Include="IdSoapComponentRegistration.pas"/>
         <DCCReference Include="..\source\IdSoapIdeItiMaker.pas"/>
         <BuildConfiguration Include="Debug">

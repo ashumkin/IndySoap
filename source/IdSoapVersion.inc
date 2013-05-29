@@ -59,7 +59,7 @@ Status
  Kylix: This version compiles but does not work. This is under investigation
 }
 
-  ID_SOAP_VERSION = '1.00';
+//  ID_SOAP_VERSION = '1.00';
 
 { 18-Mar 2003   0.07
 

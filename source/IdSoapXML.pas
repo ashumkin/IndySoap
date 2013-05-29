@@ -28,9 +28,7 @@ Uses
   Contnrs,
   IdSoapComponent,
   IdSoapDebug,
-{$IFNDEF DESIGNTIME} // work around unable to compile design time project with OLEServer
   IdSoapMsXml,
-  {$ENDIF}
   IdSoapClasses,
 {$IFDEF UNICODE}
   Variants,

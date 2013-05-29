@@ -46,7 +46,8 @@ requires
   xmlrtl,
   IndySystem,
   IndyProtocols,
-  IndyCore;
+  IndyCore,
+  vcl;
 
 contains
   IdSoapComponentRegistration in 'IdSoapComponentRegistration.pas',

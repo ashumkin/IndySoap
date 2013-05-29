@@ -66,7 +66,7 @@ unit IdSoapMsXml;
 
 interface
 
-uses Windows, Classes, ActiveX, OLEServer {$IFNDEF VER130}, Variants {$ENDIF};
+uses Windows, Classes, ActiveX, {$IFDEF UNICODE}Vcl.OLEServer{$ELSE} OLEServer{$ENDIF} {$IFNDEF VER130}, Variants {$ENDIF};
 
 // *********************************************************************//
 // GUIDS declared in the TypeLibrary. Following prefixes are used:
