@@ -1,0 +1,6 @@
+[Source]
+IdSoapAttachmentTests.pas
+
+[Output]
+BinOutput=attachments.iti
+XMLOutput=attachments.iti.xml

@@ -1,0 +1,7 @@
+[WSDL]
+source=file:dime-doc.wsdl
+Proxy=proxy:8080
+Pascal=dimedoc.pas
+Factory=1
+PrependTypes=1
+MakeITIRes=1

@@ -1,0 +1,17 @@
+[Project]
+Directory=c:\temp
+
+[WSDL]
+;Source=http://service.mappoint.net/standard-30/MapPoint.wsdl
+;source=http://staging.mappoint.net/standard-30/mappoint.wsdl
+source=file:c:\temp\mappoint.wsdl
+;Proxy=proxy:8080
+Auth=
+Pascal=MapPoint.pas
+Factory=1
+PrependTypes=1
+MakeITIBin=1
+MakeITIRes=1
+MakeITIXML=1
+OnlyOneInterface=0
+InterfaceName=IMapPoint

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://localhost/client/services/Version" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:intf="http://localhost/client/services/Version" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:impl="http://edi.csean.ro/client/services/Version" xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:message name="getVersionResponse">
+		<wsdl:part name="getVersionReturn" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="getVersionRequest"/>
+	<wsdl:portType name="Version">
+		<wsdl:operation name="getVersion">
+			<wsdl:input name="getVersionRequest" message="intf:getVersionRequest"/>
+			<wsdl:output name="getVersionResponse" message="intf:getVersionResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="VersionSoapBinding" type="intf:Version">
+		<wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getVersion">
+			<wsdlsoap:operation soapAction=""/>
+			<wsdl:input name="getVersionRequest">
+				<wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/client/services/Version"/>
+			</wsdl:input>
+			<wsdl:output name="getVersionResponse">
+				<wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost/client/services/Version"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="VersionService">
+		<wsdl:port name="Version" binding="intf:VersionSoapBinding">
+			<wsdlsoap:address location="http://localhost/client/services/Version"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,5 @@
+[Source]
+IdSoapDefaultTests.pas
+
+[Output]
+BinOutput=default.iti

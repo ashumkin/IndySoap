@@ -1,0 +1,9 @@
+[Project]
+Directory=c:\temp
+
+[WSDL]
+Source=file:c:\temp\axis.wsdl
+Pascal=axis.pas
+Factory=1
+PrependTypes=1
+MakeITIBin=0

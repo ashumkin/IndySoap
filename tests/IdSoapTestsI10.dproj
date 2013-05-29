@@ -1,0 +1,229 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{3C50C978-8ABA-483D-8758-742CE683379A}</ProjectGuid>
+        <MainSource>IdSoapTestsI10.dpr</MainSource>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+        <ProjectVersion>14.4</ProjectVersion>
+        <FrameworkType>VCL</FrameworkType>
+        <Base>True</Base>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>1</TargetedPlatforms>
+        <AppType>Application</AppType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;Xml.Internal;System.Win;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_DcuOutput>c:\temp\d10</DCC_DcuOutput>
+        <DCC_UnitSearchPath>C:\workspace\project\org.indy.trunk\Lib;C:\workspace\project\org.indy.trunk\Lib\Core;C:\workspace\projects\de.philo.openxml\sources;C:\workspace\projects\de.philo.openxml\Utilities\sources;C:\workspace\project\org.indy.trunk\Lib\System;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_DependencyCheckOutputName>IdSoapTestsI10.exe</DCC_DependencyCheckOutputName>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <Icon_MainIcon>IdSoapTestsI10_Icon.ico</Icon_MainIcon>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <Icon_MainIcon>IdSoapTestsI10_Icon.ico</Icon_MainIcon>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_DebugInformation>false</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_UnitSearchPath>..\source</DCC_UnitSearchPath>
+        <DCC_Define>DEBUG;INDY_V10;OBJECT_TRACKING;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <Debugger_CWD>C:\HL7Connect\v2\Library\Core\IndySoap\dunit</Debugger_CWD>
+        <ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+        <BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+        <DCC_ExeOutput>..\built</DCC_ExeOutput>
+        <DCC_DcuOutput>..\built\units\debugxe3</DCC_DcuOutput>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="IdSoapDebugTests.pas"/>
+        <DCCReference Include="IDSoapTypeRegistryTests.pas"/>
+        <DCCReference Include="IdSoapUtilitiesTest.pas"/>
+        <DCCReference Include="IdSoapITITests.pas"/>
+        <DCCReference Include="IdSoapITIBinXMLTests.pas"/>
+        <DCCReference Include="IdSoapITIProviderTests.pas"/>
+        <DCCReference Include="IdSoapITIRttiTests.pas"/>
+        <DCCReference Include="IdSoapIntfRegistryTests.pas"/>
+        <DCCReference Include="IdSoapITIParserTests.pas"/>
+        <DCCReference Include="TestIntfImpl.pas"/>
+        <DCCReference Include="IdSoapRpcXmlTests.pas"/>
+        <DCCReference Include="IdSoapEndToEnd_1_Tests.pas"/>
+        <DCCReference Include="IdSoapTestsRegistration.pas"/>
+        <DCCReference Include="IdSoapSchemaTests.pas"/>
+        <DCCReference Include="..\source\IdSoapXML.pas"/>
+        <DCCReference Include="..\source\IdSoapAttachment.pas"/>
+        <DCCReference Include="..\source\IdSoapBase64.pas"/>
+        <DCCReference Include="..\source\IdSoapClasses.pas"/>
+        <DCCReference Include="..\source\IdSoapClient.pas"/>
+        <DCCReference Include="..\source\IdSoapClientDirect.pas"/>
+        <DCCReference Include="..\source\IdSoapClientHTTP.pas"/>
+        <DCCReference Include="..\source\IdSoapClientList.pas"/>
+        <DCCReference Include="..\source\IdSoapClientTCPIP.pas"/>
+        <DCCReference Include="..\source\IdSoapClientWinInet.pas"/>
+        <DCCReference Include="..\source\IdSoapComponent.pas"/>
+        <DCCReference Include="..\source\IdSoapConsts.pas"/>
+        <DCCReference Include="..\source\IdSoapContext.pas"/>
+        <DCCReference Include="..\source\IdSoapCSHelpers.pas"/>
+        <DCCReference Include="..\source\IdSoapDateTime.pas"/>
+        <DCCReference Include="..\source\IdSoapDebug.pas"/>
+        <DCCReference Include="..\source\IdSoapDime.pas"/>
+        <DCCReference Include="..\source\IdSoapDynamicAsm.pas"/>
+        <DCCReference Include="..\source\IdSoapExceptions.pas"/>
+        <DCCReference Include="..\source\IdSoapIntfRegistry.pas"/>
+        <DCCReference Include="..\source\IdSoapITI.pas"/>
+        <DCCReference Include="..\source\IdSoapITIBin.pas"/>
+        <DCCReference Include="..\source\IdSoapITIBuilder.pas"/>
+        <DCCReference Include="..\source\IdSoapITIParser.pas"/>
+        <DCCReference Include="..\source\IdSoapITIProvider.pas"/>
+        <DCCReference Include="..\source\IdSoapITIRtti.pas"/>
+        <DCCReference Include="..\source\IdSoapITIXML.pas"/>
+        <DCCReference Include="..\source\IdSoapManualExceptionFactory.pas"/>
+        <DCCReference Include="..\source\IdSoapMime.pas"/>
+        <DCCReference Include="..\source\IdSoapMsgDirect.pas"/>
+        <DCCReference Include="..\source\IdSoapMsgEmail.pas"/>
+        <DCCReference Include="..\source\IdSoapNamespaces.pas"/>
+        <DCCReference Include="..\source\IdSoapPointerManipulator.pas"/>
+        <DCCReference Include="..\source\IdSoapRawXML.pas"/>
+        <DCCReference Include="..\source\IdSoapRequestInfo.pas"/>
+        <DCCReference Include="..\source\IdSoapResourceFile.pas"/>
+        <DCCReference Include="..\source\IdSoapResourceStrings.pas"/>
+        <DCCReference Include="..\source\IdSoapRpcBin.pas"/>
+        <DCCReference Include="..\source\IdSoapRpcPacket.pas"/>
+        <DCCReference Include="..\source\IdSoapRpcUtils.pas"/>
+        <DCCReference Include="..\source\IdSoapRpcXml.pas"/>
+        <DCCReference Include="..\source\IdSoapRTTIHelpers.pas"/>
+        <DCCReference Include="..\source\IdSoapSchema.pas"/>
+        <DCCReference Include="..\source\IdSoapServer.pas"/>
+        <DCCReference Include="..\source\IdSoapServerHTTP.pas"/>
+        <DCCReference Include="..\source\IdSoapServerTCPIP.pas"/>
+        <DCCReference Include="..\source\IdSoapTestingUtils.pas"/>
+        <DCCReference Include="..\source\IdSoapToolsUtils.pas"/>
+        <DCCReference Include="..\source\IdSoapTracker.pas"/>
+        <DCCReference Include="..\source\IdSoapTwoWayTCPIP.pas"/>
+        <DCCReference Include="..\source\IdSoapTypeRegistry.pas"/>
+        <DCCReference Include="..\source\IdSoapTypeUtils.pas"/>
+        <DCCReference Include="..\source\IdSoapUtilities.pas"/>
+        <DCCReference Include="..\source\IdSoapWebBroker.pas"/>
+        <DCCReference Include="..\source\IdSoapWebBrokerConcept.pas"/>
+        <DCCReference Include="..\source\IdSoapWSDL.pas"/>
+        <DCCReference Include="..\source\IdSoapWsdlIti.pas"/>
+        <DCCReference Include="..\source\IdSoapWsdlPascal.pas"/>
+        <DCCReference Include="..\source\IdSoapWsdlUtils.pas"/>
+        <DCCReference Include="..\source\IdSoapWsdlXml.pas"/>
+        <None Include="Profiling\AQtimeModule1.aqt"/>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">IdSoapTestsI10.dpr</Source>
+                </Source>
+                <Parameters>
+                    <Parameters Name="UseLauncher">False</Parameters>
+                    <Parameters Name="LoadAllSymbols">True</Parameters>
+                    <Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+                </Parameters>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+                    <VersionInfo Name="MajorVer">1</VersionInfo>
+                    <VersionInfo Name="MinorVer">0</VersionInfo>
+                    <VersionInfo Name="Release">0</VersionInfo>
+                    <VersionInfo Name="Build">0</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">1033</VersionInfo>
+                    <VersionInfo Name="CodePage">1252</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName"/>
+                    <VersionInfoKeys Name="FileDescription"/>
+                    <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName"/>
+                    <VersionInfoKeys Name="LegalCopyright"/>
+                    <VersionInfoKeys Name="LegalTrademarks"/>
+                    <VersionInfoKeys Name="OriginalFilename"/>
+                    <VersionInfoKeys Name="ProductName"/>
+                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments"/>
+                </VersionInfoKeys>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k170.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp170.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <ModelSupport>False</ModelSupport>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+</Project>

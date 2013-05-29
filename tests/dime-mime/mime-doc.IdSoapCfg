@@ -1,0 +1,11 @@
+[Project]
+Directory=c:\temp
+
+[WSDL]
+;Source=http://www.pocketsoap.com/interop/mime-rpc.wsdl
+source=file:c:\temp\mime-doc.wsdl
+Proxy=proxy:8080
+Pascal=mimedoc.pas
+Factory=1
+PrependTypes=1
+MakeITIRes=1
