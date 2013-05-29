@@ -1,6 +1,19 @@
 
 const
 
+  ID_SOAP_VERSION = '2.00-000';
+
+{ 29-May 2013   2.00-000 
+
+Indy Soap comes to life again!
+
+This version of IndySoap
+- compiles and passes all tests under Delphi XE3 and Delphi 5
+   - other versions have not been tested
+- fixes many bugs due to test coverage being improved
+- has a few bugs that were fixed over a 10 year period of using IndySoap 
+
+}  
 { 18-Mar 2003   1.00
 
  MAJOR RELEASE
