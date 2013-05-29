@@ -1,0 +1,7 @@
+[Source]
+KeyServerInterface.pas
+
+[Output]
+ResOutput=KeyServerInterface.res
+
+
