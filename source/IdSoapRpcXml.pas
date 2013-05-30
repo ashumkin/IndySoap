@@ -17,7 +17,6 @@ uses
   IdSoapITI,
   IdSoapNamespaces,
   IdSoapRpcPacket,
-  IdSoapTestingUtils,
   IdSoapTypeRegistry,
   IdSoapXML,
   TypInfo;

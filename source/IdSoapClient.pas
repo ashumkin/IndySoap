@@ -306,7 +306,6 @@ uses
   IdSoapRTTIHelpers,
   IdSoapWsdl,
   IdSoapWsdlIti,
-  IdSoapTestingUtils,
   IdSoapWsdlXml
 {$IFDEF VER130}
   , Windows

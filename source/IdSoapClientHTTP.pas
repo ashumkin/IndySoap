@@ -63,7 +63,6 @@ uses
   IdSoapExceptions,
   IdSoapITI,
   IdSoapUtilities,
-  IdSoapTestingUtils,
   IdURI,
   SysUtils;
 

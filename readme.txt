@@ -1,6 +1,6 @@
 IndySoap Readme
 
-refer to IndySoap.chm for all documentation including installation
+refer to built\IndySoap.chm for all documentation including installation
 instructions (See "Getting Started/Installation")
 
 Grahame Grieve

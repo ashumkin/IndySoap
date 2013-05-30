@@ -76,6 +76,7 @@ type
     property SerialNumber: Cardinal Read FSerialNo;
 
   end;
+  {$M-}
 
 // direct entry points into the system - allow other object heirarchies to
 // use the object tracking system

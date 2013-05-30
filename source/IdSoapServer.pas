@@ -29,7 +29,6 @@ uses
   IdSoapDynamicAsm,
   IdSoapIntfRegistry,
   IdSoapITI,
-  IdSoapTestingUtils,
   IdSoapITIProvider,
   IdSoapRequestInfo,
   IdSoapRpcPacket,

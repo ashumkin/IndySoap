@@ -161,7 +161,6 @@ uses
   IdSoapDime,
   IdSoapExceptions,
   IdSoapResourceStrings,
-  IdSoapTestingUtils,
   IdSoapUtilities,
   SysUtils;
 
