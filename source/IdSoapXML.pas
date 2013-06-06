@@ -2546,13 +2546,21 @@ Const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapCustomDom.writePretty';
 Var
   LCnt : String;
   LLen : Integer;
+  {$IFDEF UNICODE}
+  b : TBytes;
+  {$ENDIF}
 Begin
   LCnt := '';
   StringAppendStart(LCnt, LLen);
   StringAppend(LCnt, '<?xml version="1.0" encoding="UTF-8" ?>'+#13#10, LLen);
   (FRoot As TIdSoapCustomElement).WriteToString(LCnt, LLen, 0);
   StringAppendClose(LCnt, LLen);
+  {$IFDEF UNICODE}
+  b := TEncoding.UTF8.GetBytes(LCnt);
+  ADest.Write(b[0], Length(b));
+  {$ELSE}
   ADest.Write(LCnt[1], Length(LCnt));
+  {$ENDIF}
 end;
 
 
