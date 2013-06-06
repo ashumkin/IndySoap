@@ -10,10 +10,10 @@ Interface
 
 {$I IdSoapVersion.inc}
 
-{.$.IFNDEF VER240}
+{$IFNDEF VER240}
 Type
   TSymbolName = ShortString;
-{.$.ENDIF}
+{$ENDIF}
 
 Const
   LF = #10;

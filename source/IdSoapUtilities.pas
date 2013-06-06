@@ -1333,8 +1333,10 @@ end;
 {$ENDIF}
 
 function PadString(const AStr: String; AWidth: Integer; APadChar: Char; APadLeft: Boolean): String;
+    {$IFDEF UNICODE}
 var
   i: Integer;
+{$ENDIF}
 begin
   if Length(AStr) >= AWidth then
     Result := AStr

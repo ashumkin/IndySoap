@@ -2184,7 +2184,9 @@ var
   LBufHolder: Array [1..10] of byte;
   LBuf: Pointer;
   LAnsiString: AnsiString;
+  {$IFDEF UNICODE}
   LString: String;
+  {$ENDIF}
   LWideString: WideString;
   LShortString: ShortString;
   LDynArr: Pointer;

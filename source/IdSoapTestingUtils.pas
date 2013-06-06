@@ -641,7 +641,7 @@ begin
     if aBytes1[i] <> aBytes2[i] then
       begin
       result := false;
-      VMessage := VMessage + ' Streams Differ at position '+inttostr(i)+': '+inttostr(aBytes1[i])+'/'+inttostr(aBytes2[i]);
+      VMessage := VMessage + ' Streams Differ at position '+inttostr(i)+': '+inttohex(aBytes1[i], 2)+'/'+inttohex(aBytes2[i], 2);
       bDone := true;
       end;
     inc(i);

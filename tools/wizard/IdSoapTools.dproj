@@ -81,6 +81,10 @@
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_Alignment>2</DCC_Alignment>
+        <DCC_PentiumSafeDivide>true</DCC_PentiumSafeDivide>
+        <DCC_RunTimeTypeInfo>true</DCC_RunTimeTypeInfo>
+        <DCC_GenerateStackFrames>false</DCC_GenerateStackFrames>
         <DCC_ExeOutput>..\..\built</DCC_ExeOutput>
         <DCC_UnitSearchPath>..\..\source</DCC_UnitSearchPath>
         <DCC_DcuOutput>..\..\built\units\debugxe3</DCC_DcuOutput>

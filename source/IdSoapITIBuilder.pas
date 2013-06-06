@@ -106,6 +106,7 @@ var
   LITIBinStreamer: TIdSoapITIBinStreamer;
   LResourceName: String;
   LResourceFile: String;
+  LResType : String;
 begin
   IdRequire(Assigned(AITI) and (AITI is TIdSoapITI) , 'IdSoapITIBuilder.SaveITIToResources: .IdSoapCfg AITI is nil');
   if AResInfo = '' then
@@ -132,7 +133,8 @@ begin
       LResourceCreator.Add(LResourceEntry);
       LResourceEntry.Size := LResourceStream.Size;
       move(LResourceStream.Memory^,LResourceEntry.Data^,LResourceEntry.Size);
-      LResourceEntry.ResType := RT_RCDATA;
+      LResType := #10;
+      LResourceEntry.ResType := pchar(LResType);
       LResourceEntry.Name := LResourceName;
       LResourceCreator.SaveToFile(LResourceFile);
     finally

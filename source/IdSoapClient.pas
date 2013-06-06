@@ -1250,7 +1250,9 @@ var
   LBufHolder: Array [1..10] of byte;
   LBuf: Pointer;
   LAnsiString: AnsiString;
+  {$IFDEF UNICODE}
   LUnicodeString : String;
+  {$ENDIF}
   LWideString: WideString;
   LShortString: ShortString;
   LDynArr: Pointer;
@@ -1955,7 +1957,9 @@ var
   LIndex : Integer;
   LShortString: ShortString;
   LAnsiString: AnsiString;
+  {$IFDEF UNICODE}
   LUnicodeString : String;
+  {$ENDIF}
   LWideString: WideString;
   LInt64: Int64;
   LInteger: Integer;
