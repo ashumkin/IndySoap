@@ -300,11 +300,13 @@ Var
   GMsXmlProgId_FTDOM : String;
   GMsXmlProgId_SCHEMA : String;
   GMsXmlProgId_XSLT : String;
+  GMsXmlProgId_XSLP : String;
+  GMsXmlProgId_SAX : String;
 
 
 Procedure DetermineMsXmlProgId;
 Function LoadMsXMLDom : IXMLDomDocument2;
-Function LoadMsXMLDomV : Variant;
+Function LoadMsXMLDomV(isFree : boolean = false) : Variant;
 
 {=== MSXML =================================================================}
 
@@ -314,6 +316,8 @@ Type
   TIdSoapMSXmlDom = Class (TIdSoapXmlDom)
   Private
     FDom : IXMLDomDocument2;
+    FSchemas: IXMLDOMSchemaCollection;
+    FParseError : IXMLDOMParseError;
     Procedure IterateChildren(AElem : TIdSoapMSXmlElement);
   Protected
     Procedure Clear; Override;
@@ -323,6 +327,10 @@ Type
     Procedure writeUTF16(ADest : TStream; ANoXMLDec : Boolean = False); Override;
     Procedure writeUTF8(ADest : TStream; ANoXMLDec : Boolean = False); Override;
     Function ImportElement(AElem : TIdSoapXmlElement) : TIdSoapXmlElement; Override;
+
+    Property schemas : IXMLDOMSchemaCollection read FSchemas write FSchemas;
+    Property ParseError : IXMLDOMParseError read FParseError write FParseError;
+    Property Impl : IXMLDomDocument2 read FDom;
   End;
 
   TIdSoapMSXmlElement = Class (TIdSoapXmlElement)
@@ -1246,6 +1254,8 @@ Procedure DetermineMsXmlProgId;
         GMsXmlProgId_FTDOM := 'MSXML2.FreeThreadedDOMDocument'+sId;
         GMsXmlProgId_SCHEMA := 'MSXML2.XMLSchemaCache'+sId;
         GMsXmlProgId_XSLT := 'MSXML2.XSLTemplate'+sId;
+        GMsXmlProgId_XSLP := 'MSXML2.XSLProcessor'+sId;
+        GMsXmlProgId_SAX := 'MSXML2.SAXXMLReader'+sId;
       End;
     End;
   End;
@@ -1268,11 +1278,14 @@ Begin
   Result := IUnknown(TVarData(LVariant).VDispatch) as IXMLDomDocument2;
 End;
 
-Function LoadMsXMLDomV : Variant;
+Function LoadMsXMLDomV(isFree : boolean = false) : Variant;
 Begin
   if GMsXmlProgId_DOM = '' Then
     Raise Exception.Create('Unable to load Microsoft XML Services');
-  Result := CreateOleObject(GMsXmlProgId_DOM);
+  if isFree then
+    Result := CreateOleObject(GMsXmlProgId_FTDOM)
+  else
+    Result := CreateOleObject(GMsXmlProgId_DOM);
 End;
 
 
@@ -1322,18 +1335,34 @@ Procedure TIdSoapMSXmlDom.DoRead(ASource: TStream);
 Const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapMSXmlDom.Read';
 Var
   LAdapter : Variant;
+  ok : boolean;
 Begin
   Assert(Self.TestValid(TIdSoapMSXmlDom), ASSERT_LOCATION+': self is not valid');
   FDom := LoadMsXmlDom;
-  FDom.validateOnParse := False;
   FDom.preserveWhiteSpace := True;
   FDom.setProperty('NewParser', True);
+  FDom.schemas := FSchemas;
+  if Fschemas <> nil then
+    FDom.validateOnParse := true
+  else
+    FDom.validateOnParse := False;
   LAdapter := TStreamAdapter.Create(ASource) As IStream;
-  Assert(FDom.load(LAdapter), ASSERT_LOCATION+': xml load failed: '+FDom.parseError.reason);
-  Assert(Assigned(FDom.documentElement), ASSERT_LOCATION+': document could not be parsed');
-  FDom.documentElement.normalize;
-  FRoot := TIdSoapMSXmlElement.Create(Self, Nil, FDom.documentElement);
-  IterateChildren(FRoot As TIdSoapMSXmlElement);
+  ok := FDom.load(LAdapter);
+  if schemas = nil then
+  begin
+    Assert(ok, ASSERT_LOCATION+': xml load failed: '+FDom.parseError.reason);
+    Assert(Assigned(FDom.documentElement), ASSERT_LOCATION+': document could not be parsed');
+  end
+  else
+    ParseError := FDom.ParseError;
+  if Assigned(FDom.documentElement) then
+  begin
+    FDom.documentElement.normalize;
+    FRoot := TIdSoapMSXmlElement.Create(Self, Nil, FDom.documentElement);
+    IterateChildren(FRoot As TIdSoapMSXmlElement);
+  end
+  else
+    FRoot := nil;
 End;
 
 Procedure TIdSoapMSXmlDom.StartBuild(AName, ANS: String);
