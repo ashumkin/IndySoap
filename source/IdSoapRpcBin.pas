@@ -76,6 +76,7 @@ type
     function GetParamSingle(ANode: TIdSoapNode; const AName: String): Single; Override;
     function GetParamSmallInt(ANode: TIdSoapNode; const AName: String): SmallInt; Override;
     function GetParamString(ANode: TIdSoapNode; const AName: String): String; Override;
+    function GetParamAnsiString(ANode: TIdSoapNode; const AName: String): AnsiString; Override;
     function GetParamWideChar(ANode: TIdSoapNode; const AName: String): WideChar; Override;
     function GetParamWideString(ANode: TIdSoapNode; const AName: String): WideString; Override;
     function GetParamWord(ANode: TIdSoapNode; const AName: String): Word; Override;
@@ -856,6 +857,36 @@ begin
         result := IdSoapAdjustLineBreaks(result, tislbsCRLF);
         end;
       end;
+    end
+  else
+    begin
+    result := '';
+    end;
+end;
+
+function TIdSoapReaderBin.GetParamAnsiString(ANode: TIdSoapNode; const AName: String): AnsiString;
+const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapReaderBin.GetParamAnsiString';
+var
+  LType : Byte;
+  tmp : String;
+begin
+  Assert(self.TestValid(TIdSoapReaderBin), ASSERT_LOCATION+': Self is not valid');
+  // GetParamPosition will check other parameters
+  if GetParamExists(ANode, AName) then
+    begin
+    FStream.Position := GetParamPosition(ANode, AName);
+    LType := StreamReadByte(FStream);
+    Assert(LType = ID_SOAP_BIN_TYPE_STRING, ASSERT_LOCATION+': Value is actually '+DescribeParamType(LType));
+    SetLength(tmp, StreamReadCardinal(FStream));
+    if length(tmp) > 0 then
+      begin
+      StreamReadBinary(FStream, @result[1], Length(result) {$IFDEF UNICODE}*2{$ENDIF});
+      if seoUseCrLf in EncodingOptions then
+        begin
+        result := IdSoapAdjustLineBreaks(result, tislbsCRLF);
+        end;
+      end;
+    result := tmp;
     end
   else
     begin

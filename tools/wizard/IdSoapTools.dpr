@@ -23,7 +23,8 @@ program IdSoapTools;
 uses
   Forms,
   IdSoapToolsForm in 'IdSoapToolsForm.pas' {IndySoapToolsForm},
-  IdSoapAbout in 'IdSoapAbout.pas' {IndySoapToolsAbout};
+  IdSoapAbout in 'IdSoapAbout.pas' {IndySoapToolsAbout},
+  IdSoapResourceFile in '..\..\source\IdSoapResourceFile.pas';
 
 {$R *.RES}
 

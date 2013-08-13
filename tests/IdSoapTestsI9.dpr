@@ -6,7 +6,8 @@ uses
   windows,
   Forms,
   IdSoapTestsRegistration in 'IdSoapTestsRegistration.pas',
-  GuiTestRunner;
+  GuiTestRunner,
+  IdSoapInterfaceTestsIntfDefn in 'IdSoapInterfaceTestsIntfDefn.pas';
 
 {$R *.res}
 

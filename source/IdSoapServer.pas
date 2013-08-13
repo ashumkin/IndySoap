@@ -140,6 +140,7 @@ type
     function  ProcessParamClass(AParamName : string; AServerContext: TIdSoapServerRequestContext; AParam: TIdSoapITIParameter; AParamIndex: Integer; AReader: TIdSoapReader; AAsm: TIdSoapDynamicAsm; ABaseNode: TIdSoapNode; Var AData; AParamType: PTypeInfo): Integer;
     function  ProcessParamShortString(AParamName : string; AServerContext: TIdSoapServerRequestContext; AParam: TIdSoapITIParameter; AParamIndex: Integer; AReader: TIdSoapReader; AAsm: TIdSoapDynamicAsm; ABaseNode: TIdSoapNode; Var AData): Integer;
     function  ProcessParamLongString(AParamName : string; AServerContext: TIdSoapServerRequestContext; AParam: TIdSoapITIParameter; AParamIndex: Integer; AReader: TIdSoapReader; AAsm: TIdSoapDynamicAsm; ABaseNode: TIdSoapNode; Var AData): Integer;
+    function  ProcessParamAnsiString(AParamName : string; AServerContext: TIdSoapServerRequestContext; AParam: TIdSoapITIParameter; AParamIndex: Integer; AReader: TIdSoapReader; AAsm: TIdSoapDynamicAsm; ABaseNode: TIdSoapNode; Var AData): Integer;
     function  ProcessParamWideString(AParamName : string; AServerContext: TIdSoapServerRequestContext; AParam: TIdSoapITIParameter; AParamIndex: Integer; AReader: TIdSoapReader; AAsm: TIdSoapDynamicAsm; ABaseNode: TIdSoapNode; Var AData): Integer;
     function  ProcessParamChar(AParamName : string; AServerContext: TIdSoapServerRequestContext; AParam: TIdSoapITIParameter; AParamIndex: Integer; AReader: TIdSoapReader; AAsm: TIdSoapDynamicAsm; ABaseNode: TIdSoapNode; Var AData): Integer;
     function  ProcessParamWideChar(AParamName : string; AServerContext: TIdSoapServerRequestContext; AParam: TIdSoapITIParameter; AParamIndex: Integer; AReader: TIdSoapReader; AAsm: TIdSoapDynamicAsm; ABaseNode: TIdSoapNode; Var AData): Integer;
@@ -673,7 +674,7 @@ begin
     tkDynArray:     result := ProcessParamDynArray(LParamName, LBasicType,AServerContext,AParam,AParamIndex,AReader,AAsm,ABaseNode,AData,LParamType);
     tkClass:        result := ProcessParamClass(LParamName, AServerContext,AParam,AParamIndex,AReader,AAsm,ABaseNode,AData,LParamType);
     tkString:       result := ProcessParamShortString(LParamName, AServerContext,AParam,AParamIndex,AReader,AAsm,ABaseNode,AData);
-    tkLString:      result := ProcessParamLongString(LParamName, AServerContext,AParam,AParamIndex,AReader,AAsm,ABaseNode,AData);
+    tkLString:      result := ProcessParamAnsiString(LParamName, AServerContext,AParam,AParamIndex,AReader,AAsm,ABaseNode,AData);
     {$IFDEF UNICODE}
     tkUString:      result := ProcessParamLongString(LParamName, AServerContext,AParam,AParamIndex,AReader,AAsm,ABaseNode,AData);
     {$ENDIF}
@@ -1581,6 +1582,59 @@ begin
       end;
     end;
 end;
+
+function TIdSoapListener.ProcessParamAnsiString(AParamName : string; AServerContext: TIdSoapServerRequestContext; AParam: TIdSoapITIParameter; AParamIndex: Integer; AReader: TIdSoapReader; AAsm: TIdSoapDynamicAsm; ABaseNode: TIdSoapNode; Var AData): Integer;
+const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapListener.ProcessParamLongString';
+var
+  LPString: PAnsiString;
+begin
+  Assert(self.TestValid(TIdSoapListener), ASSERT_LOCATION+': self not valid');
+  Assert(AParamName <> '', ASSERT_LOCATION+': No parameter names defined');
+  Assert(AServerContext.TestValid(TIdSoapServerRequestContext),ASSERT_LOCATION+': AServerContext is invalid');
+  Assert(AParam.TestValid(TIdSoapITIParameter),ASSERT_LOCATION+': AParam is invalid');
+  Assert(AParamIndex >= -1,ASSERT_LOCATION+': AParamIndex is invalid');
+  Assert(AReader.TestValid(TIdSoapReader),ASSERT_LOCATION+': AReader is invalid');
+  Assert((AAsm = nil) or AAsm.TestValid(TIdSoapDynamicAsm),ASSERT_LOCATION+': AAsm is invalid');
+  result := sizeof(Pointer);  // either way its a pointer
+  if Assigned(ABaseNode) then
+    begin
+    Assert(ABaseNode.TestValid(TIdSoapNode),ASSERT_LOCATION+': ABaseNode is invalid');
+    end;
+  if AParam.ParamFlag in [pfVar, pfOut] then
+    begin
+    LPString := AServerContext.GetTempAnsiString;
+    if AParam.ParamFlag = pfVar then
+      begin
+      LPString^ := AReader.ParamString[nil, AParamName];
+      end
+    else if AParam.ParamFlag = pfOut then
+      begin
+      LPString^ := '';
+      end;
+    AServerContext.ParamPtr[AParamIndex] := LPString;
+    if Assigned(AAsm) then
+      begin
+      AAsm.AsmPushPtr(LPString);
+      end;
+    end
+  else
+    begin
+    if Assigned(ABaseNode) then
+      begin
+      String(AData) := AReader.ParamAnsiString[ABaseNode, AParamName];
+      end
+    else
+      begin
+      LPString := AServerContext.GetTempAnsiString;
+      LPString^ := AReader.ParamAnsiString[nil, AParamName];
+      if Assigned(AAsm) then
+        begin
+        AAsm.AsmPushPtr(pointer(LPString^));
+        end;
+      end;
+    end;
+end;
+
 
 function TIdSoapListener.ProcessParamWideString(AParamName : string; AServerContext: TIdSoapServerRequestContext; AParam: TIdSoapITIParameter; AParamIndex: Integer; AReader: TIdSoapReader; AAsm: TIdSoapDynamicAsm; ABaseNode: TIdSoapNode; Var AData): Integer;
 const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapListener.ProcessParamWideString';

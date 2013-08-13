@@ -86,6 +86,7 @@ type
     function GetParamSingle(ANode: TIdSoapNode; const AName: String): Single; Override;
     function GetParamSmallInt(ANode: TIdSoapNode; const AName: String): SmallInt; Override;
     function GetParamString(ANode: TIdSoapNode; const AName: String): String; Override;
+    function GetParamAnsiString(ANode: TIdSoapNode; const AName: String): AnsiString; Override;
     function GetParamWideChar(ANode: TIdSoapNode; const AName: String): WideChar; Override;
     function GetParamWideString(ANode: TIdSoapNode; const AName: String): WideString; Override;
     function GetParamWord(ANode: TIdSoapNode; const AName: String): Word; Override;
@@ -1766,6 +1767,33 @@ end;
 
 function TIdSoapReaderXML.GetParamString(ANode: TIdSoapNode; const AName: String): String;
 const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapReaderXML.GetParamString';
+Var
+  LParam : TIdReaderParameter;
+begin
+  assert(self.TestValid(TIdSoapReaderXML), ASSERT_LOCATION+': self is not valid');
+  if ANode = nil then
+    begin
+    ANode := BaseNode;
+    end;
+  // GetParameter will check other parameters
+  LParam := GetParameter(ANode, AName);
+  if assigned(LParam) and (not LParam.FIsNil) then
+    begin
+    EnforceType(AName, LParam, [ID_SOAP_NS_SCHEMA_2001], [ID_SOAP_XSI_TYPE_STRING], ASSERT_LOCATION);
+    result := LParam.FValue;
+    if seoUseCrLf in EncodingOptions then
+      begin
+      result := IdSoapAdjustLineBreaks(Result, tislbsCRLF);
+      end;
+    end
+  else
+    begin
+    result := '';
+    end;
+end;
+
+function TIdSoapReaderXML.GetParamAnsiString(ANode: TIdSoapNode; const AName: String): AnsiString;
+const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapReaderXML.GetParamAnsiString';
 Var
   LParam : TIdReaderParameter;
 begin

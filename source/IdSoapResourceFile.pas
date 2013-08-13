@@ -271,7 +271,6 @@ var
   LWideChar: WideChar;
   LWideString: WideString;
 begin
-  Assert(AData <> '','You must have a non empty string for a TYPE or resource NAME');
   if (Cardinal(AData) and $ffff0000) = 0 then
     begin
     LWord := $ffff;
@@ -279,34 +278,42 @@ begin
     LWord := Cardinal(AData) and $ffff;
     AStream.WriteBuffer(LWord,sizeof(LWord));
     end
-  else if copy(AData,1,1) = '#' then  // its a number
-    begin
-    val(copy(AData,2,MaxInt),LCardinal,LErr);
-    if LErr <> 0 then
-      begin
-      raise Exception.Create('Invalid number for resource name "' + AData + '"');
-      end;
-    if LCardinal > $ffff then
-      begin
-      raise Exception.Create('Invalid WORD size "' + AData + '"');
-      end;
-    LWord := $ffff;
-    AStream.WriteBuffer(LWord,sizeof(LWord));
-    AStream.WriteBuffer(LCardinal,sizeof(Word));  // only write a word size here
-    end
   else
-    begin
-    LWideString := '';
-    repeat
-      LWideChar := WideChar(ord(AData^));
-      if LWideChar <> #0 then
+  begin
+    Assert(AData <> '','You must have a non empty string for a TYPE or resource NAME');
+    if copy(AData,1,1) = '#' then  // its a number
+      begin
+      val(copy(AData,2,MaxInt),LCardinal,LErr);
+      if LErr <> 0 then
         begin
-        LWideString := LWideString + LWideChar;
+        raise Exception.Create('Invalid number for resource name "' + AData + '"');
         end;
-      inc(AData);
-      until LWideChar = #0;
-    AStream.WriteBuffer(LWideString[1],(length(LWideString)+1) * Sizeof(WideChar));
-    end;
+      if LCardinal > $ffff then
+        begin
+        raise Exception.Create('Invalid WORD size "' + AData + '"');
+        end;
+      LWord := $ffff;
+      AStream.WriteBuffer(LWord,sizeof(LWord));
+      AStream.WriteBuffer(LCardinal,sizeof(Word));  // only write a word size here
+      end
+    else
+      begin
+      {$IFDEF UNICODE}
+      LWideString := AData;
+      {$ELSE}
+      LWideString := '';
+      repeat
+        LWideChar := WideChar(ord(AData^));
+        if LWideChar <> #0 then
+          begin
+          LWideString := LWideString + LWideChar;
+          end;
+        inc(AData);
+        until LWideChar = #0;
+      {$ENDIF}
+      AStream.WriteBuffer(LWideString[1],(length(LWideString)+1) * Sizeof(WideChar));
+      end;
+  end;
 end;
 
 procedure TIdSoapResourceFile.LoadFromFile(AFilename: String);

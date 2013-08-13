@@ -24,7 +24,7 @@ Uses
   IdSoapDebug, IdSoapClasses;
 
 Type
-  TIdSoapExecutableMemoryPoolItemSize = (s32, s64, s128, s1024, s16k);
+  TIdSoapExecutableMemoryPoolItemSize = (s32, s64, s128, s1024, s16k, s64k);
 
   TIdSoapExecutableMemoryPoolItem = class (TIdBaseObject)
   Private
@@ -65,7 +65,7 @@ Type
   End;
 
 Const
-  ITEM_SIZE : array [TIdSoapExecutableMemoryPoolItemSize] of Integer = (32, 64, 128, 1024, 16384);
+  ITEM_SIZE : array [TIdSoapExecutableMemoryPoolItemSize] of Integer = (32, 64, 128, 1024, 16384, 65535);
 
 
 Implementation
@@ -169,6 +169,7 @@ begin
     65..128 : aSize := s128;
     129..1024 : aSize := s1024;
     1025..16384 : aSize := s16k;
+    16385..65535 : aSize := s64k;
   Else
    // aSize := s32;
     raise Exception('Unable to allocate executable memory of size '+inttostr(iSize));

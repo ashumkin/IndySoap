@@ -1,5 +1,5 @@
 [Project]
-Directory=c:\IndyMasters\Soap\DUnit
+Directory=C:\HL7Connect\indysoap\tests
 
 [Source]
 IdSoapInterfaceTestsIntfDefn.pas

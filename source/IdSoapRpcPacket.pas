@@ -184,6 +184,7 @@ type
     function GetParamSingle(const AName: String): Single;
     function GetParamSmallInt(const AName: String): SmallInt;
     function GetParamString(const AName: String): String;
+    function GetParamAnsiString(const AName: String): AnsiString;
     function GetParamWideChar(const AName: String): WideChar;
     function GetParamWideString(const AName: String): WideString;
     function GetParamWord(const AName: String): Word;
@@ -210,6 +211,7 @@ type
     procedure SetParamString(const AName, AValue: String);
     procedure SetParamWideChar(const AName: String; const AValue: WideChar);
     procedure SetParamWideString(const AName: String; const AValue: WideString);
+    procedure SetParamAnsiString(const AName: String; const AValue: AnsiString);
     procedure SetParamWord(const AName: String; const AValue: Word);
     procedure SetParamEnumeration(const AName: String; ATypeInfo: PTypeInfo; ATypeName, ANamespace : string; AItiLink : TIdSoapITIBaseObject; const AValue: Integer);
     procedure SetParamRef(const AName, AType, ATypeNS, AValue: String);
@@ -270,6 +272,7 @@ type
     property ParamSingle[const AName: String]: Single Read GetParamSingle write SetParamSingle;
     property ParamSmallInt[const AName: String]: SmallInt Read GetParamSmallInt write SetParamSmallInt;
     property ParamString[const AName: String]: String Read GetParamString write SetParamString;
+    property ParamAnsiString[const AName: String]: AnsiString Read GetParamAnsiString write SetParamAnsiString;
     property ParamWideChar[const AName: String]: WideChar Read GetParamWideChar write SetParamWideChar;
     property ParamWideString[const AName: String]: WideString Read GetParamWideString write SetParamWideString;
     property ParamWord[const AName: String]: Word Read GetParamWord write SetParamWord;
@@ -475,6 +478,7 @@ type
     function GetParamSingle(ANode: TIdSoapNode; const AName: String): Single; Virtual; Abstract;
     function GetParamSmallInt(ANode: TIdSoapNode; const AName: String): SmallInt; Virtual; Abstract;
     function GetParamString(ANode: TIdSoapNode; const AName: String): String; Virtual; Abstract;
+    function GetParamAnsiString(ANode: TIdSoapNode; const AName: String): AnsiString; Virtual; Abstract;
     function GetParamWideChar(ANode: TIdSoapNode; const AName: String): WideChar; Virtual; Abstract;
     function GetParamWideString(ANode: TIdSoapNode; const AName: String): WideString; Virtual; Abstract;
     function GetParamWord(ANode: TIdSoapNode; const AName: String): Word; Virtual; Abstract;
@@ -529,6 +533,7 @@ type
     property ParamSingle[ANode: TIdSoapNode; const AName: String]: Single Read GetParamSingle;
     property ParamSmallInt[ANode: TIdSoapNode; const AName: String]: SmallInt Read GetParamSmallInt;
     property ParamString[ANode: TIdSoapNode; const AName: String]: String Read GetParamString;
+    property ParamAnsiString[ANode: TIdSoapNode; const AName: String]: AnsiString Read GetParamAnsiString;
     property ParamWideChar[ANode: TIdSoapNode; const AName: String]: WideChar Read GetParamWideChar;
     property ParamWideString[ANode: TIdSoapNode; const AName: String]: WideString Read GetParamWideString;
     property ParamWord[ANode: TIdSoapNode; const AName: String]: Word Read GetParamWord;
@@ -1014,6 +1019,21 @@ begin
     end;
 end;
 
+function TIdSoapNode.GetParamAnsiString(const AName: String): AnsiString;
+const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapNode.GetParamString';
+begin
+  Assert(Self.TestValid(TIdSoapNode), ASSERT_LOCATION+': self is not valid');
+  Assert(AName <> '', ASSERT_LOCATION+': Name is blank');
+  if (FOwner is TIdSoapReader) then
+    begin
+    result := (FOwner as TIdSoapReader).ParamAnsiString[Self, AName];
+    end
+  else
+    begin
+    raise EIdSoapRequirementFail.create(ASSERT_LOCATION+': Attempt to get a parameter for unsuitable packet type '+FOwner.ClassName);
+    end;
+end;
+
 function TIdSoapNode.GetParamWideChar(const AName: String): WideChar;
 const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapNode.GetParamWideChar';
 begin
@@ -1367,6 +1387,21 @@ begin
   if (FOwner is TIdSoapWriter) then
     begin
     (FOwner as TIdSoapWriter).DefineParamWideString(Self, AName, AValue);
+    end
+  else
+    begin
+    raise EIdSoapRequirementFail.create(ASSERT_LOCATION+': Attempt to set a parameter for unsuitable packet type '+FOwner.ClassName);
+    end;
+end;
+
+procedure TIdSoapNode.SetParamAnsiString(const AName: String; const AValue: AnsiString);
+const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapNode.SetParamWideString';
+begin
+  Assert(Self.TestValid(TIdSoapNode), ASSERT_LOCATION+': self is not valid');
+  Assert(AName <> '', ASSERT_LOCATION+': Name is blank');
+  if (FOwner is TIdSoapWriter) then
+    begin
+    (FOwner as TIdSoapWriter).DefineParamAnsiString(Self, AName, AValue);
     end
   else
     begin

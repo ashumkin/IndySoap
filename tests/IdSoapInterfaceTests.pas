@@ -46,6 +46,7 @@ type
     FCurrency1, FCurrency2: Currency;
     FShortString1, FShortString2: Shortstring;
     FString1, FString2: String;
+    FAnsiString1, FAnsiString2: AnsiString;
     FWideString1, FWideString2: WideString;
     FEnum1, FEnum2: TLargeEnum;
     FBoolean1,FBoolean2: Boolean;
@@ -292,6 +293,21 @@ type
     procedure FuncOutStringStringRetString;
     procedure FuncStringOutStringRetString;
     procedure FuncOutStringOutStringRetString;
+    // ANSISTRING TESTS
+    procedure FuncRetAnsiStringToggle;
+    procedure FuncAnsiStringRetAnsiString;
+    procedure FuncVarAnsiStringRetAnsiString;
+    procedure FuncAnsiStringAnsiStringRetAnsiString;
+    procedure FuncVarAnsiStringAnsiStringRetAnsiString;
+    procedure FuncAnsiStringVarAnsiStringRetAnsiString;
+    procedure FuncVarAnsiStringVarAnsiStringRetAnsiString;
+    procedure FuncConstAnsiStringAnsiStringRetAnsiString;
+    procedure FuncAnsiStringConstAnsiStringRetAnsiString;
+    procedure FuncConstAnsiStringConstAnsiStringRetAnsiString;
+    procedure FuncOutAnsiStringAnsiStringRetAnsiString;
+    procedure FuncAnsiStringOutAnsiStringRetAnsiString;
+    procedure FuncOutAnsiStringOutAnsiStringRetAnsiString;
+
     // WIDESTRING TESTS
     procedure FuncRetWideStringToggle;
     procedure FuncWideStringRetWideString;
@@ -2789,6 +2805,110 @@ begin
   Check(FIntf.FuncOutStringOutStringRetString(FString1, FString2) = gS5, 'invalid result');
   Check(FString1 = gS3, 'String1 invalid');
   Check(FString2 = gS4, 'String2 invalid');
+end;
+
+// LONGAnsiString TESTS
+
+procedure TIdSoapInterfaceBaseTests.FuncRetAnsiStringToggle;
+begin
+  DefineString(tkLString);
+  FAnsiString1 := FIntf.FuncRetAnsiStringToggle;
+  FAnsiString2 := FIntf.FuncRetAnsiStringToggle;
+  Check(IsStringIn(FAnsiString1, gS1, gS2), 'result invalid');
+  Check(IsStringIn(FAnsiString2, gS1, gS2), 'result invalid');
+  Check(FAnsiString1 <> FAnsiString2, 'result invalid');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  Check(FIntf.FuncAnsiStringRetAnsiString(gS1) = gS5, 'Result invalid');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncVarAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  FAnsiString1 := gS1;
+  Check(FIntf.FuncVarAnsiStringRetAnsiString(FAnsiString1) = gS5, 'invalid result');
+  Check(FAnsiString1 = gS3, 'AnsiString1 invalid');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncAnsiStringAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  Check(FIntf.FuncAnsiStringAnsiStringRetAnsiString(gS1, gS2) = gS5, 'invalid result');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncVarAnsiStringAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  FAnsiString1 := gS1;
+  Check(FIntf.FuncVarAnsiStringAnsiStringRetAnsiString(FAnsiString1, gS2) = gS5, 'invalid result');
+  Check(FAnsiString1 = gS3, 'AnsiString1 invalid');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncAnsiStringVarAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  FAnsiString2 := gS2;
+  Check(FIntf.FuncAnsiStringVarAnsiStringRetAnsiString(gS1, FAnsiString2) = gS5, 'invalid result');
+  Check(FAnsiString2 = gS4, 'AnsiString2 invalid');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncVarAnsiStringVarAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  FAnsiString1 := gS1;
+  FAnsiString2 := gS2;
+  Check(FIntf.FuncVarAnsiStringVarAnsiStringRetAnsiString(FAnsiString1, FAnsiString2) = gS5, 'invalid result');
+  Check(FAnsiString1 = gS3, 'AnsiString1 invalid');
+  Check(FAnsiString2 = gS4, 'AnsiString2 invalid');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncConstAnsiStringAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  Check(FIntf.FuncConstAnsiStringAnsiStringRetAnsiString(gS1, gS2) = gS5, 'invalid result');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncAnsiStringConstAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  Check(FIntf.FuncAnsiStringConstAnsiStringRetAnsiString(gS1, gS2) = gS5, 'invalid result');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncConstAnsiStringConstAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  Check(FIntf.FuncConstAnsiStringConstAnsiStringRetAnsiString(gS1, gS2) = gS5, 'invalid result');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncOutAnsiStringAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  FAnsiString1 := gS1;
+  FAnsiString2 := gS2;
+  Check(FIntf.FuncOutAnsiStringAnsiStringRetAnsiString(FAnsiString1, gS2) = gS5, 'invalid result');
+  Check(FAnsiString1 = gS3, 'AnsiString1 invalid');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncAnsiStringOutAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  FAnsiString1 := gS1;
+  FAnsiString2 := gS2;
+  Check(FIntf.FuncAnsiStringOutAnsiStringRetAnsiString(gS1, FAnsiString2) = gS5, 'invalid result');
+  Check(FAnsiString2 = gS4, 'AnsiString2 invalid');
+end;
+
+procedure TIdSoapInterfaceBaseTests.FuncOutAnsiStringOutAnsiStringRetAnsiString;
+begin
+  DefineString(tkLString);
+  FAnsiString1 := gS1;
+  FAnsiString2 := gS2;
+  Check(FIntf.FuncOutAnsiStringOutAnsiStringRetAnsiString(FAnsiString1, FAnsiString2) = gS5, 'invalid result');
+  Check(FAnsiString1 = gS3, 'AnsiString1 invalid');
+  Check(FAnsiString2 = gS4, 'AnsiString2 invalid');
 end;
 
 // WIDESTRING TESTS

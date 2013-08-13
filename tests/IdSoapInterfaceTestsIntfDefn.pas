@@ -22,6 +22,7 @@ var
   g1, g2, g3, g4, g5: Int64;
   gR1, gR2, gR3, gR4, gR5: Extended;
   gS1, gS2, gS3, gS4, gS5: String;
+  gAS1, gAS2, gAS3, gAS4, gAS5: AnsiString;
   gWS1, gWS2, gWS3, gWS4, gWS5: String;
 
 type
@@ -821,6 +822,22 @@ Type
     function FuncOutStringStringRetString(out AString1: String; AString2: String): String; StdCall;
     function FuncStringOutStringRetString(AString1: String; out AString2: String): String; StdCall;
     function FuncOutStringOutStringRetString(out AString1: String; out AString2: String): String; StdCall;
+
+    // LONGAnsiString TESTS
+    function FuncRetAnsiStringToggle: AnsiString; StdCall;
+    function FuncAnsiStringRetAnsiString(AAnsiString: AnsiString): AnsiString; StdCall;
+    function FuncVarAnsiStringRetAnsiString(var AAnsiString: AnsiString): AnsiString; StdCall;
+    function FuncAnsiStringAnsiStringRetAnsiString(AAnsiString1, AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncVarAnsiStringAnsiStringRetAnsiString(var AAnsiString1: AnsiString; AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncAnsiStringVarAnsiStringRetAnsiString(AAnsiString1: AnsiString; var AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncVarAnsiStringVarAnsiStringRetAnsiString(var AAnsiString1: AnsiString; var AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncConstAnsiStringAnsiStringRetAnsiString(const AAnsiString1: AnsiString; AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncAnsiStringConstAnsiStringRetAnsiString(AAnsiString1: AnsiString; const AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncConstAnsiStringConstAnsiStringRetAnsiString(const AAnsiString1: AnsiString; const AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncOutAnsiStringAnsiStringRetAnsiString(out AAnsiString1: AnsiString; AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncAnsiStringOutAnsiStringRetAnsiString(AAnsiString1: AnsiString; out AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncOutAnsiStringOutAnsiStringRetAnsiString(out AAnsiString1: AnsiString; out AAnsiString2: AnsiString): AnsiString; StdCall;
+
     // WIDESTRING TESTS
     function FuncRetWideStringToggle: WideString; StdCall;
     function FuncWideStringRetWideString(AWideString: WideString): WideString; StdCall;
@@ -1005,6 +1022,13 @@ begin
         end;
     tkLString:       // AnsiString
         begin
+        {$IFDEF UNICODE}
+        gAS1 := 'This is atring gS1';
+        gAS2 := 'This is atring gS2. Just another one';
+        gAS3 := 'This is atring gS3. more strings to test';
+        gAS4 := 'This is atring gS4. yes, even more';
+        gAS5 := 'This is atring gS5. Finally, the last one';
+        {$ENDIF}
         gS1 := 'This is atring gS1';
         gS2 := 'This is atring gS2. Just another one';
         gS3 := 'This is atring gS3. more strings to test';

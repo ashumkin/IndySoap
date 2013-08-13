@@ -284,6 +284,20 @@ type
     function FuncOutStringStringRetString(out AString1: String; AString2: String): String; StdCall;
     function FuncStringOutStringRetString(AString1: String; out AString2: String): String; StdCall;
     function FuncOutStringOutStringRetString(out AString1: String; out AString2: String): String; StdCall;
+    // LONGAnsiString TESTS
+    function FuncRetAnsiStringToggle: AnsiString; StdCall;
+    function FuncAnsiStringRetAnsiString(AAnsiString: AnsiString): AnsiString; StdCall;
+    function FuncVarAnsiStringRetAnsiString(var AAnsiString: AnsiString): AnsiString; StdCall;
+    function FuncAnsiStringAnsiStringRetAnsiString(AAnsiString1, AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncVarAnsiStringAnsiStringRetAnsiString(var AAnsiString1: AnsiString; AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncAnsiStringVarAnsiStringRetAnsiString(AAnsiString1: AnsiString; var AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncVarAnsiStringVarAnsiStringRetAnsiString(var AAnsiString1: AnsiString; var AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncConstAnsiStringAnsiStringRetAnsiString(const AAnsiString1: AnsiString; AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncAnsiStringConstAnsiStringRetAnsiString(AAnsiString1: AnsiString; const AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncConstAnsiStringConstAnsiStringRetAnsiString(const AAnsiString1: AnsiString; const AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncOutAnsiStringAnsiStringRetAnsiString(out AAnsiString1: AnsiString; AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncAnsiStringOutAnsiStringRetAnsiString(AAnsiString1: AnsiString; out AAnsiString2: AnsiString): AnsiString; StdCall;
+    function FuncOutAnsiStringOutAnsiStringRetAnsiString(out AAnsiString1: AnsiString; out AAnsiString2: AnsiString): AnsiString; StdCall;
     // WIDESTRING TESTS
     function FuncRetWideStringToggle: WideString; StdCall;
     function FuncWideStringRetWideString(AWideString: WideString): WideString; StdCall;
@@ -2312,6 +2326,119 @@ begin
   AString1 := gS3;
   AString2 := gS4;
   Result := gS5;
+end;
+
+// LONGAnsiString TESTS
+
+function TIdSoapInterfaceTestsInterface.FuncRetAnsiStringToggle: AnsiString;
+begin
+  gToggle := not gToggle;
+  if gToggle then
+    begin
+    Result := gS1;
+    end
+  else
+    begin
+    Result := gS2;
+    end;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncAnsiStringRetAnsiString(AAnsiString: AnsiString): AnsiString;
+var
+  bool : boolean;
+  s1,s2: String;
+begin
+  AAnsiString := AAnsiString;
+  s1 := AAnsiString;
+  s2 := gAS1;
+  bool := s1 = s2;
+  Check(bool, 'AAnsiString invalid');
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncVarAnsiStringRetAnsiString(var AAnsiString: AnsiString): AnsiString;
+begin
+  Check(AAnsiString = gAS1, 'AAnsiString invalid');
+  AAnsiString := gAS3;
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncAnsiStringAnsiStringRetAnsiString(AAnsiString1, AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = gAS1, 'AnsiString1 invalid');
+  Check(AAnsiString2 = gAS2, 'AnsiString2 invalid');
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncVarAnsiStringAnsiStringRetAnsiString(var AAnsiString1: AnsiString; AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = gAS1, 'AnsiString1 invalid');
+  Check(AAnsiString2 = gAS2, 'AnsiString2 invalid');
+  AAnsiString1 := gAS3;
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncAnsiStringVarAnsiStringRetAnsiString(AAnsiString1: AnsiString; var AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = gAS1, 'AnsiString1 invalid');
+  Check(AAnsiString2 = gAS2, 'AnsiString2 invalid');
+  AAnsiString2 := gAS4;
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncVarAnsiStringVarAnsiStringRetAnsiString(var AAnsiString1: AnsiString; var AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = gAS1, 'AnsiString1 invalid');
+  Check(AAnsiString2 = gAS2, 'AnsiString2 invalid');
+  AAnsiString1 := gAS3;
+  AAnsiString2 := gAS4;
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncConstAnsiStringAnsiStringRetAnsiString(const AAnsiString1: AnsiString; AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = gAS1, 'AnsiString1 invalid');
+  Check(AAnsiString2 = gAS2, 'AnsiString2 invalid');
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncAnsiStringConstAnsiStringRetAnsiString(AAnsiString1: AnsiString; const AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = gAS1, 'AnsiString1 invalid');
+  Check(AAnsiString2 = gAS2, 'AnsiString2 invalid');
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncConstAnsiStringConstAnsiStringRetAnsiString(const AAnsiString1: AnsiString; const AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = gAS1, 'AnsiString1 invalid');
+  Check(AAnsiString2 = gAS2, 'AnsiString2 invalid');
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncOutAnsiStringAnsiStringRetAnsiString(out AAnsiString1: AnsiString; AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = '', 'AnsiString1 invalid');
+  Check(AAnsiString2 = gAS2, 'AnsiString2 invalid');
+  AAnsiString1 := gAS3;
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncAnsiStringOutAnsiStringRetAnsiString(AAnsiString1: AnsiString; out AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = gAS1, 'AnsiString1 invalid');
+  Check(AAnsiString2 = '', 'AnsiString2 invalid');
+  AAnsiString2 := gAS4;
+  Result := gAS5;
+end;
+
+function TIdSoapInterfaceTestsInterface.FuncOutAnsiStringOutAnsiStringRetAnsiString(out AAnsiString1: AnsiString; out AAnsiString2: AnsiString): AnsiString;
+begin
+  Check(AAnsiString1 = '', 'AnsiString1 invalid');
+  Check(AAnsiString2 = '', 'AnsiString2 invalid');
+  AAnsiString1 := gAS3;
+  AAnsiString2 := gAS4;
+  Result := gAS5;
 end;
 
 // WIDESTRING TESTS
