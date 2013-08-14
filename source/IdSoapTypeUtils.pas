@@ -14,6 +14,7 @@ interface
 
 uses
   Windows,
+  IdSoapConsts,
   TypInfo;
 
 function IdTypeForKind(AKind: TTypeKind; ATypeData: pTypeData): String;
@@ -32,7 +33,6 @@ implementation
 
 uses
   Classes,
-  IdSoapConsts,
   IdSoapDateTime,
   IdSoapExceptions,
   IdSoapRpcPacket,
