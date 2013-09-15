@@ -192,6 +192,7 @@ begin
     ID_SOAP_BIN_TYPE_SINGLE : result := 'Single';
     ID_SOAP_BIN_TYPE_SMALLINT : result := 'SmallInt';
     ID_SOAP_BIN_TYPE_STRING : result := 'String';
+    ID_SOAP_BIN_TYPE_ANSISTRING : result := 'AnsiString';
     ID_SOAP_BIN_TYPE_WIDECHAR : result := 'WideChar';
     ID_SOAP_BIN_TYPE_WIDESTRING : result := 'WideString';
     ID_SOAP_BIN_TYPE_WORD : result := 'Word';
@@ -280,6 +281,7 @@ begin
     ID_SOAP_BIN_TYPE_SINGLE         : StreamSkip(FStream, Sizeof(Single));
     ID_SOAP_BIN_TYPE_SMALLINT       : StreamSkip(FStream, Sizeof(SmallInt));
     ID_SOAP_BIN_TYPE_STRING         : StreamSkip(FStream, StreamReadCardinal(FStream) {$IFDEF UNICODE}*2{$ENDIF});
+    ID_SOAP_BIN_TYPE_ANSISTRING     : StreamSkip(FStream, StreamReadCardinal(FStream));
     ID_SOAP_BIN_TYPE_WIDECHAR       : StreamSkip(FStream, Sizeof(WideChar));
     ID_SOAP_BIN_TYPE_WIDESTRING     : StreamSkip(FStream, StreamReadCardinal(FStream) * 2);
     ID_SOAP_BIN_TYPE_WORD           : StreamSkip(FStream, Sizeof(Word));
@@ -868,7 +870,7 @@ function TIdSoapReaderBin.GetParamAnsiString(ANode: TIdSoapNode; const AName: St
 const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapReaderBin.GetParamAnsiString';
 var
   LType : Byte;
-  tmp : String;
+  tmp : AnsiString;
 begin
   Assert(self.TestValid(TIdSoapReaderBin), ASSERT_LOCATION+': Self is not valid');
   // GetParamPosition will check other parameters
@@ -876,14 +878,14 @@ begin
     begin
     FStream.Position := GetParamPosition(ANode, AName);
     LType := StreamReadByte(FStream);
-    Assert(LType = ID_SOAP_BIN_TYPE_STRING, ASSERT_LOCATION+': Value is actually '+DescribeParamType(LType));
+    Assert(LType = ID_SOAP_BIN_TYPE_ANSISTRING, ASSERT_LOCATION+': Value is actually '+DescribeParamType(LType));
     SetLength(tmp, StreamReadCardinal(FStream));
     if length(tmp) > 0 then
       begin
-      StreamReadBinary(FStream, @result[1], Length(result) {$IFDEF UNICODE}*2{$ENDIF});
+      StreamReadBinary(FStream, @tmp[1], Length(tmp));
       if seoUseCrLf in EncodingOptions then
         begin
-        result := IdSoapAdjustLineBreaks(result, tislbsCRLF);
+        tmp := IdSoapAdjustLineBreaks(tmp, tislbsCRLF);
         end;
       end;
     result := tmp;
@@ -1973,7 +1975,7 @@ begin
     end;
   StreamWriteByte(ANode.Stream, ID_SOAP_BIN_TYPE_PARAM);
   StreamWriteLongString(ANode.Stream, AName);
-  StreamWriteByte(ANode.Stream, ID_SOAP_BIN_TYPE_STRING);
+  StreamWriteByte(ANode.Stream, ID_SOAP_BIN_TYPE_ANSISTRING);
   StreamWriteCardinal(ANode.Stream, Length(LValue));
   if length(LValue) > 0 then
     begin

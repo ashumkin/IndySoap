@@ -1814,7 +1814,7 @@ begin
          begin
          if (ADefault = MININT) or not (seoSendNoDefaults in EncodingOptions) or not (AnsiString(AData) = '') then
            begin
-           ASoapWriter.DefineParamString(ARootNode, AParamName, String(AnsiString(AData)));  // the debugger displays it wrong but its correct
+           ASoapWriter.DefineParamAnsiString(ARootNode, AParamName, String(AnsiString(AData)));  // the debugger displays it wrong but its correct
            end;
          end;
     isbtWideString:
@@ -2261,7 +2261,7 @@ begin
         // Ret var on stack is 8 bytes above param pointer.
         // 4 bytes for ret adr and 4 bytes for the param itself
         LTempPtr := Pointer(Pointer(PAnsiChar(AParams) - 8)^);
-        AnsiString(LTempPtr^) := AnsiString(ASoapReader.ParamString[nil, FResultParamName]);
+        AnsiString(LTempPtr^) := AnsiString(ASoapReader.ParamAnsiString[nil, FResultParamName]);
         end;
     isbtWideString:
         begin

@@ -20,7 +20,7 @@ IndySOAP: Indy Soap Global Defines
   In addition to choosing the define, you must make sure that the
   matching indy version is on the path or in the project uses clause.
 }
-{.$.DEFINE INDY_V10}
+{$DEFINE INDY_V10}
 
 {$IFNDEF INDY_V10}
   {$IFDEF VER200}
