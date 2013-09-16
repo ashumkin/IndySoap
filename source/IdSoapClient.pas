@@ -1118,7 +1118,7 @@ begin
 
   result := true;
   case ABasicType of
-    isbtLongString:   AnsiString(AData) := AsAnsiStringCheck(ASoapReader.ParamString[ABaseNode, AParamName], 'Parameter '+AParamName);
+    isbtLongString:   AnsiString(AData) := AsAnsiStringCheck(ASoapReader.ParamAnsiString[ABaseNode, AParamName], 'Parameter '+AParamName);
     {$IFDEF UNICODE}
     isbtUnicodeString:  String(AData) := ASoapReader.ParamString[ABaseNode, AParamName];
     {$ENDIF}

@@ -1605,7 +1605,7 @@ begin
     LPString := AServerContext.GetTempAnsiString;
     if AParam.ParamFlag = pfVar then
       begin
-      LPString^ := AReader.ParamString[nil, AParamName];
+      LPString^ := AReader.ParamAnsiString[nil, AParamName];
       end
     else if AParam.ParamFlag = pfOut then
       begin
