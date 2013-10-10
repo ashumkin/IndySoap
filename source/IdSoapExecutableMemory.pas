@@ -2,15 +2,16 @@
 IndySOAP: Executable Memory Pool
 
 IndySoap generates dynamic machine code, and then executes it.
-This will trigger the security mechanisms of windows, and so you
-have to register IndySoap-based applications as an exception.
-Painful.
+This will trigger the security mechanisms of windows
+(DEP - Data Execution Prevention), and so you have to register
+IndySoap-based applications as an exception. Painful.
 
-This acquires memory and marks it as executable. But you can't
-just get memory, makr it as executable and return it to the global
+This acquires memory and marks it as executable. It avoids having
+to register applications for exemption from DEP. But you can't
+just get memory, mark it as executable and return it to the global
 pool - soon enough, windows will have a virtual memory error.
-
-So we keep track of the pool, and re-use them when we can.
+So we keep track of the pool, and re-use marked memory to avoid running
+windows out of memory.
 
 }
 
@@ -41,6 +42,7 @@ Type
     FInUse : Boolean;
     FIndex : Integer;
     FAllItems : TIdObjectList;
+    FLock : TIdCriticalSection;
     FAvailable : Array [TIdSoapExecutableMemoryPoolItemSize] of TIdSoapExecutableMemoryPoolItem;
   Public
     Constructor Create;
@@ -146,6 +148,7 @@ var
   a : TIdSoapExecutableMemoryPoolItemSize;
 begin
   inherited;
+  FLock := TIdCriticalSection.Create;
   FInUse := False;
   FAllItems := TIdObjectList.Create(true);
   For a := Low(TIdSoapExecutableMemoryPoolItemSize) to high(TIdSoapExecutableMemoryPoolItemSize) Do
@@ -154,6 +157,7 @@ end;
 
 destructor TIdSoapExecutableMemoryPool.Destroy;
 begin
+  FLock.Free;
   FAllItems.Free;
   inherited;
 end;
@@ -174,32 +178,42 @@ begin
    // aSize := s32;
     raise Exception('Unable to allocate executable memory of size '+inttostr(iSize));
   End;
-  if FAvailable[aSize] <> nil Then
-  Begin
-    oItem := FAvailable[aSize];
-    FAvailable[aSize] := oItem.FNext;
-    oItem.FNext := nil;
-  End
-  Else
-  Begin
-    oItem := TIdSoapExecutableMemoryPoolItem.Create;
-    FAllItems.Add(oItem);
-    oItem.FId := FAllItems.Count - 1;
-    oItem.FNext := nil;
-    oItem.FSize := aSize;
-    oItem.FPointer := VirtualAlloc(nil, ITEM_SIZE[aSize], MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+  FLock.Enter;
+  Try
+    if FAvailable[aSize] <> nil Then
+    Begin
+      oItem := FAvailable[aSize];
+      FAvailable[aSize] := oItem.FNext;
+      oItem.FNext := nil;
+    End
+    Else
+    Begin
+      oItem := TIdSoapExecutableMemoryPoolItem.Create;
+      FAllItems.Add(oItem);
+      oItem.FId := FAllItems.Count - 1;
+      oItem.FNext := nil;
+      oItem.FSize := aSize;
+      oItem.FPointer := VirtualAlloc(nil, ITEM_SIZE[aSize], MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    End;
+    iId := oItem.FId;
+    result := oItem.FPointer;
+  Finally
+    FLock.Leave;
   End;
-  iId := oItem.FId;
-  result := oItem.FPointer;
 end;
 
 procedure TIdSoapExecutableMemoryPool.Yield(iId: Integer);
 var
   oItem : TIdSoapExecutableMemoryPoolItem;
 begin
-  oItem := TIdSoapExecutableMemoryPoolItem(FAllItems[iId]);
-  oItem.FNext := FAvailable[oItem.FSize];
-  FAvailable[oItem.FSize] := oItem;
+  FLock.Enter;
+  Try
+    oItem := TIdSoapExecutableMemoryPoolItem(FAllItems[iId]);
+    oItem.FNext := FAvailable[oItem.FSize];
+    FAvailable[oItem.FSize] := oItem;
+  Finally
+    FLock.Leave;
+  End;
 end;
 
 { TIdSoapExecutableMemoryPoolItem }
