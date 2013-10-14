@@ -38,6 +38,22 @@ IndySOAP: Indy Soap Global Defines
 
 { requires a working copy of ZLib.pas. We do not distribute this }
 
+{
+IndySoap generates dynamic machine code. The generated machine code is highly
+quality checked, and not a risk. Windows defined a defense machanism called
+DEP which is intended to stop accidental buffer overflows, and which prevents
+the IndySoap machanism from working.
+
+To resolve this, IndySoap uses specially allocated memory that is marked
+as executable. however there's an necessary overhead in managing this which
+has a measureable impact on peformance (up to 50% on the infrastructure). If
+you'd rather turn DEP off for the process, and get the speed boost, define
+this define
+
+This only affects the server. The client will always use DEP safe code (doesn't
+have the same performance hit there)
+}
+{$DEFINE NEED_DEP_TURNED_OFF}
 
 {=============================================================================
   Functional Defines

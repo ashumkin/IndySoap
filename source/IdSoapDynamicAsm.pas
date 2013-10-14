@@ -332,7 +332,11 @@ var
   xpid : integer;
 begin
   Assert(Self.TestValid(TIdSoapDynamicAsm), ASSERT_LOCATION+': self is not valid');
+  {$IFDEF NEED_DEP_TURNED_OFF}
+  xp := FStream.Memory;
+  {$ELSE}
   xp := FPool.Acquire(FStream.Size, xpid);
+  {$ENDIF}
   Try
     Move(FStream.Memory^, xp^, FStream.Size);
     LPtr := PChar(xp) + AOffset;
@@ -343,7 +347,11 @@ begin
       mov dword ptr[Result+4],edx  // but some use EAX and EDX
     end;
   Finally
+    {$IFDEF NEED_DEP_TURNED_OFF}
+
+    {$ELSE}
     FPool.Yield(xpid);
+    {$ENDIF}
   End;
 end;
 
