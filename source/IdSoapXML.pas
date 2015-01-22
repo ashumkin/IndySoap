@@ -2729,7 +2729,7 @@ procedure TIdSoapDelphiXmlDom.StartBuild(AName, ANS: String);
 begin
   dom := TXMLDocument.Create(nil);
   dom.DOMVendor := OpenXML4Factory;
-  dom.Options := [{doNodeAutoCreate, doNodeAutoIndent, doAttrNull,
+  dom.Options := [doNodeAutoIndent{doNodeAutoCreate, doNodeAutoIndent, doAttrNull,
     doAutoPrefix, doNamespaceDecl, doAutoSave}];
   dom.Active := true;
   doc := dom;
