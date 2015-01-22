@@ -270,7 +270,7 @@ begin
   (Self.Intercept as TIdServerCompressionIntercept).CompressionLevel := 9;
   {$ELSE}
   FCompression := false;
-  if not AValue then
+  if AValue then
     begin
     raise Exception.create(ASSERT_LOCATION+': Compression has been turned off in the compiler defines (see IdSoapDefines.inc)');
     end;
