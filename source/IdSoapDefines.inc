@@ -90,7 +90,7 @@ have the same performance hit there)
 { The general define VER140ENTERPRISE has been replaced by 2 defines,
 ID_SOAP_WEBBROKER and ID_SOAP_ITI_RTTI }
 
-{.$.DEFINE ID_SOAP_WEBBROKER}
+{$DEFINE ID_SOAP_WEBBROKER}
 
 { This includes the TIdSoapWebBroker component which you can use to make
 a web broker based indysoap server. You need to have a web broker enabled version

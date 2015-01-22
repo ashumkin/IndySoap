@@ -43,8 +43,13 @@ type
   Private
     FWebDispatch: TWebDispatch;
     procedure SetWebDispatch(const Value: TWebDispatch);
+    procedure Init;
   Public
-    constructor Create(AOwner: TComponent); Override;
+    {$IFNDEF INDY_V10}
+    constructor Create(AOwner: TComponent); override;
+    {$ELSE}
+    procedure InitComponent; override;
+    {$ENDIF}
     destructor Destroy; Override;
 
     { IWebDispatch }
@@ -61,8 +66,13 @@ type
     FWebDispatch: TWebDispatch;
     FServer : TIdSoapWebBroker;
     procedure SetWebDispatch(const Value: TWebDispatch);
+    procedure Init;
   Public
-    constructor Create(AOwner: TComponent); Override;
+    {$IFNDEF INDY_V10}
+    constructor Create(AOwner: TComponent); override;
+    {$ELSE}
+    procedure InitComponent; override;
+    {$ENDIF}
     destructor Destroy; Override;
 
     { IWebDispatch }
@@ -81,13 +91,26 @@ implementation
 {$IFDEF ID_SOAP_WEBBROKER}
 
 uses
-  IdSoapConsts,
+  IdSoapConsts, IdSoapClasses,
   SysUtils;
 
 { TIdSoapWebBroker }
+
+{$IFNDEF INDY_V10}
 constructor TIdSoapWebBroker.Create(AOwner: TComponent);
 begin
-  inherited create(AOwner);
+  inherited;
+  Init;
+{$ELSE}
+procedure TIdSoapWebBroker.InitComponent;
+begin
+  inherited;
+  Init;
+end;
+{$ENDIF}
+
+procedure TIdSoapWebBroker.Init;
+begin
   FWebDispatch := TWebDispatch.Create(Self);
   FWebDispatch.PathInfo := 'soap*';     { do not localize }
 end;
@@ -120,8 +143,8 @@ end;
 
 function TIdSoapWebBroker.DispatchRequest(ASender: TObject; ARequest: TWebRequest; AResponse: TWebResponse): Boolean;
 var
-  LRequestStream: TIdMemoryStream;
-  LResponseStream: TIdMemoryStream;
+  LRequestStream: TStringStream;
+  LResponseStream: TStringStream;
   LResponseEncoding: string;
 begin
   result := true;
@@ -198,9 +221,21 @@ end;
 
 { TIdSoapWebBrokerWSDL }
 
+{$IFNDEF INDY_V10}
 constructor TIdSoapWebBrokerWSDL.Create(AOwner: TComponent);
 begin
-  inherited create(AOwner);
+  inherited;
+  Init;
+{$ELSE}
+procedure TIdSoapWebBrokerWSDL.InitComponent;
+begin
+  inherited;
+  Init;
+end;
+{$ENDIF}
+
+procedure TIdSoapWebBrokerWSDL.Init;
+begin
   FWebDispatch := TWebDispatch.create(self);
   FWebDispatch.PathInfo := 'wsdl*';
   FWebDispatch.MethodType := mtGet;
@@ -235,7 +270,7 @@ end;
 
 function TIdSoapWebBrokerWSDL.DispatchRequest(ASender: TObject; ARequest: TWebRequest; AResponse: TWebResponse): Boolean;
 var
-  LResponseStream: TIdMemoryStream;
+  LResponseStream: TStringStream;
   LContentType : string;
 begin
   result := true;
