@@ -263,7 +263,7 @@ end;
 procedure TIdSOAPServerTCPIP.SetCompression(const AValue: boolean);
 const ASSERT_LOCATION = 'IdSoapServerTCPIP.TIdSOAPServerTCPIP.DoExecute';
 begin
-  Assert(not active, ASSERT_LOCATION+': cannot change the compression while the server is active');
+  Assert((csReading in ComponentState) or (not active), ASSERT_LOCATION+': cannot change the compression while the server is active');
   {$IFDEF ID_SOAP_COMPRESSION}
   FCompression := Value;
   Self.Intercept := TIdServerCompressionIntercept.create(nil);
