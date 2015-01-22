@@ -277,7 +277,7 @@ begin
   LResponseStream := TStringStream.Create('');
   try
     FServer.GenerateWSDLPage(Copy(FWebDispatch.PathInfo, 1, Length(FWebDispatch.PathInfo) - 1),
-                             copy(ARequest.URL, length(FWebDispatch.PathInfo), $FF),
+                             copy(ARequest.PathInfo, length(FWebDispatch.PathInfo), $FF),
                              ARequest.Host + '/' + copy(FServer.WebDispatch.PathInfo, 1, length(FServer.WebDispatch.PathInfo)-1),
                              LResponseStream, LContentType);
     AResponse.ContentType := LContentType;
