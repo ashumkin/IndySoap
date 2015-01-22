@@ -197,7 +197,7 @@ uses
   IdSoapConsts,
   IdSoapExceptions,
   IdSoapITIBin,
-  {$IFDEF ID_SOAP_RTTI_ITI}
+  {$IFDEF ID_SOAP_ITI_RTTI}
   IdSoapITIRtti,
   {$ENDIF}
   IdSoapResourceStrings,
@@ -425,7 +425,7 @@ begin
     end
   else
     begin
-    {$IFDEF ID_SOAP_RTTI_ITI}
+    {$IFDEF ID_SOAP_ITI_RTTI}
     PopulateITIFromRTTI(AITI, FRTTINames, FRTTINamesType = rntInclude);
     {$ELSE}
     raise eIDSoapBadITIStore.create('RTTI Interfaces are not supported under this compiler version');

@@ -88,7 +88,7 @@ have the same performance hit there)
  =============================================================================}
 
 { The general define VER140ENTERPRISE has been replaced by 2 defines,
-ID_SOAP_WEBBROKER and ID_SOAP_RTTI_ITI }
+ID_SOAP_WEBBROKER and ID_SOAP_ITI_RTTI }
 
 {.$.DEFINE ID_SOAP_WEBBROKER}
 
