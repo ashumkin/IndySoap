@@ -6,6 +6,7 @@ interface
 
 uses
   Classes,
+  IdContext,
   IdCustomHTTPServer,
   IdHTTPServer,
   IdHTTPWebBrokerBridge,
@@ -16,7 +17,7 @@ type
   TIndyWebServer = class(TWebRequestHandler)
   private
     FServer: TIdHTTPServer;
-    procedure CommandGet(AThread: TIdPeerThread; ARequestInfo: TIdHTTPRequestInfo;  AResponseInfo: TIdHTTPResponseInfo);
+    procedure CommandGet(AThread: TIdContext; ARequestInfo: TIdHTTPRequestInfo;  AResponseInfo: TIdHTTPResponseInfo);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -43,10 +44,11 @@ constructor TIndyWebServer.Create(AOwner: TComponent);
 begin
   inherited;
   assert(not assigned(GIdServer), 'already created');
-  assert(not assigned(WebRequestHandlerProc), 'already created');
+//  assert(not assigned(WebRequestHandlerProc), 'already created');
   GIdServer := self;
   WebRequestHandlerProc := IdWebRequestHandler;
   FServer := TIdHTTPServer.Create(Self);
+  FServer.DefaultPort := 8000;
   FServer.OnCommandGet := CommandGet;
 end;
 
@@ -56,7 +58,7 @@ begin
   inherited;
 end;
 
-procedure TIndyWebServer.CommandGet(AThread: TIdPeerThread; ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
+procedure TIndyWebServer.CommandGet(AThread: TIdContext; ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
 var
   LRequest: TIdHTTPAppRequest;
   LResponse: TIdHTTPAppResponse;
