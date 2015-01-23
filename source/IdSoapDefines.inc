@@ -53,7 +53,7 @@ this define
 This only affects the server. The client will always use DEP safe code (doesn't
 have the same performance hit there)
 }
-{$DEFINE NEED_DEP_TURNED_OFF}
+{.$.DEFINE NEED_DEP_TURNED_OFF}
 
 {=============================================================================
   Functional Defines
