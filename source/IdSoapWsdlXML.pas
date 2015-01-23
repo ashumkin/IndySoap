@@ -873,7 +873,7 @@ Begin
   Assert(Assigned(AStream), 'IdSoapWSDL.ListInterfaces: Stream is not valid');
   FDom := IdSoapDomFactory;
   Try
-    FDom.StartBuild(ID_SOAP_WSDL_ROOT, ID_SOAP_NS_WSDL_SOAP);
+    FDom.StartBuild(ID_SOAP_WSDL_ROOT, ID_SOAP_NS_WSDL);
     FNamespaces := TIdSoapXmlNamespaceSupport.Create;
     Try
       FNamespaces.DefineNamespace(ID_SOAP_NS_SCHEMA, ID_SOAP_NS_SCHEMA_CODE);
