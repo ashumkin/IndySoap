@@ -734,11 +734,6 @@ begin
     LOp := TIdSoapWSDLBindingOperation.create(FWsdl, LMethod.Name);
     ABinding.Operations.AddObject(LOp.Name, LOp);
     LOp.SoapAction := FWsdl.Namespace + '#'+LMethod.Name;
-    // required for WSDL4Java
-    // if this is a problem for something else, then an option will be introduced
-    LOp.Input.SoapNamespace := FWsdl.Namespace;
-    LOp.Output.SoapNamespace := FWsdl.Namespace;
-    //
     if LMethod.EncodingMode = semDocument then
       begin
       LOp.SoapStyle := sbsDocument;
@@ -754,6 +749,9 @@ begin
       LOp.Output.SoapUse := sesEncoded;
       LOp.Input.SoapEncodingStyle := ID_SOAP_NS_SOAPENC;
       LOp.Output.SoapEncodingStyle := ID_SOAP_NS_SOAPENC;
+      // namespace for input is for rpc-style only?
+      LOp.Input.SoapNamespace := FWsdl.Namespace;
+      LOp.Output.SoapNamespace := FWsdl.Namespace;
       end;
     end;
 end;
