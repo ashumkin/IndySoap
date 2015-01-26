@@ -571,7 +571,7 @@ begin
     end
   else
     begin
-    LName := AXmlElement.NodeName;
+    LName := AXmlElement.Name;
     end;
   if (EncodingMode = semRPC) and Assigned(ASoapNode) then
     begin
@@ -1588,7 +1588,7 @@ begin
     assert(LNode.TestValid(TIdSoapXmlElement), ASSERT_LOCATION+': Base Node is not valid');
     if FirstEntityName = '' then
       begin
-      FirstEntityName := LNode.nodeName; // cause they aren't supposed to have namespaces
+      FirstEntityName := LNode.Name; // cause they aren't supposed to have namespaces
       end;
     if ((EncodingMode = semRPC) or (seoReferences in EncodingOptions)) And (LNode.hasID) then
       begin
