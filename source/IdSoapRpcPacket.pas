@@ -1954,7 +1954,7 @@ procedure TIdSoapWriter.CheckForBadCharacters(const AString, AName, ARoutine: St
 const ASSERT_LOCATION = ASSERT_UNIT+'.TIdSoapWriter.CheckForBadCharacters';
 var
   I: Integer;
-  LOrd: Byte;
+  LOrd: Word;
 begin
   Assert(self.TestValid(TIdSoapWriter), ASSERT_LOCATION + ': Self is invalid');
 
