@@ -4,7 +4,7 @@ interface
 
 uses Windows, Classes, Graphics, Forms, Controls, Menus,
   Dialogs, StdCtrls, Buttons, ExtCtrls, ComCtrls, ImgList, StdActns,
-  IdSoapWsdl, IniFiles, ActnList, ToolWin, Registry{$IFDEF UNICODE}, Actions{$ENDIF};
+  IdSoapWsdl, IdSoapToolsCmdLine, IniFiles, ActnList, ToolWin, Registry{$IFDEF UNICODE}, Actions{$ENDIF};
 
 type
   TIndySoapToolsForm = class(TForm)
@@ -383,29 +383,33 @@ end;
 procedure TIndySoapToolsForm.Timer1Timer(Sender: TObject);
 begin
   Timer1.Enabled := false;
-  if (ParamStr(1) <> '') then
-    begin
-    if FileExists(ParamStr(1)) then
-      begin
-      FFileName := ParamStr(1);
-      memo1.Lines.Clear;
-      memo1.Lines.LoadFromFile(FFileName);
-      Caption := 'IndySoap Tools - '+FFileName;
-      SetCurrentDir(ExtractFilePath(FFileName));
-      DeleteMRU;
-      memo1.SetFocus;
-      memo1.Modified := False;
-      if lowercase(Paramstr(2)) = '-g' then
-        begin
-        Execute(FFileName);
-        Close;
-        end;
-      end
+  if bmFileNotFound in varIdSoapToolsCmdLine.BatchMode then
+  begin
+    if not (bmBatch in varIdSoapToolsCmdLine.BatchMode) then
+      MessageDlg(Format('File %s not found', [varIdSoapToolsCmdLine._File]), mtError, [mbOK], 0)
     else
-      begin
-      MessageDlg('File '+ParamStr(1)+' not found', mtError, [mbOK], 0);
-      end
+    begin
+      ExitCode := 1;
+      Close;
     end;
+  end
+  else
+  begin
+    FFileName := varIdSoapToolsCmdLine._File;
+    memo1.Lines.Clear;
+    memo1.Lines.LoadFromFile(FFileName);
+    Caption := 'IndySoap Tools - '+FFileName;
+    SetCurrentDir(ExtractFilePath(FFileName));
+    DeleteMRU;
+    memo1.Modified := False;
+    if not (bmBatch in varIdSoapToolsCmdLine.BatchMode) then
+      memo1.SetFocus
+    else
+    begin
+      Execute(FFileName);
+      Close;
+    end;
+  end;
 end;
 
 procedure TIndySoapToolsForm.Execute(AFileName : string);

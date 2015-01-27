@@ -22,6 +22,7 @@ program IdSoapTools;
 
 uses
   Forms,
+  IdSoapToolsCmdLine in 'IdSoapToolsCmdLine.pas',
   IdSoapToolsForm in 'IdSoapToolsForm.pas' {IndySoapToolsForm},
   IdSoapAbout in 'IdSoapAbout.pas' {IndySoapToolsAbout},
   IdSoapResourceFile in '..\..\source\IdSoapResourceFile.pas';
@@ -30,6 +31,8 @@ uses
 
 begin
   Application.Initialize;
+  if bmBatch in varIdSoapToolsCmdLine.BatchMode then
+    Application.ShowMainForm := False;
   Application.CreateForm(TIndySoapToolsForm, IndySoapToolsForm);
   Application.Run;
 end.
