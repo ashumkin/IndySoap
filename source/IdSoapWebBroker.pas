@@ -92,7 +92,7 @@ implementation
 
 uses
   IdSoapConsts, IdSoapClasses,
-  SysUtils;
+  SysUtils, StrUtils;
 
 { TIdSoapWebBroker }
 
@@ -112,7 +112,7 @@ end;
 procedure TIdSoapWebBroker.Init;
 begin
   FWebDispatch := TWebDispatch.Create(Self);
-  FWebDispatch.PathInfo := 'soap*';     { do not localize }
+  FWebDispatch.PathInfo := '/soap*';     { do not localize }
 end;
 
 destructor TIdSoapWebBroker.Destroy;
@@ -237,7 +237,7 @@ end;
 procedure TIdSoapWebBrokerWSDL.Init;
 begin
   FWebDispatch := TWebDispatch.create(self);
-  FWebDispatch.PathInfo := 'wsdl*';
+  FWebDispatch.PathInfo := '/wsdl*';
   FWebDispatch.MethodType := mtGet;
   FServer := nil;
 end;
@@ -278,7 +278,8 @@ begin
   try
     FServer.GenerateWSDLPage(Copy(FWebDispatch.PathInfo, 1, Length(FWebDispatch.PathInfo) - 1),
                              copy(ARequest.PathInfo, length(FWebDispatch.PathInfo), $FF),
-                             'http://' + ARequest.Host + ARequest.ScriptName + '/' + copy(FServer.WebDispatch.PathInfo, 1, length(FServer.WebDispatch.PathInfo)-1),
+                             'http://' + ARequest.Host + IfThen(ARequest.ServerPort <> 80, ':' + IntToStr(ARequest.ServerPort))
+                               + ARequest.ScriptName + copy(FServer.WebDispatch.PathInfo, 1, length(FServer.WebDispatch.PathInfo)-1),
                              LResponseStream, LContentType);
     AResponse.ContentType := LContentType;
     AResponse.Content := LResponseStream.DataString;
