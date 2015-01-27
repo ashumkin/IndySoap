@@ -17,9 +17,6 @@ type
     { Public declarations }
   end;
 
-var
-  IndySoapToolsAbout: TIndySoapToolsAbout;
-
 implementation
 
 {$R *.DFM}

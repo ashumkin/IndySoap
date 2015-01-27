@@ -207,7 +207,12 @@ end;
 
 procedure TIndySoapToolsForm.HelpAbout1Execute(Sender: TObject);
 begin
-  IndySoapToolsAbout.ShowModal;
+  with TIndySoapToolsAbout.Create(nil) do
+    try
+      ShowModal;
+    finally
+      Free;
+    end;
 end;
 
 procedure TIndySoapToolsForm.FileNewITIExecute(Sender: TObject);

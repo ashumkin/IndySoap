@@ -31,7 +31,6 @@ uses
 begin
   Application.Initialize;
   Application.CreateForm(TIndySoapToolsForm, IndySoapToolsForm);
-  Application.CreateForm(TIndySoapToolsAbout, IndySoapToolsAbout);
   Application.Run;
 end.
  
