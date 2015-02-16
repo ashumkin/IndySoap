@@ -218,7 +218,7 @@ Begin
   Assert(IdSoapTestNodeValid(ANode, TIdSoapXmlElement), ASSERT_LOCATION+': Node is not valid');
   If ADoco <> '' Then
     Begin
-    LDocoNode := ANode.appendChild(ID_SOAP_WSDL_DOCO, '');
+    LDocoNode := ANode.appendChild(ID_SOAP_WSDL_DOCO, ID_SOAP_NS_WSDL);
 
     LDom := IdSoapDomFactory;
     try
