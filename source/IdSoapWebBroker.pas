@@ -145,7 +145,7 @@ function TIdSoapWebBroker.DispatchRequest(ASender: TObject; ARequest: TWebReques
 var
   LRequestStream: TStringStream;
   LResponseStream: TStringStream;
-  LResponseEncoding: string;
+  LResponseMimeType: string;
 begin
   result := true;
   LRequestStream := TStringStream.Create(ARequest.Content);
@@ -164,9 +164,8 @@ begin
             begin
             (GIdSoapRequestInfo as TIdSoapWebBrokerInformation).FSoapWebModule := Owner as TWebModule;
             end;
-          HandleSoapRequest(ARequest.ContentEncoding, GIdSoapRequestInfo.CookieServices, LRequestStream, LResponseStream, LResponseEncoding);
-          AResponse.ContentType := ID_SOAP_HTTP_SOAP_TYPE;
-          AResponse.ContentEncoding := LResponseEncoding;
+          HandleSoapRequest(ARequest.ContentEncoding, GIdSoapRequestInfo.CookieServices, LRequestStream, LResponseStream, LResponseMimeType);
+          AResponse.ContentType := LResponseMimeType;
           AResponse.Content := LResponseStream.DataString;
         finally
           GIdSoapRequestInfo.CookieServices.free;
