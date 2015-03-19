@@ -383,6 +383,8 @@ end;
 procedure TIndySoapToolsForm.Timer1Timer(Sender: TObject);
 begin
   Timer1.Enabled := false;
+  if not (bmFile in varIdSoapToolsCmdLine.BatchMode) then
+    Exit;
   if bmFileNotFound in varIdSoapToolsCmdLine.BatchMode then
   begin
     if not (bmBatch in varIdSoapToolsCmdLine.BatchMode) then
