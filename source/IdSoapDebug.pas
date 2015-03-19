@@ -303,7 +303,7 @@ begin
   {$IFDEF OBJECT_TRACKING}
   {$IFNDEF USE_ADV}
   assert(assigned(gObjectList), ASSERT_LOCATION+': Attempt to finalize Object Tracking before it has been initialised');
-  if not IsLibrary and not GIdSoapSuppressLeakDialog and (gObjectList.TotalCount > 0) then
+  if not IsLibrary and not IsConsole and not GIdSoapSuppressLeakDialog and (gObjectList.TotalCount > 0) then
     begin
     SystemMessage(RS_ERR_DEBUG_LEAKING_OBJECTS, gObjectList.DescribeLiveObjects);
     end;

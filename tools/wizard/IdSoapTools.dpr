@@ -20,8 +20,10 @@ Version History:
 
 program IdSoapTools;
 
+{$APPTYPE CONSOLE}
 uses
   Forms,
+  Windows,
   IdSoapToolsCmdLine in 'IdSoapToolsCmdLine.pas',
   IdSoapToolsForm in 'IdSoapToolsForm.pas' {IndySoapToolsForm},
   IdSoapAbout in 'IdSoapAbout.pas' {IndySoapToolsAbout},
@@ -32,7 +34,9 @@ uses
 begin
   Application.Initialize;
   if bmBatch in varIdSoapToolsCmdLine.BatchMode then
-    Application.ShowMainForm := False;
+    Application.ShowMainForm := False
+  else
+    FreeConsole;
   Application.CreateForm(TIndySoapToolsForm, IndySoapToolsForm);
   Application.Run;
 end.

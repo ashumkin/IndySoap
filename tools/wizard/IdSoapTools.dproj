@@ -81,6 +81,7 @@
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_ConsoleTarget>true</DCC_ConsoleTarget>
         <DCC_Alignment>2</DCC_Alignment>
         <DCC_PentiumSafeDivide>true</DCC_PentiumSafeDivide>
         <DCC_RunTimeTypeInfo>true</DCC_RunTimeTypeInfo>

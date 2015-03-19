@@ -385,32 +385,36 @@ begin
   Timer1.Enabled := false;
   if not (bmFile in varIdSoapToolsCmdLine.BatchMode) then
     Exit;
-  if bmFileNotFound in varIdSoapToolsCmdLine.BatchMode then
-  begin
-    if not (bmBatch in varIdSoapToolsCmdLine.BatchMode) then
-      MessageDlg(Format('File %s not found', [varIdSoapToolsCmdLine._File]), mtError, [mbOK], 0)
+  try
+    if bmFileNotFound in varIdSoapToolsCmdLine.BatchMode then
+      raise EFileNotFoundException.CreateFmt('File %s not found', [varIdSoapToolsCmdLine._File])
     else
     begin
-      ExitCode := 1;
-      Close;
+      FFileName := varIdSoapToolsCmdLine._File;
+      memo1.Lines.Clear;
+      memo1.Lines.LoadFromFile(FFileName);
+      Caption := 'IndySoap Tools - '+FFileName;
+      SetCurrentDir(ExtractFilePath(FFileName));
+      DeleteMRU;
+      memo1.Modified := False;
+      if not (bmBatch in varIdSoapToolsCmdLine.BatchMode) then
+        memo1.SetFocus
+      else
+        Execute(FFileName);
     end;
-  end
-  else
-  begin
-    FFileName := varIdSoapToolsCmdLine._File;
-    memo1.Lines.Clear;
-    memo1.Lines.LoadFromFile(FFileName);
-    Caption := 'IndySoap Tools - '+FFileName;
-    SetCurrentDir(ExtractFilePath(FFileName));
-    DeleteMRU;
-    memo1.Modified := False;
-    if not (bmBatch in varIdSoapToolsCmdLine.BatchMode) then
-      memo1.SetFocus
-    else
-    begin
-      Execute(FFileName);
-      Close;
-    end;
+  except
+    on E: Exception do
+      if not (bmBatch in varIdSoapToolsCmdLine.BatchMode) then
+        raise
+      else
+      begin
+        if E is EFileNotFoundException then
+          ExitCode := 1
+        else
+          ExitCode := 2;
+        Writeln(E.Message);
+        Close;
+      end;
   end;
 end;
 
