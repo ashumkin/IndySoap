@@ -400,7 +400,10 @@ begin
       if not (bmBatch in varIdSoapToolsCmdLine.BatchMode) then
         memo1.SetFocus
       else
+      begin
         Execute(FFileName);
+        Close;
+      end;
     end;
   except
     on E: Exception do
